@@ -15,9 +15,9 @@ val LightCream = Color(0xFFFFF6EB)
 
 val Red = Color(0xFFD6185D)
 
-val DefaultWhite =Color(0xFFFFFFFF)
-val GrayLight =Color(0xFFE5E5E5)
-val GrayDark =Color(0xFF656872)
+val DefaultWhite = Color(0xFFFFFFFF)
+val GrayLight = Color(0xFFE5E5E5)
+val GrayDark = Color(0xFF656872)
 
 val Dark = Color(0xFF080E1E)
 val DarkLight = Color(0xFF1B2336)

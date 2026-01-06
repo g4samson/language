@@ -15,15 +15,23 @@ val Fredoka = FontFamily(
     Font(R.font.fredoka_medium, FontWeight.Medium),
     Font(R.font.fredoka_regular, FontWeight.Normal),
     Font(R.font.fredoka_light, FontWeight.Light),
-
     )
 val Typography = Typography(
+    titleLarge = TextStyle(
+        fontFamily = Fredoka,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 36.sp,
+        lineHeight = 42.sp,
+        letterSpacing = 0.sp,
+        color = DefaultWhite
+    ),
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
+        fontFamily = Fredoka,
+        fontWeight = FontWeight.Medium,
+        fontSize = 20.sp,
         lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
+        letterSpacing = 1.sp,
+        color = DefaultWhite
+    ),
 
 )
