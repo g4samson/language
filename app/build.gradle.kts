@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
+    id("com.google.dagger.hilt.android") version "2.57.2"
     kotlin("kapt")
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.21"
 }
@@ -15,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.profs.languageapp"
-        minSdk = 24
+        minSdk = 29
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -61,6 +62,15 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    implementation("androidx.navigation:navigation-compose:2.9.6")
-    implementation("androidx.navigation:navigation-common-ktx:2.9.6")
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.javapoet)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.common.ktx)
+
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 }
