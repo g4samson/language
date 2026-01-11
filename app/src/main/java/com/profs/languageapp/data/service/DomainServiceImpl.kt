@@ -1,6 +1,7 @@
-package com.profs.languageapp.domain.service
+package com.profs.languageapp.data.service
 
 import com.profs.languageapp.data.source.LocalDataSource
+import com.profs.languageapp.domain.service.DomainService
 import javax.inject.Inject
 
 class DomainServiceImpl @Inject constructor(
