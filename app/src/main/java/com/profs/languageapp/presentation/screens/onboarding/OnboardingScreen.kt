@@ -33,7 +33,6 @@ import androidx.navigation.NavHostController
 import com.profs.languageapp.data.utils.Destinations
 import com.profs.languageapp.presentation.composable.DefaultButton
 import com.profs.languageapp.presentation.theme.Dark
-import com.profs.languageapp.presentation.theme.DefaultWhite
 import com.profs.languageapp.presentation.theme.Fredoka
 import com.profs.languageapp.presentation.theme.Typography
 import kotlinx.coroutines.launch
@@ -58,7 +57,6 @@ fun OnboardingScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DefaultWhite)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -99,14 +97,7 @@ fun OnboardingScreen(
 
                 Text(
                     text = item.title,
-                    style = Typography.titleLarge.copy(
-                        color = Dark,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 22.sp,
-                        lineHeight = 28.sp,
-                        letterSpacing = 1.sp,
-                        textAlign = TextAlign.Center
-                    ),
+                    style = Typography.titleLarge,
                     modifier = Modifier.fillMaxWidth(),
                 )
 
@@ -114,7 +105,7 @@ fun OnboardingScreen(
 
                 Text(
                     text = item.body,
-                    style = Typography.bodyLarge.copy(
+                    style = Typography.bodyMedium.copy(
                         color = Dark.copy(alpha = 0.6f),
                         fontSize = 15.sp,
                         lineHeight = 20.sp,
@@ -143,12 +134,7 @@ fun OnboardingScreen(
 
                 Text(
                     "Skip onboarding",
-                    fontSize = 15.sp,
-                    lineHeight = 20.sp,
-                    letterSpacing = 1.sp,
-                    fontWeight = FontWeight.Normal,
-                    fontFamily = Fredoka,
-                    color = Dark, modifier = Modifier.clickable {
+                    style = Typography.bodyMedium, modifier = Modifier.clickable {
                         scope.launch {
                             viewModel.completeOnboarding()
                             navController.navigate(Destinations.Login) {

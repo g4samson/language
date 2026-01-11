@@ -21,13 +21,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.profs.languageapp.R
 import com.profs.languageapp.data.utils.Destinations
 import com.profs.languageapp.presentation.screens.onboarding.OnboardingViewModel
 import com.profs.languageapp.presentation.theme.DeepBlue
+import com.profs.languageapp.presentation.theme.DefaultWhite
+import com.profs.languageapp.presentation.theme.Fredoka
 import com.profs.languageapp.presentation.theme.Typography
 
 @Composable
@@ -56,7 +60,7 @@ fun SplashScreen(
             animationSpec = tween(durationMillis = 900, easing = FastOutSlowInEasing)
         )
 
-        navController.navigate(if (skipOnboarding) Destinations.Login else Destinations.Onboarding) {
+        navController.navigate(if (skipOnboarding) Destinations.LanguageSelect else Destinations.Onboarding) {
             popUpTo(navController.graph.startDestinationId) { inclusive = true }
         }
     }
@@ -85,7 +89,13 @@ fun SplashScreen(
 
             Text(
                 "Language App",
-                style = Typography.titleLarge, modifier = Modifier.padding(top = 240.dp)
+                fontFamily = Fredoka,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 36.sp,
+                lineHeight = 42.sp,
+                letterSpacing = 0.sp,
+                color = DefaultWhite,
+                modifier = Modifier.padding(top = 240.dp)
             )
         }
     }

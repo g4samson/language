@@ -8,7 +8,6 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.profs.languageapp.domain.service.DomainService
-import com.profs.languageapp.domain.service.DomainServiceImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.map
@@ -21,7 +20,7 @@ private val Application.dataStore by preferencesDataStore("onboarding_prefs")
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
     private val app: Application,
-    private val service: DomainServiceImpl
+    private val service: DomainService
 ) : AndroidViewModel(app) {
 
     val pages = service.getOnboardingPages()

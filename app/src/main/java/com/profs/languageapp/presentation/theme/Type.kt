@@ -5,6 +5,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.profs.languageapp.R
 
@@ -19,19 +20,30 @@ val Fredoka = FontFamily(
 val Typography = Typography(
     titleLarge = TextStyle(
         fontFamily = Fredoka,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 36.sp,
-        lineHeight = 42.sp,
-        letterSpacing = 0.sp,
-        color = DefaultWhite
+        fontWeight = FontWeight.Medium,
+        fontSize = 22.sp,
+        lineHeight = 28.sp,
+        letterSpacing = 1.sp,
+        color = Dark,
+        textAlign = TextAlign.Center
     ),
     bodyLarge = TextStyle(
         fontFamily = Fredoka,
         fontWeight = FontWeight.Medium,
-        fontSize = 20.sp,
-        lineHeight = 24.sp,
+        fontSize = 17.sp,
+        lineHeight = 22.sp,
         letterSpacing = 1.sp,
-        color = DefaultWhite
+        color = DefaultWhite,
+        textAlign = TextAlign.Center
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = Fredoka,
+        fontWeight = FontWeight.Normal,
+        fontSize = 15.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 1.sp,
+        color = Dark,
+        textAlign = TextAlign.Center
     ),
 
 )

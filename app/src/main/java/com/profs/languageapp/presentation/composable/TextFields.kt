@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.profs.languageapp.R
 import com.profs.languageapp.presentation.theme.Dark
+import com.profs.languageapp.presentation.theme.DefaultWhite
 import com.profs.languageapp.presentation.theme.GrayDark
 import com.profs.languageapp.presentation.theme.Typography
 
@@ -58,10 +59,11 @@ fun DefaultTextField(label: String, passwordType: Boolean, onValueChange: (Strin
                 .onFocusChanged { focusState -> isFocused = focusState.isFocused }
                 .clip(RoundedCornerShape(16.dp))
                 .background(Dark.copy(alpha = 0.05f), RoundedCornerShape(16.dp)),
+            singleLine = true,
             label = {
                 if (!isFocused && textFieldValue.isEmpty()) {
                     Row(
-                        modifier = Modifier.fillMaxHeight(),
+                        modifier = Modifier.fillMaxHeight().padding(bottom = 4.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
@@ -86,7 +88,7 @@ fun DefaultTextField(label: String, passwordType: Boolean, onValueChange: (Strin
                             IconButton(
                                 onClick = { passwordVisible = !passwordVisible },
                                 modifier = Modifier
-                                    .size(16.dp)
+                                    .size(20.dp)
                                     .padding(bottom = 4.dp)
                             ) {
                                 Icon(
@@ -100,14 +102,14 @@ fun DefaultTextField(label: String, passwordType: Boolean, onValueChange: (Strin
                 }
             }, colors = OutlinedTextFieldDefaults.colors(
                 unfocusedContainerColor = Dark.copy(alpha = 0.05f),
-                focusedContainerColor = Dark.copy(alpha = 0.05f),
+                focusedContainerColor = GrayDark.copy(alpha = 0.05f),
                 unfocusedTextColor = GrayDark.copy(alpha = 0.5f),
-                focusedTextColor = GrayDark,
+                focusedTextColor = Dark,
                 focusedBorderColor = Color.Transparent,
                 unfocusedBorderColor = Color.Transparent,
                 cursorColor = GrayDark,
                 unfocusedLabelColor = GrayDark.copy(alpha = 0.5f),
-                focusedLabelColor = GrayDark
+                focusedLabelColor = GrayDark.copy(alpha = 0.05f)
             ),
             visualTransformation = if (passwordType && !passwordVisible)
                 PasswordVisualTransformation()
