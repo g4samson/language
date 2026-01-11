@@ -1,6 +1,5 @@
 package com.profs.languageapp.presentation.navigation
 
-import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -8,7 +7,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.profs.languageapp.data.utils.Destinations
-import com.profs.languageapp.presentation.screens.MainApplication
 import com.profs.languageapp.presentation.screens.languageSelect.LanguageSelectScreen
 import com.profs.languageapp.presentation.screens.languageSelect.LanguageSelectViewModel
 import com.profs.languageapp.presentation.screens.login.LoginScreen

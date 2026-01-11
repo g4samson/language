@@ -16,4 +16,7 @@ class DomainServiceImpl @Inject constructor(
 
     override fun getOnboardingPages() =
         localDataSource.getOnboardingPages()
+
+    override fun getTopUsers() =
+        localDataSource.getTopUsers()
 }

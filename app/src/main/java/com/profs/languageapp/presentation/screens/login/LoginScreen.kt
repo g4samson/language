@@ -28,14 +28,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.profs.languageapp.R
 import com.profs.languageapp.data.utils.Destinations
 import com.profs.languageapp.presentation.composable.DefaultButton
 import com.profs.languageapp.presentation.composable.DefaultTextField
 import com.profs.languageapp.presentation.theme.Blue
-import com.profs.languageapp.presentation.theme.Dark
 import com.profs.languageapp.presentation.theme.DarkLighter
 import com.profs.languageapp.presentation.theme.DeepBlue
 import com.profs.languageapp.presentation.theme.DefaultWhite
@@ -126,7 +124,7 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            DefaultButton("Login") { viewModel.onSignIn(onResult = { }) }
+            DefaultButton("Login") { navController.navigate(Destinations.Main) }
 
             Spacer(modifier = Modifier.height(24.dp))
 

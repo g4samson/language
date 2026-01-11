@@ -4,6 +4,7 @@ import com.profs.languageapp.R
 import com.profs.languageapp.data.models.Excersise
 import com.profs.languageapp.data.models.Language
 import com.profs.languageapp.data.models.Page
+import com.profs.languageapp.data.models.User
 import com.profs.languageapp.presentation.theme.Blue
 import com.profs.languageapp.presentation.theme.Green
 import com.profs.languageapp.presentation.theme.Orange
@@ -49,5 +50,11 @@ class LocalDataSource @Inject constructor() {
             "Using a variety of learning styles to learn and retain",
             "Choose a language"
         )
+    )
+
+    fun getTopUsers() = listOf(
+        User("Vincent van Gogh", R.drawable.user_1, 12),
+        User("Dmitri Ivanovich Mendeleev", R.drawable.user_2, 10),
+        User("Vlad Tepes", R.drawable.user_3, 8),
     )
 }
