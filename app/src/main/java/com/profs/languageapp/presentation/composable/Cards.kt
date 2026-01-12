@@ -114,7 +114,7 @@ fun TopUserCard(topUser: User) {
 }
 
 @Composable
-fun LeaderboardWidgetCard(topUser: User) {
+fun LeaderboardWidgetCard(index: Int, user: User) {
 
     Row(
         modifier = Modifier
@@ -129,7 +129,7 @@ fun LeaderboardWidgetCard(topUser: User) {
             Spacer(modifier = Modifier.width(11.dp))
 
             Text(
-                "5.",
+                index.toString(),
                 style = Typography.bodyLarge.copy(
                     color = DefaultBlack,
                     textAlign = TextAlign.Start
@@ -139,21 +139,21 @@ fun LeaderboardWidgetCard(topUser: User) {
             Spacer(modifier = Modifier.width(7.dp))
 
             Image(
-                painterResource(topUser.image),
+                painterResource(user.image),
                 contentDescription = null,
                 modifier = Modifier.size(36.dp)
             )
         }
 
         Text(
-            topUser.name,
+            user.name,
             style = Typography.bodyLarge.copy(color = DefaultBlack, textAlign = TextAlign.Start),
             modifier = Modifier.width(150.dp)
         )
 
         Row {
             Text(
-                "${topUser.points} points",
+                "${user.points} points",
                 style = Typography.bodyLarge.copy(color = DefaultBlack)
             )
 
