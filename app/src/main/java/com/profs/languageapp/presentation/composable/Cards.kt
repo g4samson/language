@@ -112,3 +112,52 @@ fun TopUserCard(topUser: User) {
         }
     }
 }
+
+@Composable
+fun LeaderboardWidgetCard(topUser: User) {
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(38.dp)
+            .background(GrayLight, RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(20.dp)),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Row {
+            Spacer(modifier = Modifier.width(11.dp))
+
+            Text(
+                "5.",
+                style = Typography.bodyLarge.copy(
+                    color = DefaultBlack,
+                    textAlign = TextAlign.Start
+                ),
+            )
+
+            Spacer(modifier = Modifier.width(7.dp))
+
+            Image(
+                painterResource(topUser.image),
+                contentDescription = null,
+                modifier = Modifier.size(36.dp)
+            )
+        }
+
+        Text(
+            topUser.name,
+            style = Typography.bodyLarge.copy(color = DefaultBlack, textAlign = TextAlign.Start),
+            modifier = Modifier.width(150.dp)
+        )
+
+        Row {
+            Text(
+                "${topUser.points} points",
+                style = Typography.bodyLarge.copy(color = DefaultBlack)
+            )
+
+            Spacer(modifier = Modifier.width(17.dp))
+        }
+    }
+}

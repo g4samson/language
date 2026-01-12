@@ -206,13 +206,9 @@ fun SignupScreen(
                     }
                 }
 
-
-
-
-
                 Spacer(modifier = Modifier.height(73.dp))
 
-                DefaultButton("Continue") { viewModel.onPasswordStateChange(true) }
+                DefaultButton("Signup") { viewModel.onPasswordStateChange(true) }
 
                 Spacer(modifier = Modifier.height(24.dp))
 
