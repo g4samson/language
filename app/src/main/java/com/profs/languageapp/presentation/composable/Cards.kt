@@ -31,21 +31,25 @@ import com.profs.languageapp.presentation.theme.Orange
 import com.profs.languageapp.presentation.theme.Typography
 
 @Composable
-fun LanguageCard(language: Language) {
-
+fun LanguageCard(
+    language: Language,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(67.dp)
-            .background(Orange.copy(alpha = 0.1f), RoundedCornerShape(20.dp))
+            .background(
+                if (isSelected) Orange else Orange.copy(alpha = 0.1f),
+                RoundedCornerShape(20.dp)
+            )
             .clip(RoundedCornerShape(20.dp))
-            .clickable {
-
-            },
+            .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Spacer(modifier = Modifier.width(15.dp))
-        Text(language.name, style = Typography.titleLarge)
+        Text(language.displayName, style = Typography.titleLarge)
     }
 }
 
@@ -113,51 +117,51 @@ fun TopUserCard(topUser: User) {
     }
 }
 
-@Composable
-fun LeaderboardWidgetCard(index: Int, user: User) {
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(38.dp)
-            .background(GrayLight, RoundedCornerShape(20.dp))
-            .clip(RoundedCornerShape(20.dp)),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Row {
-            Spacer(modifier = Modifier.width(11.dp))
-
-            Text(
-                index.toString(),
-                style = Typography.bodyLarge.copy(
-                    color = DefaultBlack,
-                    textAlign = TextAlign.Start
-                ),
-            )
-
-            Spacer(modifier = Modifier.width(7.dp))
-
-            Image(
-                painterResource(user.image),
-                contentDescription = null,
-                modifier = Modifier.size(36.dp)
-            )
-        }
-
-        Text(
-            user.name,
-            style = Typography.bodyLarge.copy(color = DefaultBlack, textAlign = TextAlign.Start),
-            modifier = Modifier.width(150.dp)
-        )
-
-        Row {
-            Text(
-                "${user.points} points",
-                style = Typography.bodyLarge.copy(color = DefaultBlack)
-            )
-
-            Spacer(modifier = Modifier.width(17.dp))
-        }
-    }
-}
+//@Composable
+//fun LeaderboardWidgetCard(index: Int, user: User) {
+//
+//    Row(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .height(38.dp)
+//            .background(GrayLight, RoundedCornerShape(20.dp))
+//            .clip(RoundedCornerShape(20.dp)),
+//        verticalAlignment = Alignment.CenterVertically,
+//        horizontalArrangement = Arrangement.SpaceBetween
+//    ) {
+//        Row {
+//            Spacer(modifier = Modifier.width(11.dp))
+//
+//            Text(
+//                index.toString(),
+//                style = Typography.bodyLarge.copy(
+//                    color = DefaultBlack,
+//                    textAlign = TextAlign.Start
+//                ),
+//            )
+//
+//            Spacer(modifier = Modifier.width(7.dp))
+//
+//            Image(
+//                painterResource(user.image),
+//                contentDescription = null,
+//                modifier = Modifier.size(36.dp)
+//            )
+//        }
+//
+//        Text(
+//            user.name,
+//            style = Typography.bodyLarge.copy(color = DefaultBlack, textAlign = TextAlign.Start),
+//            modifier = Modifier.width(150.dp)
+//        )
+//
+//        Row {
+//            Text(
+//                "${user.points} points",
+//                style = Typography.bodyLarge.copy(color = DefaultBlack)
+//            )
+//
+//            Spacer(modifier = Modifier.width(17.dp))
+//        }
+//    }
+//}

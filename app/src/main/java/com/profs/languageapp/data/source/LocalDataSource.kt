@@ -14,14 +14,14 @@ import javax.inject.Inject
 class LocalDataSource @Inject constructor() {
 
     fun getLanguages() = listOf(
-        Language("Russian"),
-        Language("English"),
-        Language("Chinese"),
-        Language("Belarus"),
-        Language("Kazakh"),
+        Language("en", "English"),
+        Language("ru", "Russian"),
+        Language("zh", "Chinese"),
+        Language("be", "Belarus"),
+        Language("kk", "Kazakh")
     )
 
-    fun getExercises() = listOf(
+        fun getExercises() = listOf(
         Excersise("Guess the animal", R.drawable.ex_bear, Blue),
         Excersise("Word practice", R.drawable.ex_pen, Red),
         Excersise("Audition", R.drawable.ex_audio, Orange),
@@ -32,24 +32,24 @@ class LocalDataSource @Inject constructor() {
         Page(
             R.drawable.onboarding_1,
             R.drawable.slider_1,
-            "Confidence in your words",
-            "With conversation-based learning, you'll be talking from lesson one",
-            "Next"
+            R.string.onb_1_1,
+            R.string.onb_1_2,
+            R.string.next
         ),
         Page(
             R.drawable.onboarding_2,
             R.drawable.slider_2,
-            "Take your time to learn",
-            "Develop a habit of learning and make it a part of your daily routine",
-            "More"
+            R.string.onb_2_1,
+            R.string.onb_2_2,
+            R.string.more
         ),
         Page(
             R.drawable.onboarding_3,
             R.drawable.slider_3,
-            "The lessons you need to learn",
-            "Using a variety of learning styles to learn and retain",
-            "Choose a language"
-        )
+            R.string.onb_3_1,
+            R.string.onb_3_2,
+            R.string.choose_language
+        ),
     )
 
     fun getTopUsers() = listOf(

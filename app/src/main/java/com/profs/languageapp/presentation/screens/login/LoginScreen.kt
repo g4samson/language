@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -58,7 +59,7 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        "Login",
+                        stringResource(R.string.login),
                         style = Typography.bodyLarge,
                         modifier = Modifier.padding(end = 50.dp, top = 16.dp)
                     )
@@ -95,12 +96,12 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Text("For free, join now and\nstart learning", style = Typography.titleLarge)
+            Text(stringResource(R.string.login_title), style = Typography.titleLarge)
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Column(modifier = Modifier.fillMaxWidth()) {
-                Text("Email Address", style = Typography.bodyMedium.copy(color = DarkLighter))
+                Text(stringResource(R.string.email_address), style = Typography.bodyMedium.copy(color = DarkLighter))
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -108,7 +109,7 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                Text("Password", style = Typography.bodyMedium.copy(color = DarkLighter))
+                Text(stringResource(R.string.password), style = Typography.bodyMedium.copy(color = DarkLighter))
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -117,27 +118,27 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    "Forgot Password",
+                    stringResource(R.string.forgot_password),
                     style = Typography.bodyMedium.copy(color = Red),
                     modifier = Modifier.clickable { })
             }
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            DefaultButton("Login") { navController.navigate(Destinations.Main) }
+            DefaultButton(stringResource(R.string.login)) { navController.navigate(Destinations.Main) }
 
             Spacer(modifier = Modifier.height(24.dp))
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Text(
-                    "Not you member? ",
+                    stringResource(R.string.not_member)+" ",
                     style = Typography.bodyLarge.copy(
                         color = GrayDark,
                         fontWeight = FontWeight.Normal
                     )
                 )
                 Text(
-                    "Signup",
+                    stringResource(R.string.signup),
                     style = Typography.bodyLarge.copy(color = Blue),
                     modifier = Modifier.clickable { navController.navigate(Destinations.Signup) })
             }

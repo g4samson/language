@@ -46,85 +46,85 @@ fun DefaultTextField(label: String, passwordType: Boolean, onValueChange: (Strin
 
     val emailPattern = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
 
-    Column(modifier = Modifier.fillMaxWidth()) {
-        OutlinedTextField(
-            value = textFieldValue,
-            onValueChange = {
-                textFieldValue = it
-                onValueChange(it)
-            },
-            modifier = Modifier
-                .height(56.dp)
-                .fillMaxWidth()
-                .onFocusChanged { focusState -> isFocused = focusState.isFocused }
-                .clip(RoundedCornerShape(16.dp))
-                .background(Dark.copy(alpha = 0.05f), RoundedCornerShape(16.dp)),
-            singleLine = true,
-            label = {
-                if (!isFocused && textFieldValue.isEmpty()) {
+    OutlinedTextField(
+        value = textFieldValue,
+        onValueChange = {
+            textFieldValue = it
+            onValueChange(it)
+        },
+        modifier = Modifier
+            .height(56.dp)
+            .fillMaxWidth()
+            .onFocusChanged { focusState -> isFocused = focusState.isFocused }
+            .clip(RoundedCornerShape(16.dp))
+            .background(Dark.copy(alpha = 0.05f), RoundedCornerShape(16.dp)),
+        singleLine = true,
+        label = {
+            if (!isFocused && textFieldValue.isEmpty()) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(bottom = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        label,
+                        style = Typography.bodyLarge.copy(
+                            fontSize = 15.sp,
+                            lineHeight = 20.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = GrayDark.copy(alpha = 0.5f)
+                        )
+                    )
+                }
+            }
+        },
+        trailingIcon = {
+            if (passwordType) {
+                if (textFieldValue.isNotEmpty()) {
                     Row(
-                        modifier = Modifier.fillMaxHeight().padding(bottom = 4.dp),
+                        modifier = Modifier.fillMaxHeight(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
-                            label,
-                            style = Typography.bodyLarge.copy(
-                                fontSize = 15.sp,
-                                lineHeight = 20.sp,
-                                fontWeight = FontWeight.Normal,
-                                color = GrayDark.copy(alpha = 0.5f)
-                            )
-                        )
-                    }
-                }
-            },
-            trailingIcon = {
-                if (passwordType) {
-                    if (textFieldValue.isNotEmpty()) {
-                        Row(
-                            modifier = Modifier.fillMaxHeight(),
-                            verticalAlignment = Alignment.CenterVertically
+                        IconButton(
+                            onClick = { passwordVisible = !passwordVisible },
+                            modifier = Modifier
+                                .size(20.dp)
+                                .padding(bottom = 4.dp)
                         ) {
-                            IconButton(
-                                onClick = { passwordVisible = !passwordVisible },
-                                modifier = Modifier
-                                    .size(20.dp)
-                                    .padding(bottom = 4.dp)
-                            ) {
-                                Icon(
-                                    painter = painterResource(if (passwordVisible) R.drawable.eye else R.drawable.eye),
-                                    contentDescription = null,
-                                    tint = GrayDark.copy(alpha = 0.5f)
-                                )
-                            }
+                            Icon(
+                                painter = painterResource(if (passwordVisible) R.drawable.eye else R.drawable.eye),
+                                contentDescription = null,
+                                tint = GrayDark.copy(alpha = 0.5f)
+                            )
                         }
                     }
                 }
-            }, colors = OutlinedTextFieldDefaults.colors(
-                unfocusedContainerColor = Dark.copy(alpha = 0.05f),
-                focusedContainerColor = GrayDark.copy(alpha = 0.05f),
-                unfocusedTextColor = GrayDark.copy(alpha = 0.5f),
-                focusedTextColor = Dark,
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent,
-                cursorColor = GrayDark,
-                unfocusedLabelColor = GrayDark.copy(alpha = 0.5f),
-                focusedLabelColor = GrayDark.copy(alpha = 0.05f)
-            ),
-            visualTransformation = if (passwordType && !passwordVisible)
-                PasswordVisualTransformation()
-            else
-                VisualTransformation.None
+            }
+        }, colors = OutlinedTextFieldDefaults.colors(
+            unfocusedContainerColor = Dark.copy(alpha = 0.05f),
+            focusedContainerColor = GrayDark.copy(alpha = 0.05f),
+            unfocusedTextColor = GrayDark.copy(alpha = 0.5f),
+            focusedTextColor = Dark,
+            focusedBorderColor = Color.Transparent,
+            unfocusedBorderColor = Color.Transparent,
+            cursorColor = GrayDark,
+            unfocusedLabelColor = GrayDark.copy(alpha = 0.5f),
+            focusedLabelColor = GrayDark.copy(alpha = 0.05f)
+        ),
+        visualTransformation = if (passwordType && !passwordVisible)
+            PasswordVisualTransformation()
+        else
+            VisualTransformation.None
+    )
+
+    if (passwordType && textFieldValue.length < 8 && isFocused) {
+        Spacer(Modifier.height(16.dp))
+
+        Text(
+            "Forgot Password",
+            style = Typography.bodyMedium.copy(fontSize = 14.sp, lineHeight = 16.sp)
         )
-
-        if (passwordType && textFieldValue.length < 8 && isFocused) {
-            Spacer(Modifier.height(16.dp))
-
-            Text(
-                "Forgot Password",
-                style = Typography.bodyMedium.copy(fontSize = 14.sp, lineHeight = 16.sp)
-            )
-        }
     }
 
 

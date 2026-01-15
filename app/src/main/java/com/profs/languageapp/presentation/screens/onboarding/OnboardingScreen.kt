@@ -25,11 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.profs.languageapp.R
 import com.profs.languageapp.data.utils.Destinations
 import com.profs.languageapp.presentation.composable.DefaultButton
 import com.profs.languageapp.presentation.theme.Dark
@@ -96,7 +98,7 @@ fun OnboardingScreen(
                 Spacer(modifier = Modifier.height(40.dp))
 
                 Text(
-                    text = item.title,
+                    text = stringResource(item.title),
                     style = Typography.titleLarge,
                     modifier = Modifier.fillMaxWidth(),
                 )
@@ -104,7 +106,7 @@ fun OnboardingScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = item.body,
+                    text = stringResource(item.body),
                     style = Typography.bodyMedium.copy(
                         color = Dark.copy(alpha = 0.6f),
                         fontSize = 15.sp,
@@ -115,7 +117,7 @@ fun OnboardingScreen(
 
                 Spacer(modifier = Modifier.height(50.dp))
 
-                DefaultButton(item.btn) {
+                DefaultButton(stringResource(item.btn)) {
                     scope.launch {
                         val nextPage = pagerState.currentPage + 1
                         if (nextPage < viewModel.pages.size) {
@@ -123,7 +125,7 @@ fun OnboardingScreen(
                             viewModel.saveCurrentPage(nextPage)
                         } else {
                             viewModel.completeOnboarding()
-                            navController.navigate(Destinations.Login) {
+                            navController.navigate(Destinations.LanguageSelect) {
                                 popUpTo(navController.graph.startDestinationId) { inclusive = true }
                             }
                         }
@@ -133,11 +135,11 @@ fun OnboardingScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    "Skip onboarding",
+                    stringResource(R.string.skip_onb),
                     style = Typography.bodyMedium, modifier = Modifier.clickable {
                         scope.launch {
                             viewModel.completeOnboarding()
-                            navController.navigate(Destinations.Login) {
+                            navController.navigate(Destinations.LanguageSelect) {
                                 popUpTo(navController.graph.startDestinationId) {
                                     inclusive = true
                                 }

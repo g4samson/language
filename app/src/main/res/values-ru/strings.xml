@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Language App</string>
+    <string name="onb_1_1">Уверенность в своих словах</string>
+    <string name="onb_1_2">Благодаря обучению, основанному на разговорной речи, вы будете говорить с первого урока</string>
+    <string name="next">Далее</string>
+
+    <string name="onb_2_1">Потратьте время на изучение</string>
+    <string name="onb_2_2">Выработайте привычку к обучению и сделайте это частью своей повседневной жизни</string>
+    <string name="more">Больше</string>
+
+    <string name="onb_3_1">Уроки, которые вам нужно усвоить</string>
+    <string name="onb_3_2">Использование различных стилей обучения для усвоения и сохранения</string>
+    <string name="choose_language">Выбрать язык</string>
+
+    <string name="skip_onb">Пропустить</string>
+
+
+    <string name="language_select">Выбор языка</string>
+    <string name="mother_language">Какой твой родной язык?</string>
+    <string name="choose">Выбрать</string>
+
+
+    <string name="login_title">Бесплатно присоединяйтесь и начните обучение</string>
+    <string name="email_address">Электронная почта</string>
+    <string name="password">Пароль</string>
+    <string name="forgot_password">Забыли пароль</string>
+    <string name="login">Войти</string>
+    <string name="not_member">Еще не с нами?</string>
+    <string name="signup">Регистрация</string>
+
+
 </resources>

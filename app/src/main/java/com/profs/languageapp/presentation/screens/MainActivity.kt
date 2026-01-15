@@ -7,20 +7,28 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.profs.languageapp.data.utils.Constants
 import com.profs.languageapp.presentation.navigation.NavGraph
 import com.profs.languageapp.presentation.theme.LanguageAppTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        runBlocking {
+            Constants.getLanguage(this@MainActivity)
+                .firstOrNull()?.let {
+                    Constants.setLanguage(it)
+                }
+        }
+
         setContent {
             LanguageAppTheme {
                 val navController = rememberNavController()

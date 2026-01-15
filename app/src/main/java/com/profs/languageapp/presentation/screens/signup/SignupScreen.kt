@@ -1,5 +1,6 @@
 package com.profs.languageapp.presentation.screens.signup
 
+import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,9 +26,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.core.content.FileProvider
 import androidx.navigation.NavHostController
 import com.profs.languageapp.R
 import com.profs.languageapp.data.utils.Destinations
@@ -40,6 +43,7 @@ import com.profs.languageapp.presentation.theme.DeepBlue
 import com.profs.languageapp.presentation.theme.DefaultWhite
 import com.profs.languageapp.presentation.theme.GrayDark
 import com.profs.languageapp.presentation.theme.Typography
+import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,6 +56,27 @@ fun SignupScreen(
     val lastName by viewModel.lastName.collectAsState()
     val passwordState by viewModel.passwordState.collectAsState()
 
+    val context = LocalContext.current
+    val pdfFile = File(context.filesDir, "example.pdf")
+
+    if (!pdfFile.exists()) {
+        context.assets.open("example.pdf").use { input ->
+            pdfFile.outputStream().use { output ->
+                input.copyTo(output)
+            }
+        }
+    }
+
+    val uri = FileProvider.getUriForFile(
+        context,
+        context.packageName + ".fileprovider",
+        pdfFile
+    )
+
+    val intent = Intent(Intent.ACTION_VIEW).apply {
+        setDataAndType(uri, "application/pdf")
+        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+    }
     var checked by remember { mutableStateOf(false) }
 
 
@@ -187,7 +212,7 @@ fun SignupScreen(
                             style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = Blue
-                            ), modifier = Modifier.clickable { checked = !checked }
+                            ), modifier = Modifier.clickable { context.startActivity(intent) }
                         )
                     }
                     Row(modifier = Modifier.fillMaxWidth().padding(start = 5.dp)) {
@@ -195,7 +220,7 @@ fun SignupScreen(
                             "the Rules", style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = Blue
-                            ), modifier = Modifier.clickable { checked = !checked })
+                            ), modifier = Modifier.clickable { context.startActivity(intent) })
                         Text(
                             " and accept all its provisions,",
                             style = Typography.bodyLarge.copy(

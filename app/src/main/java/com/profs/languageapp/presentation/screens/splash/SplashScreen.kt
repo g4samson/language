@@ -60,7 +60,7 @@ fun SplashScreen(
             animationSpec = tween(durationMillis = 900, easing = FastOutSlowInEasing)
         )
 
-        navController.navigate(if (skipOnboarding) Destinations.Login else Destinations.Onboarding) {
+        navController.navigate(if (skipOnboarding) Destinations.LanguageSelect else Destinations.Onboarding) {
             popUpTo(navController.graph.startDestinationId) { inclusive = true }
         }
     }
