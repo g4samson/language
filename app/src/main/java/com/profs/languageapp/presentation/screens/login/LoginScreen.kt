@@ -50,6 +50,8 @@ fun LoginScreen(
 ) {
     val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()
+    val emailError by viewModel.emailError.collectAsState()
+    val passwordError by viewModel.passwordError.collectAsState()
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         TopAppBar(
@@ -105,7 +107,13 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                DefaultTextField("Email", "email") { viewModel.onEmailChange(it) }
+                DefaultTextField(
+                    label = "Email",
+                    type = "email",
+                    isError = emailError,
+                ) {
+                    viewModel.onEmailChange(it)
+                }
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -113,7 +121,11 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                DefaultTextField("● ● ● ● ● ● ●", "password") { viewModel.onPasswordChange(it) }
+                DefaultTextField(
+                    "● ● ● ● ● ● ●",
+                    "password",
+                    isError = passwordError
+                ) { viewModel.onPasswordChange(it) }
 
                 Spacer(modifier = Modifier.height(12.dp))
 

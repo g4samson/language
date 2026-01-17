@@ -56,6 +56,8 @@ fun SignupScreen(
     val firstName by viewModel.firstName.collectAsState()
     val lastName by viewModel.lastName.collectAsState()
     val passwordState by viewModel.passwordState.collectAsState()
+    val emailError by viewModel.emailError.collectAsState()
+    val passwordError by viewModel.passwordError.collectAsState()
 
     val context = LocalContext.current
     val pdfFile = File(context.filesDir, "example.pdf")
@@ -123,32 +125,55 @@ fun SignupScreen(
                 Spacer(modifier = Modifier.height(32.dp))
 
                 Column(modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(R.string.first_name), style = Typography.bodyMedium.copy(color = DarkLighter))
+                    Text(
+                        stringResource(R.string.first_name),
+                        style = Typography.bodyMedium.copy(color = DarkLighter)
+                    )
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    DefaultTextField("Your First Name", "") { viewModel.onFirstNameChange(it) }
+                    DefaultTextField(
+                        "Your First Name",
+                        "",
+                        false
+                    ) { viewModel.onFirstNameChange(it) }
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    Text(stringResource(R.string.last_name), style = Typography.bodyMedium.copy(color = DarkLighter))
+                    Text(
+                        stringResource(R.string.last_name),
+                        style = Typography.bodyMedium.copy(color = DarkLighter)
+                    )
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    DefaultTextField("Your Last Name", "") { viewModel.onLastNameChange(it) }
+                    DefaultTextField("Your Last Name", "", false) { viewModel.onLastNameChange(it) }
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    Text(stringResource(R.string.email_address), style = Typography.bodyMedium.copy(color = DarkLighter))
+                    Text(
+                        stringResource(R.string.email_address),
+                        style = Typography.bodyMedium.copy(color = DarkLighter)
+                    )
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    DefaultTextField("Email", "email") { viewModel.onEmailChange(it) }
+                    DefaultTextField(
+                        label = "Email",
+                        type = "email",
+                        isError = emailError,
+                    ) {
+                        viewModel.onEmailChange(it)
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(34.dp))
 
-                DefaultButton(stringResource(R.string.continue_btn)) { viewModel.onPasswordStateChange(true) }
+                DefaultButton(stringResource(R.string.continue_btn)) {
+                    viewModel.onPasswordStateChange(
+                        true
+                    )
+                }
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -157,7 +182,7 @@ fun SignupScreen(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        stringResource(R.string.already_member)+" ",
+                        stringResource(R.string.already_member) + " ",
                         style = Typography.bodyLarge.copy(
                             color = GrayDark,
                             fontWeight = FontWeight.Normal
@@ -177,11 +202,18 @@ fun SignupScreen(
                 Spacer(modifier = Modifier.height(32.dp))
 
                 Column(modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(R.string.password), style = Typography.bodyMedium.copy(color = DarkLighter))
+                    Text(
+                        stringResource(R.string.password),
+                        style = Typography.bodyMedium.copy(color = DarkLighter)
+                    )
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    DefaultTextField("● ● ● ● ● ● ●", "password") { viewModel.onPasswordChange(it) }
+                    DefaultTextField(
+                        "● ● ● ● ● ● ●",
+                        "password",
+                        isError = passwordError
+                    ) { viewModel.onPasswordChange(it) }
 
                     Spacer(modifier = Modifier.height(24.dp))
 
@@ -194,36 +226,41 @@ fun SignupScreen(
 
                     DefaultTextField(
                         "● ● ● ● ● ● ●",
-                        "password"
+                        "password",
+                        isError = passwordError
                     ) { viewModel.onConfirmPasswordChange(it) }
 
                     Spacer(modifier = Modifier.height(25.dp))
 
-                    Row(modifier = Modifier.fillMaxWidth().padding(start = 5.dp)) {
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 5.dp)) {
                         Checkbox { checked = !checked }
                         Text(
-                            " "+stringResource(R.string.i),
+                            " " + stringResource(R.string.i),
                             style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = GrayDark
                             )
                         )
                         Text(
-                            " "+stringResource(R.string.have_read),
+                            " " + stringResource(R.string.have_read),
                             style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = Blue
                             ), modifier = Modifier.clickable { context.startActivity(intent) }
                         )
                     }
-                    Row(modifier = Modifier.fillMaxWidth().padding(start = 5.dp)) {
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 5.dp)) {
                         Text(
                             stringResource(R.string.the_rules), style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = Blue
                             ), modifier = Modifier.clickable { context.startActivity(intent) })
                         Text(
-                            " "+stringResource(R.string.accept_rules),
+                            " " + stringResource(R.string.accept_rules),
                             style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = GrayDark
@@ -234,7 +271,11 @@ fun SignupScreen(
 
                 Spacer(modifier = Modifier.height(73.dp))
 
-                DefaultButton(stringResource(R.string.signup)) { viewModel.onPasswordStateChange(true) }
+                DefaultButton(stringResource(R.string.signup)) {
+                    viewModel.onPasswordStateChange(
+                        true
+                    )
+                }
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -243,7 +284,7 @@ fun SignupScreen(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        stringResource(R.string.already_member)+" ",
+                        stringResource(R.string.already_member) + " ",
                         style = Typography.bodyLarge.copy(
                             color = GrayDark,
                             fontWeight = FontWeight.Normal

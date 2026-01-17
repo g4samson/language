@@ -37,21 +37,15 @@ import com.profs.languageapp.presentation.theme.Red
 import com.profs.languageapp.presentation.theme.Typography
 
 @Composable
-fun DefaultTextField(label: String, type: String, onValueChange: (String) -> Unit) {
+fun DefaultTextField(
+    label: String,
+    type: String,
+    isError: Boolean,
+    onValueChange: (String) -> Unit
+) {
     var textFieldValue by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var isFocused by remember { mutableStateOf(false) }
-
-    val emailPattern = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
-    var error by remember {
-        mutableStateOf(
-            if ((!emailPattern.matches(textFieldValue) && type == "email") || (type == "password" && textFieldValue.length < 8)) {
-                true
-            } else {
-                false
-            }
-        )
-    }
 
     OutlinedTextField(
         value = textFieldValue,
@@ -64,9 +58,7 @@ fun DefaultTextField(label: String, type: String, onValueChange: (String) -> Uni
             .fillMaxWidth()
             .border(
                 1.dp,
-                if (error) {
-                    Red
-                } else Color.Transparent,
+                if (isError) Red else Color.Transparent,
                 RoundedCornerShape(16.dp)
             )
             .onFocusChanged { focusState -> isFocused = focusState.isFocused }

@@ -3,15 +3,18 @@ package com.profs.languageapp.presentation.screens.signup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.profs.languageapp.domain.service.DomainService
+import com.profs.languageapp.domain.usecase.ValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignupViewModel @Inject constructor(
-    private val service: DomainService
+    private val service: DomainService,
+    private val validateInputUseCase: ValidateInputUseCase
 ) : ViewModel() {
     private val _firstName = MutableStateFlow("")
     val firstName: StateFlow<String> = _firstName
@@ -28,10 +31,6 @@ class SignupViewModel @Inject constructor(
     val confirmPassword: StateFlow<String> = _confirmPassword
 
 
-    fun onEmailChange(email: String) {
-        _email.value = email
-    }
-
     fun onFirstNameChange(firstName: String) {
         _firstName.value = firstName
     }
@@ -44,12 +43,25 @@ class SignupViewModel @Inject constructor(
         _passwordState.value = passwordState
     }
 
-    fun onPasswordChange(password: String) {
-        _password.value = password
-    }
-
     fun onConfirmPasswordChange(confirmPassword: String) {
         _confirmPassword.value = confirmPassword
+    }
+
+
+    private val _emailError = MutableStateFlow(false)
+    val emailError = _emailError.asStateFlow()
+
+    private val _passwordError = MutableStateFlow(false)
+    val passwordError = _passwordError.asStateFlow()
+
+    fun onEmailChange(email: String) {
+        _email.value = email
+        _emailError.value = !validateInputUseCase.isEmailValid(email)
+    }
+
+    fun onPasswordChange(password: String) {
+        _password.value = password
+        _passwordError.value = !validateInputUseCase.isPasswordValid(password)
     }
 
 }
