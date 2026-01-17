@@ -1,6 +1,7 @@
 package com.profs.languageapp.presentation.screens.main
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.profs.languageapp.R
+import com.profs.languageapp.data.utils.Destinations
 import com.profs.languageapp.presentation.composable.ExcersiseCard
 import com.profs.languageapp.presentation.composable.TopUserCard
 import com.profs.languageapp.presentation.theme.DeepBlue
@@ -55,7 +57,9 @@ fun MainScreen(
                     Image(
                         painterResource(R.drawable.user_0),
                         contentDescription = null,
-                        modifier = Modifier.size(54.dp)
+                        modifier = Modifier
+                            .size(54.dp)
+                            .clickable { navController.navigate(Destinations.Profile) }
                     )
                     Spacer(modifier = Modifier.height(5.dp))
                     Text(
@@ -90,7 +94,7 @@ fun MainScreen(
             Spacer(modifier = Modifier.height(5.dp))
 
             if (!topUserList.isNullOrEmpty()) {
-                LazyColumn (
+                LazyColumn(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                 ) {

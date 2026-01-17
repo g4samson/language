@@ -15,6 +15,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -55,6 +56,8 @@ fun OnboardingScreen(
     LaunchedEffect(savedPage) {
         pagerState.scrollToPage(savedPage)
     }
+
+    val colors = MaterialTheme.colorScheme
 
     Column(
         modifier = Modifier
@@ -99,7 +102,7 @@ fun OnboardingScreen(
 
                 Text(
                     text = stringResource(item.title),
-                    style = Typography.titleLarge,
+                    style = Typography.titleLarge.copy(color = colors.primary),
                     modifier = Modifier.fillMaxWidth(),
                 )
 
@@ -108,7 +111,7 @@ fun OnboardingScreen(
                 Text(
                     text = stringResource(item.body),
                     style = Typography.bodyMedium.copy(
-                        color = Dark.copy(alpha = 0.6f),
+                        color = colors.primary.copy(alpha = 0.6f),
                         fontSize = 15.sp,
                         lineHeight = 20.sp,
                         textAlign = TextAlign.Center
@@ -136,7 +139,7 @@ fun OnboardingScreen(
 
                 Text(
                     stringResource(R.string.skip_onb),
-                    style = Typography.bodyMedium, modifier = Modifier.clickable {
+                    style = Typography.bodyMedium.copy(color = colors.primary), modifier = Modifier.clickable {
                         scope.launch {
                             viewModel.completeOnboarding()
                             navController.navigate(Destinations.LanguageSelect) {

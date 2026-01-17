@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
@@ -88,7 +89,7 @@ fun SignupScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        "Signup",
+                        stringResource(R.string.signup),
                         style = Typography.bodyLarge,
                         modifier = Modifier.padding(end = 50.dp, top = 16.dp)
                     )
@@ -117,37 +118,37 @@ fun SignupScreen(
             if (passwordState == false) {
                 Spacer(modifier = Modifier.height(40.dp))
 
-                Text("Create an Account", style = Typography.titleLarge)
+                Text(stringResource(R.string.create_account), style = Typography.titleLarge)
 
                 Spacer(modifier = Modifier.height(32.dp))
 
                 Column(modifier = Modifier.fillMaxWidth()) {
-                    Text("First Name", style = Typography.bodyMedium.copy(color = DarkLighter))
+                    Text(stringResource(R.string.first_name), style = Typography.bodyMedium.copy(color = DarkLighter))
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    DefaultTextField("Your First Name", false) { viewModel.onFirstNameChange(it) }
+                    DefaultTextField("Your First Name", "") { viewModel.onFirstNameChange(it) }
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    Text("Last Name", style = Typography.bodyMedium.copy(color = DarkLighter))
+                    Text(stringResource(R.string.last_name), style = Typography.bodyMedium.copy(color = DarkLighter))
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    DefaultTextField("Your Last Name", false) { viewModel.onLastNameChange(it) }
+                    DefaultTextField("Your Last Name", "") { viewModel.onLastNameChange(it) }
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    Text("Email Address", style = Typography.bodyMedium.copy(color = DarkLighter))
+                    Text(stringResource(R.string.email_address), style = Typography.bodyMedium.copy(color = DarkLighter))
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    DefaultTextField("Email", false) { viewModel.onEmailChange(it) }
+                    DefaultTextField("Email", "email") { viewModel.onEmailChange(it) }
                 }
 
                 Spacer(modifier = Modifier.height(34.dp))
 
-                DefaultButton("Continue") { viewModel.onPasswordStateChange(true) }
+                DefaultButton(stringResource(R.string.continue_btn)) { viewModel.onPasswordStateChange(true) }
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -156,14 +157,14 @@ fun SignupScreen(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        "Already you member? ",
+                        stringResource(R.string.already_member)+" ",
                         style = Typography.bodyLarge.copy(
                             color = GrayDark,
                             fontWeight = FontWeight.Normal
                         )
                     )
                     Text(
-                        "Login",
+                        stringResource(R.string.login),
                         style = Typography.bodyLarge.copy(color = Blue),
                         modifier = Modifier.clickable { navController.navigate(Destinations.Login) })
                 }
@@ -171,21 +172,21 @@ fun SignupScreen(
             } else {
                 Spacer(modifier = Modifier.height(40.dp))
 
-                Text("Choose a Password", style = Typography.titleLarge)
+                Text(stringResource(R.string.choose_password), style = Typography.titleLarge)
 
                 Spacer(modifier = Modifier.height(32.dp))
 
                 Column(modifier = Modifier.fillMaxWidth()) {
-                    Text("Password", style = Typography.bodyMedium.copy(color = DarkLighter))
+                    Text(stringResource(R.string.password), style = Typography.bodyMedium.copy(color = DarkLighter))
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    DefaultTextField("● ● ● ● ● ● ●", true) { viewModel.onPasswordChange(it) }
+                    DefaultTextField("● ● ● ● ● ● ●", "password") { viewModel.onPasswordChange(it) }
 
                     Spacer(modifier = Modifier.height(24.dp))
 
                     Text(
-                        "Confirm Password",
+                        stringResource(R.string.confirm_password),
                         style = Typography.bodyMedium.copy(color = DarkLighter)
                     )
 
@@ -193,7 +194,7 @@ fun SignupScreen(
 
                     DefaultTextField(
                         "● ● ● ● ● ● ●",
-                        true
+                        "password"
                     ) { viewModel.onConfirmPasswordChange(it) }
 
                     Spacer(modifier = Modifier.height(25.dp))
@@ -201,14 +202,14 @@ fun SignupScreen(
                     Row(modifier = Modifier.fillMaxWidth().padding(start = 5.dp)) {
                         Checkbox { checked = !checked }
                         Text(
-                            " I",
+                            " "+stringResource(R.string.i),
                             style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = GrayDark
                             )
                         )
                         Text(
-                            " have made myself acquainted with",
+                            " "+stringResource(R.string.have_read),
                             style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = Blue
@@ -217,12 +218,12 @@ fun SignupScreen(
                     }
                     Row(modifier = Modifier.fillMaxWidth().padding(start = 5.dp)) {
                         Text(
-                            "the Rules", style = Typography.bodyLarge.copy(
+                            stringResource(R.string.the_rules), style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = Blue
                             ), modifier = Modifier.clickable { context.startActivity(intent) })
                         Text(
-                            " and accept all its provisions,",
+                            " "+stringResource(R.string.accept_rules),
                             style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = GrayDark
@@ -233,7 +234,7 @@ fun SignupScreen(
 
                 Spacer(modifier = Modifier.height(73.dp))
 
-                DefaultButton("Signup") { viewModel.onPasswordStateChange(true) }
+                DefaultButton(stringResource(R.string.signup)) { viewModel.onPasswordStateChange(true) }
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -242,14 +243,14 @@ fun SignupScreen(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        "Already you member? ",
+                        stringResource(R.string.already_member)+" ",
                         style = Typography.bodyLarge.copy(
                             color = GrayDark,
                             fontWeight = FontWeight.Normal
                         )
                     )
                     Text(
-                        "Login",
+                        stringResource(R.string.login),
                         style = Typography.bodyLarge.copy(color = Blue),
                         modifier = Modifier.clickable { navController.navigate(Destinations.Login) })
                 }

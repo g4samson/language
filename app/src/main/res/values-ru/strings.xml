@@ -29,4 +29,23 @@
     <string name="signup">Регистрация</string>
 
 
+    <string name="create_account">Создать аккаунт</string>
+    <string name="choose_password">Выберите пароль</string>
+
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+
+    <string name="continue_btn">Продолжить</string>
+
+    <string name="already_member">Уже зарегистрированы?</string>
+
+    <string name="i">Я</string>
+    <string name="have_read">ознакомился с</string>
+    <string name="the_rules">Правилами</string>
+    <string name="accept_rules">и принимаю все их условия</string>
+
+    <string name="switch_to_dark">Тёмная тема</string>
+    <string name="switch_to_light">Светлая тема</string>
+
 </resources>

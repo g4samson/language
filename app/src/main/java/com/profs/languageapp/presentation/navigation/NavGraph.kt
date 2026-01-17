@@ -16,13 +16,13 @@ import com.profs.languageapp.presentation.screens.main.MainViewModel
 import com.profs.languageapp.presentation.screens.onboarding.OnboardingScreen
 import com.profs.languageapp.presentation.screens.onboarding.OnboardingViewModel
 import com.profs.languageapp.presentation.screens.profile.ProfileScreen
-import com.profs.languageapp.presentation.screens.profile.ProfileViewModel
+import com.profs.languageapp.presentation.screens.profile.ThemeViewModel
 import com.profs.languageapp.presentation.screens.signup.SignupScreen
 import com.profs.languageapp.presentation.screens.signup.SignupViewModel
 import com.profs.languageapp.presentation.screens.splash.SplashScreen
 
 @Composable
-fun NavGraph(modifier: Modifier = Modifier, navController: NavHostController) {
+fun NavGraph(modifier: Modifier = Modifier, navController: NavHostController, theme: ThemeViewModel) {
 
     NavHost(navController = navController, startDestination = Destinations.Splash) {
 
@@ -52,8 +52,7 @@ fun NavGraph(modifier: Modifier = Modifier, navController: NavHostController) {
         }
 
         composable<Destinations.Profile> {
-            val viewModel: ProfileViewModel = hiltViewModel()
-            ProfileScreen(navController, viewModel)
+            ProfileScreen(navController, theme)
         }
 
         composable<Destinations.LanguageSelect> {

@@ -28,4 +28,24 @@
     <string name="not_member">Not a member?</string>
     <string name="signup">Signup</string>
 
+
+    <string name="create_account">Create an Account</string>
+    <string name="choose_password">Choose a Password</string>
+
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="confirm_password">Confirm Password</string>
+
+    <string name="continue_btn">Continue</string>
+
+    <string name="already_member">Already you member?</string>
+
+    <string name="i">I</string>
+    <string name="have_read">have made myself acquainted with</string>
+    <string name="the_rules">the Rules</string>
+    <string name="accept_rules">and accept all its provisions</string>
+
+    <string name="switch_to_dark">Switch to Dark</string>
+    <string name="switch_to_light">Switch to Light</string>
+
 </resources>

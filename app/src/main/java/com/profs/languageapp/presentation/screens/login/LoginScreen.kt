@@ -105,7 +105,7 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                DefaultTextField("Email", false) { viewModel.onEmailChange(it) }
+                DefaultTextField("Email", "email") { viewModel.onEmailChange(it) }
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -113,7 +113,7 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                DefaultTextField("● ● ● ● ● ● ●", true) { viewModel.onPasswordChange(it) }
+                DefaultTextField("● ● ● ● ● ● ●", "password") { viewModel.onPasswordChange(it) }
 
                 Spacer(modifier = Modifier.height(12.dp))
 

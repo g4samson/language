@@ -1,15 +1,13 @@
 package com.profs.languageapp.presentation.composable
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,17 +32,26 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.profs.languageapp.R
 import com.profs.languageapp.presentation.theme.Dark
-import com.profs.languageapp.presentation.theme.DefaultWhite
 import com.profs.languageapp.presentation.theme.GrayDark
+import com.profs.languageapp.presentation.theme.Red
 import com.profs.languageapp.presentation.theme.Typography
 
 @Composable
-fun DefaultTextField(label: String, passwordType: Boolean, onValueChange: (String) -> Unit) {
+fun DefaultTextField(label: String, type: String, onValueChange: (String) -> Unit) {
     var textFieldValue by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var isFocused by remember { mutableStateOf(false) }
 
     val emailPattern = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
+    var error by remember {
+        mutableStateOf(
+            if ((!emailPattern.matches(textFieldValue) && type == "email") || (type == "password" && textFieldValue.length < 8)) {
+                true
+            } else {
+                false
+            }
+        )
+    }
 
     OutlinedTextField(
         value = textFieldValue,
@@ -55,6 +62,13 @@ fun DefaultTextField(label: String, passwordType: Boolean, onValueChange: (Strin
         modifier = Modifier
             .height(56.dp)
             .fillMaxWidth()
+            .border(
+                1.dp,
+                if (error) {
+                    Red
+                } else Color.Transparent,
+                RoundedCornerShape(16.dp)
+            )
             .onFocusChanged { focusState -> isFocused = focusState.isFocused }
             .clip(RoundedCornerShape(16.dp))
             .background(Dark.copy(alpha = 0.05f), RoundedCornerShape(16.dp)),
@@ -80,23 +94,25 @@ fun DefaultTextField(label: String, passwordType: Boolean, onValueChange: (Strin
             }
         },
         trailingIcon = {
-            if (passwordType) {
-                if (textFieldValue.isNotEmpty()) {
-                    Row(
-                        modifier = Modifier.fillMaxHeight(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        IconButton(
-                            onClick = { passwordVisible = !passwordVisible },
-                            modifier = Modifier
-                                .size(20.dp)
-                                .padding(bottom = 4.dp)
+            when (type) {
+                "password" -> {
+                    if (textFieldValue.isNotEmpty()) {
+                        Row(
+                            modifier = Modifier.fillMaxHeight(),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Icon(
-                                painter = painterResource(if (passwordVisible) R.drawable.eye else R.drawable.eye),
-                                contentDescription = null,
-                                tint = GrayDark.copy(alpha = 0.5f)
-                            )
+                            IconButton(
+                                onClick = { passwordVisible = !passwordVisible },
+                                modifier = Modifier
+                                    .size(20.dp)
+                                    .padding(bottom = 4.dp)
+                            ) {
+                                Icon(
+                                    painter = painterResource(if (passwordVisible) R.drawable.eye else R.drawable.eye),
+                                    contentDescription = null,
+                                    tint = GrayDark.copy(alpha = 0.5f)
+                                )
+                            }
                         }
                     }
                 }
@@ -112,20 +128,17 @@ fun DefaultTextField(label: String, passwordType: Boolean, onValueChange: (Strin
             unfocusedLabelColor = GrayDark.copy(alpha = 0.5f),
             focusedLabelColor = GrayDark.copy(alpha = 0.05f)
         ),
-        visualTransformation = if (passwordType && !passwordVisible)
+        visualTransformation = if (type == "password" && !passwordVisible)
             PasswordVisualTransformation()
         else
             VisualTransformation.None
     )
 
-    if (passwordType && textFieldValue.length < 8 && isFocused) {
-        Spacer(Modifier.height(16.dp))
-
-        Text(
-            "Forgot Password",
-            style = Typography.bodyMedium.copy(fontSize = 14.sp, lineHeight = 16.sp)
-        )
-    }
-
+//    if (type == "password") {
+//        Text(
+//            "Forgot Password",
+//            style = Typography.bodyMedium.copy(fontSize = 14.sp, lineHeight = 16.sp)
+//        )
+//    }
 
 }

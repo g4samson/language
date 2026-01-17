@@ -11,7 +11,6 @@ import androidx.glance.layout.Column
 import androidx.glance.layout.fillMaxSize
 import com.profs.languageapp.data.models.User
 import com.profs.languageapp.data.source.LocalDataSource
-import com.profs.languageapp.domain.service.DomainService
 import com.profs.languageapp.presentation.theme.DeepBlue
 
 class WidgetLeaderboard : GlanceAppWidget() {
@@ -26,7 +25,7 @@ class WidgetLeaderboard : GlanceAppWidget() {
 
             Column(modifier = GlanceModifier.fillMaxSize().background(DeepBlue)) {
                 users.forEachIndexed { index, user ->
-                    LeaderboardWidgetCard(index, user)
+                   // LeaderboardWidgetCard(index, user)
                 }
             }
         }
