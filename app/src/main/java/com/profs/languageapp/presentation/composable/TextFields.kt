@@ -121,7 +121,7 @@ fun DefaultTextField(
             focusedLabelColor = GrayDark.copy(alpha = 0.05f)
         ),
         visualTransformation = if (type == "password" && !passwordVisible)
-            PasswordVisualTransformation()
+            PasswordVisualTransformation('●')
         else
             VisualTransformation.None
     )

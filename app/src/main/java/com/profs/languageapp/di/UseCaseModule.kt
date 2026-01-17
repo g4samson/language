@@ -1,5 +1,6 @@
 package com.profs.languageapp.di
 
+import com.profs.languageapp.domain.usecase.OpenPdfUseCase
 import com.profs.languageapp.domain.usecase.ValidateInputUseCase
 import dagger.Module
 import dagger.Provides
@@ -15,5 +16,10 @@ object UseCaseModule {
     @Singleton
     fun provideValidateInputUseCase(): ValidateInputUseCase {
         return ValidateInputUseCase()
+    }
+
+    @Provides
+    fun provideOpenPdfUseCase(): OpenPdfUseCase {
+        return OpenPdfUseCase()
     }
 }

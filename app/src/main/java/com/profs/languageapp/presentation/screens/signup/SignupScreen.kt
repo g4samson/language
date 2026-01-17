@@ -60,26 +60,8 @@ fun SignupScreen(
     val passwordError by viewModel.passwordError.collectAsState()
 
     val context = LocalContext.current
-    val pdfFile = File(context.filesDir, "example.pdf")
 
-    if (!pdfFile.exists()) {
-        context.assets.open("example.pdf").use { input ->
-            pdfFile.outputStream().use { output ->
-                input.copyTo(output)
-            }
-        }
-    }
 
-    val uri = FileProvider.getUriForFile(
-        context,
-        context.packageName + ".fileprovider",
-        pdfFile
-    )
-
-    val intent = Intent(Intent.ACTION_VIEW).apply {
-        setDataAndType(uri, "application/pdf")
-        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-    }
     var checked by remember { mutableStateOf(false) }
 
 
@@ -248,7 +230,7 @@ fun SignupScreen(
                             style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = Blue
-                            ), modifier = Modifier.clickable { context.startActivity(intent) }
+                            ), modifier = Modifier.clickable { viewModel.onRulesClick(context) }
                         )
                     }
                     Row(modifier = Modifier
@@ -258,7 +240,7 @@ fun SignupScreen(
                             stringResource(R.string.the_rules), style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = Blue
-                            ), modifier = Modifier.clickable { context.startActivity(intent) })
+                            ), modifier = Modifier.clickable { viewModel.onRulesClick(context) })
                         Text(
                             " " + stringResource(R.string.accept_rules),
                             style = Typography.bodyLarge.copy(

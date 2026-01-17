@@ -1,8 +1,10 @@
 package com.profs.languageapp.presentation.screens.signup
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.profs.languageapp.domain.service.DomainService
+import com.profs.languageapp.domain.usecase.OpenPdfUseCase
 import com.profs.languageapp.domain.usecase.ValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SignupViewModel @Inject constructor(
     private val service: DomainService,
-    private val validateInputUseCase: ValidateInputUseCase
+    private val validateInputUseCase: ValidateInputUseCase,
+    private val openPdfUseCase: OpenPdfUseCase
 ) : ViewModel() {
     private val _firstName = MutableStateFlow("")
     val firstName: StateFlow<String> = _firstName
@@ -62,6 +65,13 @@ class SignupViewModel @Inject constructor(
     fun onPasswordChange(password: String) {
         _password.value = password
         _passwordError.value = !validateInputUseCase.isPasswordValid(password)
+    }
+
+    fun onRulesClick(context: Context) {
+        openPdfUseCase.openPdf(
+            context = context,
+            fileName = "example.pdf"
+        )
     }
 
 }
