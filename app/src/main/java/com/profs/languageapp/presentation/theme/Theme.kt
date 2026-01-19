@@ -15,7 +15,7 @@ private val LightColorScheme = lightColorScheme(
 
 private val DarkColorScheme = darkColorScheme(
     primary = DefaultWhite,
-    secondary = DarkLighter,
+    secondary = DefaultWhite.copy(0.6f),
     tertiary = Blue,
     surface = Dark,
     background = Dark

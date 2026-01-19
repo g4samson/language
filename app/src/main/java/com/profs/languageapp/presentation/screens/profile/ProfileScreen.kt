@@ -39,71 +39,78 @@ fun ProfileScreen(
     navController: NavHostController,
     themeViewModel: ThemeViewModel
 ) {
-    val colors = MaterialTheme.colorScheme
     val isDarkTheme by themeViewModel.isDarkTheme.collectAsState()
 
     val switchThemeText = if (isDarkTheme) {
         stringResource(R.string.switch_to_light)
     } else {
         stringResource(R.string.switch_to_dark)
-
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        TopAppBar(
-            {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.Start
-                ) {
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Image(
-                        painterResource(R.drawable.user_0),
-                        contentDescription = null,
-                        modifier = Modifier.size(134.dp)
-                    )
-                    Spacer(modifier = Modifier.height(5.dp))
-                    Text(
-                        "Your profile, Emil",
-                        style = Typography.titleLarge.copy(color = DefaultWhite),
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-                }
-            }, modifier = Modifier
-                .fillMaxWidth()
-                .height(231.dp),
-            colors = TopAppBarDefaults.topAppBarColors(containerColor = DeepBlue)
-        )
-    }) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(horizontal = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.Start
+                    ) {
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Image(
+                            painterResource(R.drawable.user_0),
+                            contentDescription = null,
+                            modifier = Modifier.size(134.dp)
+                        )
+                        Spacer(modifier = Modifier.height(5.dp))
 
+                        Text(
+                            stringResource(R.string.your_profile, "Emil"),
+                            style = Typography.titleLarge.copy(color = DefaultWhite)
+                        )
+
+                        Spacer(modifier = Modifier.height(20.dp))
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(231.dp),
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = DeepBlue)
+            )
         }
+    ) { innerPadding ->
 
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(innerPadding)
                 .padding(horizontal = 24.dp)
                 .padding(bottom = 26.dp),
             contentAlignment = Alignment.BottomCenter
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                DefaultButton(switchThemeText) { themeViewModel.toggleTheme() }
+                DefaultButton(switchThemeText) {
+                    themeViewModel.toggleTheme()
+                }
+
                 Spacer(modifier = Modifier.height(10.dp))
-                DefaultButton("Change mother language") { navController.navigate(Destinations.LanguageSelect) }
+
+                DefaultButton(stringResource(R.string.change_language)) {
+                    navController.navigate(Destinations.LanguageSelect)
+                }
+
                 Spacer(modifier = Modifier.height(10.dp))
-                DefaultButton("Change your image") { }
+
+                DefaultButton(stringResource(R.string.change_image)) { }
+
                 Spacer(modifier = Modifier.height(10.dp))
-                DefaultButton("Logout") { navController.navigate(Destinations.Login) }
+
+                DefaultButton(stringResource(R.string.logout)) {
+                    navController.navigate(Destinations.Login)
+                }
             }
         }
     }

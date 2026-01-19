@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -52,6 +53,8 @@ fun LoginScreen(
     val password by viewModel.password.collectAsState()
     val emailError by viewModel.emailError.collectAsState()
     val passwordError by viewModel.passwordError.collectAsState()
+
+    val colors = MaterialTheme.colorScheme
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         TopAppBar(
@@ -98,12 +101,12 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Text(stringResource(R.string.login_title), style = Typography.titleLarge)
+            Text(stringResource(R.string.login_title), style = Typography.titleLarge.copy(color = colors.primary))
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Column(modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.email_address), style = Typography.bodyMedium.copy(color = DarkLighter))
+                Text(stringResource(R.string.email_address), style = Typography.bodyMedium.copy(color = colors.secondary))
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -117,7 +120,7 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                Text(stringResource(R.string.password), style = Typography.bodyMedium.copy(color = DarkLighter))
+                Text(stringResource(R.string.password), style = Typography.bodyMedium.copy(color = colors.secondary))
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -145,7 +148,7 @@ fun LoginScreen(
                 Text(
                     stringResource(R.string.not_member)+" ",
                     style = Typography.bodyLarge.copy(
-                        color = GrayDark,
+                        color = colors.primary.copy(alpha = 0.6f),
                         fontWeight = FontWeight.Normal
                     )
                 )

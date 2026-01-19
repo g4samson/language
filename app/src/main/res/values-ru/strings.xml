@@ -51,7 +51,19 @@
     <string name="the_rules">Правилами</string>
     <string name="accept_rules">и принимаю все их условия</string>
 
+
+    <string name="hello_user">Привет, %1$s</string>
+    <string name="ready_for_learning">Готов к обучению сегодня?</string>
+
+    <string name="top_users">Лучшие пользователи</string>
+    <string name="available_exercises">Доступные упражнения</string>
+
+    <string name="your_profile">Твой профиль, %1$s</string>
+
     <string name="switch_to_dark">Темная тема</string>
     <string name="switch_to_light">Светлая тема</string>
+    <string name="change_language">Сменить родной язык</string>
+    <string name="change_image">Сменить изображение</string>
+    <string name="logout">Выйти</string>
 
 </resources>
