@@ -1,6 +1,5 @@
 package com.profs.languageapp.presentation.screens.signup
 
-import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,7 +30,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.content.FileProvider
 import androidx.navigation.NavHostController
 import com.profs.languageapp.R
 import com.profs.languageapp.data.utils.Destinations
@@ -44,7 +42,6 @@ import com.profs.languageapp.presentation.theme.DeepBlue
 import com.profs.languageapp.presentation.theme.DefaultWhite
 import com.profs.languageapp.presentation.theme.GrayDark
 import com.profs.languageapp.presentation.theme.Typography
-import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

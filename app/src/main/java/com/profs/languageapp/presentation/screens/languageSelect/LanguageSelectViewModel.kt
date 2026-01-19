@@ -1,8 +1,10 @@
 package com.profs.languageapp.presentation.screens.languageSelect
 
+import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -37,21 +39,10 @@ class LanguageSelectViewModel @Inject constructor(
 
     init {
         getLanguages()
-        loadSavedLanguage()
     }
 
     private fun getLanguages() {
         _languageList.value = localDataSource.getLanguages()
-    }
-
-    private fun loadSavedLanguage() {
-        viewModelScope.launch {
-            Constants.getLanguage(context).collect { lang ->
-                lang?.let {
-                    _selectedLanguage.value = it
-                }
-            }
-        }
     }
 
     fun onLanguageChange(langCode: String) {
@@ -61,7 +52,7 @@ class LanguageSelectViewModel @Inject constructor(
     fun saveLanguage() {
         viewModelScope.launch {
             Constants.saveLanguage(context, _selectedLanguage.value)
-            Constants.setLanguage(_selectedLanguage.value)
+            Constants.setLanguage(context, _selectedLanguage.value)
         }
     }
 }

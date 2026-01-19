@@ -14,14 +14,14 @@ import javax.inject.Inject
 class LocalDataSource @Inject constructor() {
 
     fun getLanguages() = listOf(
-        Language("en", "English"),
-        Language("ru", "Russian"),
-        Language("zh", "Chinese"),
-        Language("be", "Belarus"),
-        Language("kk", "Kazakh")
+        Language("en", R.string.lang_english),
+        Language("ru", R.string.lang_russian),
+        Language("zh", R.string.lang_chinese),
+        Language("be", R.string.lang_belarus),
+        Language("kk", R.string.lang_kazakh)
     )
 
-        fun getExercises() = listOf(
+    fun getExercises() = listOf(
         Excersise("Guess the animal", R.drawable.ex_bear, Blue),
         Excersise("Word practice", R.drawable.ex_pen, Red),
         Excersise("Audition", R.drawable.ex_audio, Orange),

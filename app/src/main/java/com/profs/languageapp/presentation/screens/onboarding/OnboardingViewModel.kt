@@ -1,14 +1,17 @@
 package com.profs.languageapp.presentation.screens.onboarding
 
 import android.app.Application
+import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.profs.languageapp.data.utils.Constants
 import com.profs.languageapp.domain.service.DomainService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -20,9 +23,11 @@ private val Application.dataStore by preferencesDataStore("onboarding_prefs")
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
     private val app: Application,
-    private val service: DomainService
+    private val service: DomainService,
+    @ApplicationContext private val context: Context
 ) : AndroidViewModel(app) {
 
+    val isLanguageSelected = Constants.isLanguageSelected(context)
     val pages = service.getOnboardingPages()
     private val dataStore = app.dataStore
 

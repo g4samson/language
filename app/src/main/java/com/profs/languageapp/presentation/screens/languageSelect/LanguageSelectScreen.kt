@@ -103,7 +103,6 @@ fun LanguageSelectScreen(
             DefaultButton(stringResource(R.string.choose)) {
                 viewModel.saveLanguage()
                 navController.navigate(Destinations.Login)
-                activity.recreate()
             }
         }
     }

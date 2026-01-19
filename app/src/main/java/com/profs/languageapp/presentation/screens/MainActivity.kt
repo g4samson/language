@@ -11,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.profs.languageapp.data.utils.Constants
 import com.profs.languageapp.presentation.navigation.NavGraph
@@ -18,7 +19,7 @@ import com.profs.languageapp.presentation.screens.profile.ThemeViewModel
 import com.profs.languageapp.presentation.theme.LanguageAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -28,10 +29,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        runBlocking {
+        lifecycleScope.launch {
             Constants.getLanguage(this@MainActivity)
-                .firstOrNull()?.let {
-                    Constants.setLanguage(it)
+                .firstOrNull()
+                ?.let {
+                    Constants.setLanguage(this@MainActivity, it)
                 }
         }
 

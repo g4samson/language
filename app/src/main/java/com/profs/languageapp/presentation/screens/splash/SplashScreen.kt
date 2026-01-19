@@ -40,6 +40,7 @@ fun SplashScreen(
     viewModel: OnboardingViewModel
 ) {
     val skipOnboarding by viewModel.completed.collectAsState(initial = false)
+    val isLanguageSelected by viewModel.isLanguageSelected.collectAsState(initial = false)
 
     val offsetY = remember { Animatable(0f) }
     val scale = remember { Animatable(0f) }
@@ -60,8 +61,16 @@ fun SplashScreen(
             animationSpec = tween(durationMillis = 900, easing = FastOutSlowInEasing)
         )
 
-        navController.navigate(if (skipOnboarding) Destinations.LanguageSelect else Destinations.Onboarding) {
-            popUpTo(navController.graph.startDestinationId) { inclusive = true }
+        val destination = when {
+            !skipOnboarding -> Destinations.Onboarding
+            !isLanguageSelected -> Destinations.LanguageSelect
+            else -> Destinations.Login
+        }
+
+        navController.navigate(destination) {
+            popUpTo(navController.graph.startDestinationId) {
+                inclusive = true
+            }
         }
     }
 

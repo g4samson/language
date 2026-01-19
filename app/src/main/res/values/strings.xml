@@ -19,6 +19,12 @@
     <string name="mother_language">What is your Mother language?</string>\
     <string name="choose">Choose</string>
 
+    <string name="lang_english">English</string>
+    <string name="lang_russian">Russian</string>
+    <string name="lang_chinese">Chinese</string>
+    <string name="lang_belarus">Belarusian</string>
+    <string name="lang_kazakh">Kazakh</string>
+
 
     <string name="login_title">For free, join now and start learning</string>
     <string name="email_address">Email Address</string>
