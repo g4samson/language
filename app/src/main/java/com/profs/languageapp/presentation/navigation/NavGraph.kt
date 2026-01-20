@@ -16,13 +16,19 @@ import com.profs.languageapp.presentation.screens.main.MainViewModel
 import com.profs.languageapp.presentation.screens.onboarding.OnboardingScreen
 import com.profs.languageapp.presentation.screens.onboarding.OnboardingViewModel
 import com.profs.languageapp.presentation.screens.profile.ProfileScreen
+import com.profs.languageapp.presentation.screens.profile.ProfileViewModel
 import com.profs.languageapp.presentation.screens.profile.ThemeViewModel
+import com.profs.languageapp.presentation.screens.profileResizePhoto.ProfileResizePhotoScreen
 import com.profs.languageapp.presentation.screens.signup.SignupScreen
 import com.profs.languageapp.presentation.screens.signup.SignupViewModel
 import com.profs.languageapp.presentation.screens.splash.SplashScreen
 
 @Composable
-fun NavGraph(modifier: Modifier = Modifier, navController: NavHostController, theme: ThemeViewModel) {
+fun NavGraph(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    theme: ThemeViewModel
+) {
 
     NavHost(navController = navController, startDestination = Destinations.Splash) {
 
@@ -52,7 +58,13 @@ fun NavGraph(modifier: Modifier = Modifier, navController: NavHostController, th
         }
 
         composable<Destinations.Profile> {
-            ProfileScreen(navController, theme)
+            val viewModel: ProfileViewModel = hiltViewModel()
+            ProfileScreen(navController, theme, viewModel)
+        }
+
+        composable<Destinations.ProfileResizePhoto> {
+            val viewModel: ProfileViewModel = hiltViewModel()
+            ProfileResizePhotoScreen(navController, viewModel)
         }
 
         composable<Destinations.LanguageSelect> {

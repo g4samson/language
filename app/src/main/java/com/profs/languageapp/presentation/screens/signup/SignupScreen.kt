@@ -53,6 +53,7 @@ fun SignupScreen(
     val firstName by viewModel.firstName.collectAsState()
     val lastName by viewModel.lastName.collectAsState()
     val passwordState by viewModel.passwordState.collectAsState()
+
     val emailError by viewModel.emailError.collectAsState()
     val passwordError by viewModel.passwordError.collectAsState()
 

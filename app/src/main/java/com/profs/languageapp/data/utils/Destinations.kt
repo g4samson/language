@@ -23,5 +23,8 @@ sealed class Destinations {
     data object Profile : Destinations()
 
     @Serializable
+    data object ProfileResizePhoto : Destinations()
+
+    @Serializable
     data object LanguageSelect : Destinations()
 }

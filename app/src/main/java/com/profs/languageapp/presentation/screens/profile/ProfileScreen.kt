@@ -1,6 +1,9 @@
 package com.profs.languageapp.presentation.screens.profile
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,15 +42,38 @@ import com.profs.languageapp.presentation.theme.Typography
 @Composable
 fun ProfileScreen(
     navController: NavHostController,
-    themeViewModel: ThemeViewModel
+    themeViewModel: ThemeViewModel,
+    viewModel: ProfileViewModel
 ) {
+    val changeState by viewModel.changeState.collectAsState()
     val isDarkTheme by themeViewModel.isDarkTheme.collectAsState()
+    val colors = MaterialTheme.colorScheme
 
     val switchThemeText = if (isDarkTheme) {
         stringResource(R.string.switch_to_light)
     } else {
         stringResource(R.string.switch_to_dark)
     }
+
+    val galleryLauncher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            val uri = result.data?.data
+            if (uri != null) {
+                viewModel.onImagePicked(uri)
+                navController.navigate(Destinations.ProfileResizePhoto)
+            }
+        }
+
+    val cameraLauncher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.TakePicture()
+        ) { success ->
+            if (success) {
+                navController.navigate(Destinations.ProfileResizePhoto)
+            }
+        }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -104,12 +132,50 @@ fun ProfileScreen(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                DefaultButton(stringResource(R.string.change_image)) { }
+                DefaultButton(stringResource(R.string.change_image)) {
+                    viewModel.openChangeImageDialog()
+                }
 
                 Spacer(modifier = Modifier.height(10.dp))
 
                 DefaultButton(stringResource(R.string.logout)) {
                     navController.navigate(Destinations.Login)
+                }
+            }
+        }
+
+        if (changeState) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(0.6f)
+                        .background(colors.secondary, RoundedCornerShape(16.dp))
+                        .padding(horizontal = 20.dp)
+                ) {
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    DefaultButton("From Gallery") {
+                        val intent = viewModel.getGalleryIntent()
+                        galleryLauncher.launch(intent)
+                        viewModel.closeChangeImageDialog()
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    DefaultButton("Take photo") {
+                        val uri = viewModel.createCameraUri()
+                        cameraLauncher.launch(uri)
+                        viewModel.closeChangeImageDialog()
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    DefaultButton("Cancel") {
+                        viewModel.closeChangeImageDialog()
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
                 }
             }
         }
