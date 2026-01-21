@@ -35,11 +35,8 @@ import com.profs.languageapp.R
 import com.profs.languageapp.data.utils.Destinations
 import com.profs.languageapp.presentation.composable.DefaultButton
 import com.profs.languageapp.presentation.composable.DefaultTextField
-import com.profs.languageapp.presentation.theme.Blue
-import com.profs.languageapp.presentation.theme.DarkLighter
 import com.profs.languageapp.presentation.theme.DeepBlue
 import com.profs.languageapp.presentation.theme.DefaultWhite
-import com.profs.languageapp.presentation.theme.GrayDark
 import com.profs.languageapp.presentation.theme.Red
 import com.profs.languageapp.presentation.theme.Typography
 
@@ -154,7 +151,7 @@ fun LoginScreen(
                 )
                 Text(
                     stringResource(R.string.signup),
-                    style = Typography.bodyLarge.copy(color = Blue),
+                    style = Typography.bodyLarge.copy(color = colors.tertiary),
                     modifier = Modifier.clickable { navController.navigate(Destinations.Signup) })
             }
 

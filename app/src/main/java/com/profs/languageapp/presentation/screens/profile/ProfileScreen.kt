@@ -154,7 +154,7 @@ fun ProfileScreen(
                 ) {
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    DefaultButton("From Gallery") {
+                    DefaultButton(stringResource(R.string.from_gallery)) {
                         val intent = viewModel.getGalleryIntent()
                         galleryLauncher.launch(intent)
                         viewModel.closeChangeImageDialog()
@@ -162,7 +162,7 @@ fun ProfileScreen(
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    DefaultButton("Take photo") {
+                    DefaultButton(stringResource(R.string.take_photo)) {
                         val uri = viewModel.createCameraUri()
                         cameraLauncher.launch(uri)
                         viewModel.closeChangeImageDialog()
@@ -170,7 +170,7 @@ fun ProfileScreen(
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    DefaultButton("Cancel") {
+                    DefaultButton(stringResource(R.string.cancel)) {
                         viewModel.closeChangeImageDialog()
                     }
 

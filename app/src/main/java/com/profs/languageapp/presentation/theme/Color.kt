@@ -26,3 +26,5 @@ val DarkLight = Color(0xFF1B2336)
 val DarkLighter = Color(0xFF363B44)
 
 val SomeColorThatIsNOTInList = Color(0xFFB6B6B6) //🐻‍❄️
+
+val AnotherColorThatIsNOTInList = Color(0xFF1B1815)

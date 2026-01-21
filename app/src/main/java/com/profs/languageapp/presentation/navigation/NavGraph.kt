@@ -1,6 +1,7 @@
 package com.profs.languageapp.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -62,8 +63,12 @@ fun NavGraph(
             ProfileScreen(navController, theme, viewModel)
         }
 
-        composable<Destinations.ProfileResizePhoto> {
-            val viewModel: ProfileViewModel = hiltViewModel()
+        composable<Destinations.ProfileResizePhoto> { backStackEntry ->
+            val parentEntry = remember(backStackEntry) {
+                navController.getBackStackEntry(Destinations.Profile)
+            }
+
+            val viewModel: ProfileViewModel = hiltViewModel(parentEntry)
             ProfileResizePhotoScreen(navController, viewModel)
         }
 
