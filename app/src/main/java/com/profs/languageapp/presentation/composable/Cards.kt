@@ -61,7 +61,7 @@ fun LanguageCard(
 }
 
 @Composable
-fun ExcersiseCard(excersise: Excersise) {
+fun ExcersiseCard(excersise: Excersise, onClick: () -> Unit) {
 
     Column(
         modifier = Modifier
@@ -69,9 +69,7 @@ fun ExcersiseCard(excersise: Excersise) {
             .background(excersise.color, RoundedCornerShape(20.dp))
             .clip(RoundedCornerShape(20.dp))
             .padding(horizontal = 12.dp)
-            .clickable {
-
-            },
+            .clickable(onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(

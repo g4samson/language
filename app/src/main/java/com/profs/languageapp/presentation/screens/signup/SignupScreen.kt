@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -54,6 +55,15 @@ fun SignupScreen(
     val firstName by viewModel.firstName.collectAsState()
     val lastName by viewModel.lastName.collectAsState()
     val passwordState by viewModel.passwordState.collectAsState()
+    val page by viewModel.page.collectAsState()
+
+    LaunchedEffect(page) {
+        if (page == 1) {
+            viewModel.onPasswordStateChange(true)
+        } else {
+            viewModel.onPasswordStateChange(false)
+        }
+    }
 
     val emailError by viewModel.emailError.collectAsState()
     val passwordError by viewModel.passwordError.collectAsState()
@@ -63,7 +73,6 @@ fun SignupScreen(
     val colors = MaterialTheme.colorScheme
 
     var checked by remember { mutableStateOf(false) }
-
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         TopAppBar(
@@ -81,7 +90,14 @@ fun SignupScreen(
             }, modifier = Modifier
                 .fillMaxWidth()
                 .height(102.dp), navigationIcon = {
-                IconButton(onClick = { if (passwordState) viewModel.onPasswordStateChange(false) else navController.navigateUp() }) {
+                IconButton(onClick = {
+                    if (passwordState) {
+                        viewModel.onPasswordStateChange(false)
+                        viewModel.saveCurrentPage(0)
+                    } else {
+                        navController.navigateUp()
+                    }
+                }) {
                     Icon(
                         painter = painterResource(R.drawable.icon_back),
                         tint = DefaultWhite,
@@ -158,6 +174,7 @@ fun SignupScreen(
                     viewModel.onPasswordStateChange(
                         true
                     )
+                    viewModel.saveCurrentPage(1)
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))

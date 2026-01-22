@@ -12,6 +12,18 @@ class ValidateInputUseCase @Inject constructor() {
     }
 
     fun isPasswordValid(password: String): Boolean {
-        return password.length >= 8
+        if (password.length < 8) return false
+
+        val hasUpperCase = password.any { it.isUpperCase() }
+        val hasLowerCase = password.any { it.isLowerCase() }
+        val hasDigit = password.any { it.isDigit() }
+        val hasSpace = password.any { it == ' ' }
+        val hasSpecialChar = password.any { !it.isLetterOrDigit() && it != ' ' }
+
+        return hasUpperCase &&
+                hasLowerCase &&
+                hasDigit &&
+                hasSpace &&
+                hasSpecialChar
     }
 }

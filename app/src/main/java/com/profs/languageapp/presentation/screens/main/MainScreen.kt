@@ -135,7 +135,9 @@ fun MainScreen(
                     horizontalArrangement = Arrangement.spacedBy(21.dp)
                 ) {
                     items(excersiseList) { excersise ->
-                        ExcersiseCard(excersise)
+                        ExcersiseCard(excersise) {
+                            navController.navigate(excersise.dest)
+                        }
                     }
                 }
             }

@@ -27,4 +27,17 @@ sealed class Destinations {
 
     @Serializable
     data object LanguageSelect : Destinations()
+
+
+    @Serializable
+    data object ExcerciseAnimals : Destinations()
+
+    @Serializable
+    data object ExcerciseWordPractice : Destinations()
+
+    @Serializable
+    data object Game : Destinations()
+
+    @Serializable
+    data object ExcerciseListening : Destinations()
 }

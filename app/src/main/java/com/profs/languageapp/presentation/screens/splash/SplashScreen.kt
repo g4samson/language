@@ -64,7 +64,7 @@ fun SplashScreen(
         val destination = when {
             !skipOnboarding -> Destinations.Onboarding
             !isLanguageSelected -> Destinations.LanguageSelect
-            else -> Destinations.Login
+            else -> Destinations.Signup
         }
 
         navController.navigate(destination) {

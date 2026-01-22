@@ -5,6 +5,7 @@ import com.profs.languageapp.data.models.Excersise
 import com.profs.languageapp.data.models.Language
 import com.profs.languageapp.data.models.Page
 import com.profs.languageapp.data.models.User
+import com.profs.languageapp.data.utils.Destinations
 import com.profs.languageapp.presentation.theme.Blue
 import com.profs.languageapp.presentation.theme.Green
 import com.profs.languageapp.presentation.theme.Orange
@@ -22,10 +23,10 @@ class LocalDataSource @Inject constructor() {
     )
 
     fun getExercises() = listOf(
-        Excersise("Guess the animal", R.drawable.ex_bear, Blue),
-        Excersise("Word practice", R.drawable.ex_pen, Red),
-        Excersise("Audition", R.drawable.ex_audio, Orange),
-        Excersise("Game", R.drawable.ex_game, Green),
+        Excersise("Guess the animal", R.drawable.ex_bear, Blue, Destinations.ExcerciseAnimals),
+        Excersise("Word practice", R.drawable.ex_pen, Red, Destinations.ExcerciseWordPractice),
+        Excersise("Audition", R.drawable.ex_audio, Orange, Destinations.ExcerciseListening),
+        Excersise("Game", R.drawable.ex_game, Green, Destinations.Game),
     )
 
     fun getOnboardingPages() = listOf(

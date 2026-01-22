@@ -34,6 +34,14 @@ class OnboardingViewModel @Inject constructor(
     private val KEY_PAGE = intPreferencesKey("onboarding_page")
     private val KEY_COMPLETED = booleanPreferencesKey("onboarding_completed")
 
+
+
+
+    //При перезапуске отображается следующий набор изображения и текста, на котором остановился пользователь
+
+
+
+
     val page = dataStore.data.map { it[KEY_PAGE] ?: 0 }
         .stateIn(viewModelScope, Eagerly, 0)
 
