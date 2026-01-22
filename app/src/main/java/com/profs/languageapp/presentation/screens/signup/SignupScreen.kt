@@ -102,14 +102,17 @@ fun SignupScreen(
             if (passwordState == false) {
                 Spacer(modifier = Modifier.height(40.dp))
 
-                Text(stringResource(R.string.create_account), style = Typography.titleLarge)
+                Text(
+                    stringResource(R.string.create_account),
+                    style = Typography.titleLarge.copy(color = colors.primary)
+                )
 
                 Spacer(modifier = Modifier.height(32.dp))
 
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Text(
                         stringResource(R.string.first_name),
-                        style = Typography.bodyMedium.copy(color = DarkLighter)
+                        style = Typography.bodyMedium.copy(color = colors.secondary)
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -124,7 +127,7 @@ fun SignupScreen(
 
                     Text(
                         stringResource(R.string.last_name),
-                        style = Typography.bodyMedium.copy(color = DarkLighter)
+                        style = Typography.bodyMedium.copy(color = colors.secondary)
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -135,7 +138,7 @@ fun SignupScreen(
 
                     Text(
                         stringResource(R.string.email_address),
-                        style = Typography.bodyMedium.copy(color = DarkLighter)
+                        style = Typography.bodyMedium.copy(color = colors.secondary)
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -166,7 +169,7 @@ fun SignupScreen(
                     Text(
                         stringResource(R.string.already_member) + " ",
                         style = Typography.bodyLarge.copy(
-                            color = GrayDark,
+                            color = colors.primary.copy(alpha = 0.6f),
                             fontWeight = FontWeight.Normal
                         )
                     )
@@ -179,14 +182,17 @@ fun SignupScreen(
             } else {
                 Spacer(modifier = Modifier.height(40.dp))
 
-                Text(stringResource(R.string.choose_password), style = Typography.titleLarge)
+                Text(
+                    stringResource(R.string.choose_password),
+                    style = Typography.titleLarge.copy(color = colors.primary)
+                )
 
                 Spacer(modifier = Modifier.height(32.dp))
 
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Text(
                         stringResource(R.string.password),
-                        style = Typography.bodyMedium.copy(color = DarkLighter)
+                        style = Typography.bodyMedium.copy(color = colors.secondary)
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -201,7 +207,7 @@ fun SignupScreen(
 
                     Text(
                         stringResource(R.string.confirm_password),
-                        style = Typography.bodyMedium.copy(color = DarkLighter)
+                        style = Typography.bodyMedium.copy(color = colors.secondary)
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -214,15 +220,17 @@ fun SignupScreen(
 
                     Spacer(modifier = Modifier.height(25.dp))
 
-                    Row(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 5.dp)) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 5.dp)
+                    ) {
                         Checkbox { checked = !checked }
                         Text(
                             " " + stringResource(R.string.i),
                             style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
-                                color = GrayDark
+                                color = colors.primary.copy(alpha = 0.6f)
                             )
                         )
                         Text(
@@ -233,9 +241,11 @@ fun SignupScreen(
                             ), modifier = Modifier.clickable { viewModel.onRulesClick(context) }
                         )
                     }
-                    Row(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 5.dp)) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 5.dp)
+                    ) {
                         Text(
                             stringResource(R.string.the_rules), style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
@@ -245,7 +255,7 @@ fun SignupScreen(
                             " " + stringResource(R.string.accept_rules),
                             style = Typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Normal,
-                                color = GrayDark
+                                color = colors.primary.copy(alpha = 0.6f)
                             )
                         )
                     }
@@ -268,7 +278,7 @@ fun SignupScreen(
                     Text(
                         stringResource(R.string.already_member) + " ",
                         style = Typography.bodyLarge.copy(
-                            color = GrayDark,
+                            color = colors.primary.copy(alpha = 0.6f),
                             fontWeight = FontWeight.Normal
                         )
                     )

@@ -1,5 +1,6 @@
 package com.profs.languageapp.presentation.composable
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,6 +32,7 @@ import com.profs.languageapp.presentation.theme.DefaultBlack
 import com.profs.languageapp.presentation.theme.GrayLight
 import com.profs.languageapp.presentation.theme.Orange
 import com.profs.languageapp.presentation.theme.Typography
+
 
 @Composable
 fun LanguageCard(
@@ -50,7 +53,10 @@ fun LanguageCard(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Spacer(modifier = Modifier.width(15.dp))
-        Text(stringResource(language.displayNameResId), style = Typography.titleLarge)
+        Text(
+            stringResource(language.displayNameResId),
+            style = Typography.titleLarge.copy(color = MaterialTheme.colorScheme.primary)
+        )
     }
 }
 
@@ -117,52 +123,3 @@ fun TopUserCard(topUser: User) {
         }
     }
 }
-
-//@Composable
-//fun LeaderboardWidgetCard(index: Int, user: User) {
-//
-//    Row(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .height(38.dp)
-//            .background(GrayLight, RoundedCornerShape(20.dp))
-//            .clip(RoundedCornerShape(20.dp)),
-//        verticalAlignment = Alignment.CenterVertically,
-//        horizontalArrangement = Arrangement.SpaceBetween
-//    ) {
-//        Row {
-//            Spacer(modifier = Modifier.width(11.dp))
-//
-//            Text(
-//                index.toString(),
-//                style = Typography.bodyLarge.copy(
-//                    color = DefaultBlack,
-//                    textAlign = TextAlign.Start
-//                ),
-//            )
-//
-//            Spacer(modifier = Modifier.width(7.dp))
-//
-//            Image(
-//                painterResource(user.image),
-//                contentDescription = null,
-//                modifier = Modifier.size(36.dp)
-//            )
-//        }
-//
-//        Text(
-//            user.name,
-//            style = Typography.bodyLarge.copy(color = DefaultBlack, textAlign = TextAlign.Start),
-//            modifier = Modifier.width(150.dp)
-//        )
-//
-//        Row {
-//            Text(
-//                "${user.points} points",
-//                style = Typography.bodyLarge.copy(color = DefaultBlack)
-//            )
-//
-//            Spacer(modifier = Modifier.width(17.dp))
-//        }
-//    }
-//}
