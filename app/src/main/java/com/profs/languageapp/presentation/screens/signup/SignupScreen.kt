@@ -134,9 +134,10 @@ fun SignupScreen(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     DefaultTextField(
-                        "Your First Name",
-                        "",
-                        false
+                        label = "Your First Name",
+                        value = firstName,
+                        type= "",
+                        isError = false
                     ) { viewModel.onFirstNameChange(it) }
 
                     Spacer(modifier = Modifier.height(24.dp))
@@ -148,7 +149,7 @@ fun SignupScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    DefaultTextField("Your Last Name", "", false) { viewModel.onLastNameChange(it) }
+                    DefaultTextField("Your Last Name", lastName,"", false) { viewModel.onLastNameChange(it) }
 
                     Spacer(modifier = Modifier.height(24.dp))
 
@@ -161,6 +162,7 @@ fun SignupScreen(
 
                     DefaultTextField(
                         label = "Email",
+                        value = email,
                         type = "email",
                         isError = emailError,
                     ) {
@@ -216,6 +218,7 @@ fun SignupScreen(
 
                     DefaultTextField(
                         "● ● ● ● ● ● ●",
+                        "",
                         "password",
                         isError = passwordError
                     ) { viewModel.onPasswordChange(it) }
@@ -231,6 +234,7 @@ fun SignupScreen(
 
                     DefaultTextField(
                         "● ● ● ● ● ● ●",
+                        "",
                         "password",
                         isError = passwordError
                     ) { viewModel.onConfirmPasswordChange(it) }

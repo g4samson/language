@@ -109,6 +109,7 @@ fun LoginScreen(
 
                 DefaultTextField(
                     label = "Email",
+                    value = email,
                     type = "email",
                     isError = emailError,
                 ) {
@@ -123,6 +124,7 @@ fun LoginScreen(
 
                 DefaultTextField(
                     "● ● ● ● ● ● ●",
+                    value = password,
                     "password",
                     isError = passwordError
                 ) { viewModel.onPasswordChange(it) }

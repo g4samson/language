@@ -39,11 +39,12 @@ import com.profs.languageapp.presentation.theme.Typography
 @Composable
 fun DefaultTextField(
     label: String,
+    value: String,
     type: String,
     isError: Boolean,
     onValueChange: (String) -> Unit
 ) {
-    var textFieldValue by remember { mutableStateOf("") }
+    var textFieldValue by remember { mutableStateOf(value) }
     var passwordVisible by remember { mutableStateOf(false) }
     var isFocused by remember { mutableStateOf(false) }
 
