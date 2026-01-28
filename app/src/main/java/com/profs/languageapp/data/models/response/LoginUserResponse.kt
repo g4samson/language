@@ -1,6 +1,7 @@
-package com.profs.languageapp.data.models
+package com.profs.languageapp.data.models.response
 
-data class User(
+
+data class LoginUserResponse (
     val id: Long,
     val email: String,
     val firstName: String,

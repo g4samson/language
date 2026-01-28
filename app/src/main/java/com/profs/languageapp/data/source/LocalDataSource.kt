@@ -52,10 +52,4 @@ class LocalDataSource @Inject constructor() {
             R.string.choose_language
         ),
     )
-
-    fun getTopUsers() = listOf(
-        User("Vincent van Gogh", R.drawable.user_1, 12),
-        User("Dmitri Ivanovich Mendeleev", R.drawable.user_2, 10),
-        User("Vlad Tepes", R.drawable.user_3, 8),
-    )
 }

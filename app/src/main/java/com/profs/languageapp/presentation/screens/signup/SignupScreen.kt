@@ -54,6 +54,8 @@ fun SignupScreen(
     val email by viewModel.email.collectAsState()
     val firstName by viewModel.firstName.collectAsState()
     val lastName by viewModel.lastName.collectAsState()
+    val password by viewModel.password.collectAsState()
+    val confirmPassword by viewModel.confirmPassword.collectAsState()
     val passwordState by viewModel.passwordState.collectAsState()
     val page by viewModel.page.collectAsState()
 
@@ -67,6 +69,8 @@ fun SignupScreen(
 
     val emailError by viewModel.emailError.collectAsState()
     val passwordError by viewModel.passwordError.collectAsState()
+    val conError by viewModel.conError.collectAsState()
+
 
     val context = LocalContext.current
 
@@ -136,7 +140,7 @@ fun SignupScreen(
                     DefaultTextField(
                         label = "Your First Name",
                         value = firstName,
-                        type= "",
+                        type = "",
                         isError = false
                     ) { viewModel.onFirstNameChange(it) }
 
@@ -149,7 +153,12 @@ fun SignupScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    DefaultTextField("Your Last Name", lastName,"", false) { viewModel.onLastNameChange(it) }
+                    DefaultTextField(
+                        "Your Last Name",
+                        lastName,
+                        "",
+                        false
+                    ) { viewModel.onLastNameChange(it) }
 
                     Spacer(modifier = Modifier.height(24.dp))
 
@@ -172,7 +181,10 @@ fun SignupScreen(
 
                 Spacer(modifier = Modifier.height(34.dp))
 
-                DefaultButton(stringResource(R.string.continue_btn)) {
+                DefaultButton(
+                    stringResource(R.string.continue_btn),
+                    enabled = !emailError && firstName.isNotEmpty() && lastName.isNotEmpty() && email.isNotEmpty()
+                ) {
                     viewModel.onPasswordStateChange(
                         true
                     )
@@ -236,8 +248,8 @@ fun SignupScreen(
                         "● ● ● ● ● ● ●",
                         "",
                         "password",
-                        isError = passwordError
-                    ) { viewModel.onConfirmPasswordChange(it) }
+                        isError = conError
+                    ) { viewModel.onConfirmPasswordChange(it, password) }
 
                     Spacer(modifier = Modifier.height(25.dp))
 
@@ -269,8 +281,7 @@ fun SignupScreen(
                     ) {
                         Text(
                             stringResource(R.string.the_rules), style = Typography.bodyLarge.copy(
-                                fontWeight = FontWeight.Normal,
-                                color = Blue
+                                fontWeight = FontWeight.Normal, color = Blue
                             ), modifier = Modifier.clickable { viewModel.onRulesClick(context) })
                         Text(
                             " " + stringResource(R.string.accept_rules),
@@ -284,10 +295,13 @@ fun SignupScreen(
 
                 Spacer(modifier = Modifier.height(73.dp))
 
-                DefaultButton(stringResource(R.string.signup)) {
-                    viewModel.onPasswordStateChange(
-                        true
-                    )
+                DefaultButton(
+                    stringResource(R.string.signup),
+                    enabled = checked && !conError && !passwordError && password.isNotEmpty() && confirmPassword.isNotEmpty()
+                ) {
+                    viewModel.registerUser(email, firstName, lastName, password)
+                    navController.navigate(Destinations.Login)
+                    viewModel.onPasswordStateChange(false)
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))

@@ -1,7 +1,10 @@
 package com.profs.languageapp.presentation.screens.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.profs.languageapp.data.models.User
+import com.profs.languageapp.data.repository.UserRepository
 import com.profs.languageapp.domain.service.DomainService
 import com.profs.languageapp.domain.usecase.ValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val service: DomainService,
-    private val validateInputUseCase: ValidateInputUseCase
+    private val validateInputUseCase: ValidateInputUseCase,
+    private val repository: UserRepository
 ) : ViewModel() {
 
     private val _email = MutableStateFlow("")
@@ -38,12 +42,21 @@ class LoginViewModel @Inject constructor(
         _passwordError.value = !validateInputUseCase.isPasswordValid(password)
     }
 
-    fun onSignIn(onResult: (Boolean) -> Unit) {
-        viewModelScope.launch {
-            //val success = service.signIn(email = _email.value, password = _password.value)
-            //onResult(success)
-        }
-        //Log.d("GAV", "${_email.value} || ${_password.value}")
+
+    suspend fun loginUser(email: String, password: String): Boolean {
+        val response = service.loginUser(email, password) // suspend функция
+        return if (response != null) {
+            repository.setUser(User(
+                id = response.id,
+                email = response.email,
+                firstName = response.firstName,
+                lastName = response.lastName,
+                languageCode = response.languageCode,
+                rating = response.rating,
+                image = response.image
+            ))
+            true
+        } else false
     }
 
 }

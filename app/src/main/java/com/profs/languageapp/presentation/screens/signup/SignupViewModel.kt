@@ -2,6 +2,7 @@ package com.profs.languageapp.presentation.screens.signup
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
@@ -74,17 +75,19 @@ class SignupViewModel @Inject constructor(
         _lastName.value = lastName
     }
 
-
-    fun onConfirmPasswordChange(confirmPassword: String) {
-        _confirmPassword.value = confirmPassword
-    }
-
-
     private val _emailError = MutableStateFlow(false)
     val emailError = _emailError.asStateFlow()
 
     private val _passwordError = MutableStateFlow(false)
     val passwordError = _passwordError.asStateFlow()
+
+    private val _conError = MutableStateFlow(false)
+    val conError = _conError.asStateFlow()
+
+    fun onConfirmPasswordChange(confirmPassword: String, password: String) {
+        _confirmPassword.value = confirmPassword
+        _conError.value = !validateInputUseCase.confirmedPassword(confirmPassword, password)
+    }
 
     fun onEmailChange(email: String) {
         _email.value = email
@@ -101,6 +104,23 @@ class SignupViewModel @Inject constructor(
             context = context,
             fileName = "example.pdf"
         )
+    }
+
+    fun registerUser(email: String, firstName: String, lastName: String, password: String) {
+        viewModelScope.launch {
+            val response = service.registerUser(
+                email = email,
+                firstName = firstName,
+                lastName = lastName,
+                languageCode = "en",
+                password = password
+            )
+            if (response != null) {
+                Log.i("WW","User registered: ${response.email}")
+            } else {
+                Log.e("WW","FAILED registered")
+            }
+        }
     }
 
 }

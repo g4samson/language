@@ -1,6 +1,9 @@
 package com.profs.languageapp.presentation.composable
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,14 +23,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.profs.languageapp.data.models.Excersise
 import com.profs.languageapp.data.models.Language
 import com.profs.languageapp.data.models.User
+import com.profs.languageapp.data.models.response.CategoryResponse
+import com.profs.languageapp.data.models.response.UserRatingResponse
 import com.profs.languageapp.presentation.theme.DefaultBlack
 import com.profs.languageapp.presentation.theme.GrayLight
 import com.profs.languageapp.presentation.theme.Orange
@@ -61,30 +68,46 @@ fun LanguageCard(
 }
 
 @Composable
-fun ExcersiseCard(excersise: Excersise, onClick: () -> Unit) {
+fun CategoryCard(category: CategoryResponse, onClick: () -> Unit) {
 
     Column(
         modifier = Modifier
             .size(width = 153.dp, height = 117.dp)
-            .background(excersise.color, RoundedCornerShape(20.dp))
             .clip(RoundedCornerShape(20.dp))
+            .background(DefaultBlack)
             .padding(horizontal = 12.dp)
             .clickable(onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(excersise.image),
-            contentDescription = null,
+        Base64Image(
+            base64 = category.image,
             modifier = Modifier.size(90.dp),
-            contentScale = ContentScale.FillWidth
         )
         Spacer(modifier = Modifier.height(5.dp))
-        Text(excersise.name, style = Typography.bodySmall)
+        Text(category.name, style = Typography.bodySmall)
     }
 }
 
 @Composable
-fun TopUserCard(topUser: User) {
+fun Base64Image(base64: String, modifier: Modifier = Modifier) {
+    val bitmap = runCatching {
+        val pureBase64 = base64.substringAfter(",")
+        val bytes = Base64.decode(pureBase64, Base64.DEFAULT)
+        BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            ?.copy(Bitmap.Config.ARGB_8888, true)
+    }.getOrNull()
+
+    bitmap?.let {
+        Image(
+            bitmap = it.asImageBitmap(),
+            contentDescription = null,
+            modifier = modifier
+        )
+    }
+}
+
+@Composable
+fun MainUserCard(user: UserRatingResponse) {
 
     Row(
         modifier = Modifier
@@ -98,22 +121,22 @@ fun TopUserCard(topUser: User) {
         Row {
             Spacer(modifier = Modifier.width(17.dp))
 
-            Image(
-                painterResource(topUser.image),
+            AsyncImage(
+                model = user.image,
                 contentDescription = null,
                 modifier = Modifier.size(36.dp)
             )
         }
 
         Text(
-            topUser.name,
+            user.firstName,
             style = Typography.bodyLarge.copy(color = DefaultBlack, textAlign = TextAlign.Start),
             modifier = Modifier.width(150.dp)
         )
 
         Row {
             Text(
-                "${topUser.points} points",
+                "${user.rating} points",
                 style = Typography.bodyLarge.copy(color = DefaultBlack)
             )
 

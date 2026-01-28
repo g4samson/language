@@ -1,6 +1,5 @@
 package com.profs.languageapp.presentation.screens.main
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,19 +22,19 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.profs.languageapp.R
 import com.profs.languageapp.data.utils.Destinations
-import com.profs.languageapp.presentation.composable.ExcersiseCard
-import com.profs.languageapp.presentation.composable.TopUserCard
+import com.profs.languageapp.presentation.composable.CategoryCard
+import com.profs.languageapp.presentation.composable.MainUserCard
 import com.profs.languageapp.presentation.theme.DeepBlue
 import com.profs.languageapp.presentation.theme.DefaultWhite
-import com.profs.languageapp.presentation.theme.GrayDark
 import com.profs.languageapp.presentation.theme.SomeColorThatIsNOTInList
 import com.profs.languageapp.presentation.theme.Typography
 
@@ -45,8 +44,10 @@ fun MainScreen(
     navController: NavHostController,
     viewModel: MainViewModel
 ) {
-    val excersiseList = viewModel.excersiseList.collectAsState(initial = listOf()).value
-    val topUserList = viewModel.topUserList.collectAsState(initial = listOf()).value
+    val user by viewModel.currentUser.collectAsState()
+
+    val categoriesList = viewModel.categoriesList.collectAsState(initial = listOf()).value
+    val userRatingList = viewModel.userRatingList.collectAsState(initial = listOf()).value
 
     val colors = MaterialTheme.colorScheme
 
@@ -60,17 +61,18 @@ fun MainScreen(
                         horizontalAlignment = Alignment.Start
                     ) {
                         Spacer(modifier = Modifier.height(20.dp))
-                        Image(
-                            painterResource(R.drawable.user_0),
-                            contentDescription = null,
+
+                        AsyncImage(
+                            model = user?.image,
+                            contentDescription = user?.firstName,
                             modifier = Modifier
                                 .size(54.dp)
-                                .clickable { navController.navigate(Destinations.Profile) }
-                        )
+                                .clickable { navController.navigate(Destinations.Profile) })
+
                         Spacer(modifier = Modifier.height(5.dp))
 
                         Text(
-                            stringResource(R.string.hello_user, "Emil"),
+                            stringResource(R.string.hello_user, "${user?.firstName}"),
                             style = Typography.titleLarge.copy(color = DefaultWhite)
                         )
 
@@ -107,13 +109,13 @@ fun MainScreen(
 
             Spacer(modifier = Modifier.height(5.dp))
 
-            if (topUserList?.isNotEmpty() == true) {
+            if (userRatingList?.isNotEmpty() == true) {
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(topUserList) { topUser ->
-                        TopUserCard(topUser)
+                    items(userRatingList) { user ->
+                        MainUserCard(user)
                     }
                 }
             }
@@ -127,16 +129,36 @@ fun MainScreen(
 
             Spacer(modifier = Modifier.height(9.dp))
 
-            if (excersiseList?.isNotEmpty() == true) {
+            if (categoriesList?.isNotEmpty() == true) {
                 LazyVerticalGrid(
                     modifier = Modifier.fillMaxWidth(),
                     columns = GridCells.Fixed(2),
                     verticalArrangement = Arrangement.spacedBy(17.dp),
                     horizontalArrangement = Arrangement.spacedBy(21.dp)
                 ) {
-                    items(excersiseList) { excersise ->
-                        ExcersiseCard(excersise) {
-                            navController.navigate(excersise.dest)
+                    items(categoriesList) { category ->
+                        CategoryCard(category) {
+                            navController.navigate(
+                                when (category.name) {
+                                    "Guess the animal" -> {
+                                        Destinations.ExcerciseAnimals
+                                    }
+
+                                    "Word practice" -> {
+                                        Destinations.ExcerciseWordPractice
+                                    }
+
+                                    "Audition" -> {
+                                        Destinations.ExcerciseListening
+                                    }
+
+                                    "Game" -> {
+                                        Destinations.Game
+                                    }
+
+                                    else -> {}
+                                }
+                            )
                         }
                     }
                 }

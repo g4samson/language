@@ -31,6 +31,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.profs.languageapp.R
 import com.profs.languageapp.data.utils.Destinations
 import com.profs.languageapp.presentation.composable.DefaultButton
@@ -45,6 +46,8 @@ fun ProfileScreen(
     themeViewModel: ThemeViewModel,
     viewModel: ProfileViewModel
 ) {
+    val user by viewModel.currentUser.collectAsState()
+
     val changeState by viewModel.changeState.collectAsState()
     val isDarkTheme by themeViewModel.isDarkTheme.collectAsState()
     val colors = MaterialTheme.colorScheme
@@ -85,15 +88,15 @@ fun ProfileScreen(
                         horizontalAlignment = Alignment.Start
                     ) {
                         Spacer(modifier = Modifier.height(20.dp))
-                        Image(
-                            painterResource(R.drawable.user_0),
+                        AsyncImage(
+                            model = user?.image,
                             contentDescription = null,
                             modifier = Modifier.size(134.dp)
                         )
                         Spacer(modifier = Modifier.height(5.dp))
 
                         Text(
-                            stringResource(R.string.your_profile, "Emil"),
+                            stringResource(R.string.your_profile, "${user?.firstName}"),
                             style = Typography.titleLarge.copy(color = DefaultWhite)
                         )
 

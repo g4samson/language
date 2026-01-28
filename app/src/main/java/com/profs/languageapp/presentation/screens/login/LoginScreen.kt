@@ -1,5 +1,6 @@
 package com.profs.languageapp.presentation.screens.login
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +24,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -39,6 +41,7 @@ import com.profs.languageapp.presentation.theme.DeepBlue
 import com.profs.languageapp.presentation.theme.DefaultWhite
 import com.profs.languageapp.presentation.theme.Red
 import com.profs.languageapp.presentation.theme.Typography
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,6 +55,8 @@ fun LoginScreen(
     val passwordError by viewModel.passwordError.collectAsState()
 
     val colors = MaterialTheme.colorScheme
+
+    val scope = rememberCoroutineScope()
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         TopAppBar(
@@ -98,12 +103,18 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Text(stringResource(R.string.login_title), style = Typography.titleLarge.copy(color = colors.primary))
+            Text(
+                stringResource(R.string.login_title),
+                style = Typography.titleLarge.copy(color = colors.primary)
+            )
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Column(modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.email_address), style = Typography.bodyMedium.copy(color = colors.secondary))
+                Text(
+                    stringResource(R.string.email_address),
+                    style = Typography.bodyMedium.copy(color = colors.secondary)
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -118,7 +129,10 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                Text(stringResource(R.string.password), style = Typography.bodyMedium.copy(color = colors.secondary))
+                Text(
+                    stringResource(R.string.password),
+                    style = Typography.bodyMedium.copy(color = colors.secondary)
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -139,13 +153,25 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            DefaultButton(stringResource(R.string.login)) { navController.navigate(Destinations.Main) }
+            DefaultButton(
+                stringResource(R.string.login),
+                enabled = !passwordError && !emailError && password.isNotEmpty() && email.isNotEmpty()
+            ) {
+                scope.launch {
+                    val success = viewModel.loginUser(email, password)
+                    if (success) {
+                        navController.navigate(Destinations.Main)
+                    } else {
+                        Log.e("WW", "FAILED login")
+                    }
+                }
+            }
 
             Spacer(modifier = Modifier.height(24.dp))
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Text(
-                    stringResource(R.string.not_member)+" ",
+                    stringResource(R.string.not_member) + " ",
                     style = Typography.bodyLarge.copy(
                         color = colors.primary.copy(alpha = 0.6f),
                         fontWeight = FontWeight.Normal

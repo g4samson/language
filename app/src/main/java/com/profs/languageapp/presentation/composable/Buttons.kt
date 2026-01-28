@@ -18,7 +18,8 @@ import com.profs.languageapp.presentation.theme.Typography
 @Composable
 fun DefaultButton(
     text: String,
-    onClick: () -> Unit
+    enabled : Boolean = true,
+    onClick: () -> Unit,
 ) {
     Button(
         onClick = onClick,
@@ -27,7 +28,7 @@ fun DefaultButton(
             .height(56.dp)
             .background(Blue, RoundedCornerShape(12.dp))
             .clip(RoundedCornerShape(12.dp)),
-        colors = ButtonDefaults.buttonColors(Blue)
+        colors = ButtonDefaults.buttonColors(Blue), enabled = enabled
     ) {
         Text(text, style = Typography.displayMedium.copy(color = DefaultWhite))
     }

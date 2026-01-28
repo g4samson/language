@@ -22,7 +22,7 @@ import com.profs.languageapp.presentation.theme.Blue
 import com.profs.languageapp.presentation.theme.DefaultWhite
 
 @Composable
-fun Checkbox(onValueChange: (Boolean) -> Unit) {
+fun Checkbox(onValueChange: () -> Unit) {
     var checked by remember { mutableStateOf(false) }
 
     Box(
@@ -35,7 +35,10 @@ fun Checkbox(onValueChange: (Boolean) -> Unit) {
                 Blue,
                 RoundedCornerShape(4.dp)
             )
-            .clickable { checked = !checked },
+            .clickable {
+                checked = !checked
+                onValueChange()
+            },
         contentAlignment = Alignment.Center
     ) {
         if (checked) {
