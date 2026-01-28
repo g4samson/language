@@ -11,6 +11,7 @@ import com.profs.languageapp.data.utils.Destinations
 import com.profs.languageapp.presentation.screens.excerciseListening.ExcerciseListeningScreen
 import com.profs.languageapp.presentation.screens.excerciseWordPractice.ExcerciseWordPracticeScreen
 import com.profs.languageapp.presentation.screens.exerciseAnimals.ExcerciseAnimalsScreen
+import com.profs.languageapp.presentation.screens.game.ExcersiseViewModel
 import com.profs.languageapp.presentation.screens.game.GameScreen
 import com.profs.languageapp.presentation.screens.languageSelect.LanguageSelectScreen
 import com.profs.languageapp.presentation.screens.languageSelect.LanguageSelectViewModel
@@ -83,23 +84,23 @@ fun NavGraph(
 
 
         composable<Destinations.ExcerciseAnimals> {
-            //val viewModel: ExcerciseViewModel = hiltViewModel()
-            ExcerciseAnimalsScreen(navController)
+            val viewModel: ExcersiseViewModel = hiltViewModel()
+            ExcerciseAnimalsScreen(navController, viewModel)
         }
 
         composable<Destinations.ExcerciseWordPractice> {
-            //val viewModel: ExcerciseViewModel = hiltViewModel()
-            ExcerciseWordPracticeScreen(navController)
+            val viewModel: ExcersiseViewModel = hiltViewModel()
+            ExcerciseWordPracticeScreen(navController, viewModel)
         }
 
         composable<Destinations.Game> {
-            //val viewModel: ExcerciseViewModel = hiltViewModel()
-            GameScreen(navController)
+            val viewModel: ExcersiseViewModel = hiltViewModel()
+            GameScreen(navController, viewModel)
         }
 
         composable<Destinations.ExcerciseListening> {
-            //val viewModel: ExcerciseViewModel = hiltViewModel()
-            ExcerciseListeningScreen(navController)
+            val viewModel: ExcersiseViewModel = hiltViewModel()
+            ExcerciseListeningScreen(navController, viewModel)
         }
     }
 

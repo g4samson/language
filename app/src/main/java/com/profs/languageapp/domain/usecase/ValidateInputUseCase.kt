@@ -26,4 +26,8 @@ class ValidateInputUseCase @Inject constructor() {
                 hasSpace &&
                 hasSpecialChar
     }
+
+    fun confirmedPassword(password: String, confirmation: String) : Boolean {
+        if (password == confirmation) return true else return false
+    }
 }

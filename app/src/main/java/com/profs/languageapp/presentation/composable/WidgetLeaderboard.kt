@@ -28,7 +28,9 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import com.profs.languageapp.data.models.User
+import com.profs.languageapp.data.models.response.UserRatingResponse
 import com.profs.languageapp.data.source.LocalDataSource
+import com.profs.languageapp.domain.service.DomainServiceImpl
 import com.profs.languageapp.presentation.theme.DeepBlue
 import com.profs.languageapp.presentation.theme.DefaultBlack
 import com.profs.languageapp.presentation.theme.DefaultWhite
@@ -42,8 +44,8 @@ class WidgetLeaderboard : GlanceAppWidget() {
         id: GlanceId
     ) {
         provideContent {
-            val users: List<User> =
-                LocalDataSource().getTopUsers()
+//            val users: List<UserRatingResponse>? =
+//                DomainServiceImpl().getUserRating()
 
             Column(
                 modifier = GlanceModifier
@@ -61,10 +63,10 @@ class WidgetLeaderboard : GlanceAppWidget() {
 
                 Spacer(GlanceModifier.height(11.dp))
 
-                users.forEachIndexed { index, user ->
-                    LeaderboardWidgetCard(index + 1, user)
-                    Spacer(modifier = GlanceModifier.height(6.dp))
-                }
+//                users.forEachIndexed { index, user ->
+//                    LeaderboardWidgetCard(index + 1, user)
+//                    Spacer(modifier = GlanceModifier.height(6.dp))
+//                }
             }
         }
     }
@@ -74,43 +76,43 @@ class WidgetLeaderboardReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget = WidgetLeaderboard()
 }
 
-@SuppressLint("RestrictedApi")
-@Composable
-fun LeaderboardWidgetCard(index: Int, user: User) {
-    Row(
-        modifier = GlanceModifier
-            .fillMaxWidth()
-            .height(38.dp)
-            .background(GrayLight)
-            .padding(horizontal = 12.dp).cornerRadius(20.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            "$index.",
-            style = TextStyle(color = ColorProvider(DefaultBlack), fontWeight = FontWeight.Medium)
-        )
-        Spacer(GlanceModifier.width(8.dp))
-
-        Image(
-            provider = ImageProvider(user.image),
-            contentDescription = null,
-            modifier = GlanceModifier.size(24.dp)
-        )
-
-        Spacer(GlanceModifier.width(21.dp))
-
-        Text(
-            user.name,
-            style = TextStyle(color = ColorProvider(DefaultBlack), fontWeight = FontWeight.Medium)
-        )
-
-        Spacer(GlanceModifier.width(10.dp))
-
-        Text(
-            "${user.points} points",
-            maxLines = 1,
-            style = TextStyle(color = ColorProvider(DefaultBlack), fontWeight = FontWeight.Medium)
-        )
-
-    }
-}
+//@SuppressLint("RestrictedApi")
+//@Composable
+//fun LeaderboardWidgetCard(index: Int, user: User) {
+//    Row(
+//        modifier = GlanceModifier
+//            .fillMaxWidth()
+//            .height(38.dp)
+//            .background(GrayLight)
+//            .padding(horizontal = 12.dp).cornerRadius(20.dp),
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//        Text(
+//            "$index.",
+//            style = TextStyle(color = ColorProvider(DefaultBlack), fontWeight = FontWeight.Medium)
+//        )
+//        Spacer(GlanceModifier.width(8.dp))
+//
+//        Image(
+//            provider = ImageProvider(user.image),
+//            contentDescription = null,
+//            modifier = GlanceModifier.size(24.dp)
+//        )
+//
+//        Spacer(GlanceModifier.width(21.dp))
+//
+//        Text(
+//            user.name,
+//            style = TextStyle(color = ColorProvider(DefaultBlack), fontWeight = FontWeight.Medium)
+//        )
+//
+//        Spacer(GlanceModifier.width(10.dp))
+//
+//        Text(
+//            "${user.points} points",
+//            maxLines = 1,
+//            style = TextStyle(color = ColorProvider(DefaultBlack), fontWeight = FontWeight.Medium)
+//        )
+//
+//    }
+//}

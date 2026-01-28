@@ -1,7 +1,7 @@
-package com.profs.languageapp.di
+package com.profs.languageapp.domain.di
 
 import com.profs.languageapp.domain.service.DomainService
-import com.profs.languageapp.data.service.DomainServiceImpl
+import com.profs.languageapp.domain.service.DomainServiceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

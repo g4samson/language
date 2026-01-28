@@ -7,7 +7,7 @@ import androidx.navigation.NavHostController
 @Composable
 fun GameScreen(
     navController: NavHostController,
-    //viewModel: ExcerciseViewModel
+    viewModel: ExcersiseViewModel
 ) {
 
 }

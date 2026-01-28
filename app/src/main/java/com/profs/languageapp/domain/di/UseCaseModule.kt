@@ -1,4 +1,4 @@
-package com.profs.languageapp.di
+package com.profs.languageapp.domain.di
 
 import com.profs.languageapp.domain.usecase.OpenPdfUseCase
 import com.profs.languageapp.domain.usecase.ValidateInputUseCase
