@@ -7,6 +7,7 @@ import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -34,27 +35,6 @@ class SignupViewModel @Inject constructor(
     private val openPdfUseCase: OpenPdfUseCase,
 ) : ViewModel() {
 
-    private val dataStore = app.dataStore
-    private val KEY_PAGE = intPreferencesKey("signup_page")
-
-    private val _passwordState = MutableStateFlow(false)
-    val passwordState: StateFlow<Boolean> = _passwordState
-
-    fun onPasswordStateChange(passwordState: Boolean) {
-        _passwordState.value = passwordState
-    }
-
-    val page = dataStore.data.map { it[KEY_PAGE] ?: 0 }
-        .stateIn(viewModelScope, Eagerly, 0)
-
-    fun saveCurrentPage(newPage: Int) {
-        viewModelScope.launch {
-            dataStore.edit { prefs ->
-                prefs[KEY_PAGE] = newPage
-            }
-        }
-    }
-
     private val _firstName = MutableStateFlow("")
     val firstName: StateFlow<String> = _firstName
     private val _lastName = MutableStateFlow("")
@@ -66,6 +46,58 @@ class SignupViewModel @Inject constructor(
     private val _confirmPassword = MutableStateFlow("")
     val confirmPassword: StateFlow<String> = _confirmPassword
 
+    private val dataStore = app.dataStore
+    private val KEY_PAGE = intPreferencesKey("signup_page")
+    private val KEY_FIRST_NAME = stringPreferencesKey("signup_firstName")
+    private val KEY_LAST_NAME = stringPreferencesKey("signup_lastName")
+    private val KEY_EMAIL = stringPreferencesKey("signup_email")
+
+    private val _passwordState = MutableStateFlow(false)
+    val passwordState: StateFlow<Boolean> = _passwordState
+
+    fun onPasswordStateChange(passwordState: Boolean) {
+        _passwordState.value = passwordState
+    }
+
+    val page = dataStore.data.map { it[KEY_PAGE] ?: 0 }
+        .stateIn(viewModelScope, Eagerly, 0)
+
+    val kFName = dataStore.data.map { it[KEY_FIRST_NAME] ?: "" }
+        .stateIn(viewModelScope, Eagerly, "")
+    val kLName = dataStore.data.map { it[KEY_LAST_NAME] ?: "" }
+        .stateIn(viewModelScope, Eagerly, "")
+    val kEM = dataStore.data.map { it[KEY_EMAIL] ?: "" }
+        .stateIn(viewModelScope, Eagerly, "")
+
+    fun saveCurrentPage(newPage: Int) {
+        viewModelScope.launch {
+            dataStore.edit { prefs ->
+                prefs[KEY_PAGE] = newPage
+            }
+        }
+    }
+
+    fun saveTextFields(kFName: String, kLName: String, kEM: String) {
+        viewModelScope.launch {
+            dataStore.edit { prefs ->
+                prefs[KEY_FIRST_NAME] = kFName
+                prefs[KEY_LAST_NAME] = kLName
+                prefs[KEY_EMAIL] = kEM
+            }
+        }
+    }
+
+    fun loadTextFields() {
+        viewModelScope.launch {
+            _firstName.value = kFName.value
+            _lastName.value = kLName.value
+            _email.value = kEM.value
+        }
+    }
+
+    init {
+        loadTextFields()
+    }
 
     fun onFirstNameChange(firstName: String) {
         _firstName.value = firstName
@@ -116,9 +148,9 @@ class SignupViewModel @Inject constructor(
                 password = password
             )
             if (response != null) {
-                Log.i("WW","User registered: ${response.email}")
+                Log.i("WW", "User registered: ${response.email}")
             } else {
-                Log.e("WW","FAILED registered")
+                Log.e("WW", "FAILED registered")
             }
         }
     }

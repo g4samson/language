@@ -65,6 +65,7 @@ fun SignupScreen(
         } else {
             viewModel.onPasswordStateChange(false)
         }
+        viewModel.loadTextFields()
     }
 
     val emailError by viewModel.emailError.collectAsState()
@@ -185,10 +186,9 @@ fun SignupScreen(
                     stringResource(R.string.continue_btn),
                     enabled = !emailError && firstName.isNotEmpty() && lastName.isNotEmpty() && email.isNotEmpty()
                 ) {
-                    viewModel.onPasswordStateChange(
-                        true
-                    )
+                    viewModel.onPasswordStateChange(true)
                     viewModel.saveCurrentPage(1)
+                    viewModel.saveTextFields(firstName, lastName, email)
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))
