@@ -3,9 +3,11 @@ package com.profs.languageapp.data.repository
 import com.profs.languageapp.data.models.request.LoginUserRequest
 import com.profs.languageapp.data.models.request.RegisterUserRequest
 import com.profs.languageapp.data.models.response.CategoryResponse
+import com.profs.languageapp.data.models.response.ComplexQuestionResponse
 import com.profs.languageapp.data.models.response.UserRatingResponse
 import com.profs.languageapp.data.models.response.LoginUserResponse
 import com.profs.languageapp.data.models.response.RegisterUserResponse
+import com.profs.languageapp.data.models.response.SimpleQuestionResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -28,4 +30,10 @@ interface RetrofitRepository {
 
     @GET("category/getAvailableCategories")
     suspend fun getAvailableCategories() :  List<CategoryResponse>
+
+    @GET("question/getAllSimpleQuestions")
+    suspend fun getAllSimpleQuestions() :  List<SimpleQuestionResponse>
+
+    @GET("question/getAllComplexQuestions")
+    suspend fun getAllComplexQuestions() :  List<ComplexQuestionResponse>
 }

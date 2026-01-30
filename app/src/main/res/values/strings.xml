@@ -73,4 +73,8 @@
     <string name="resize_photo_hint">Just resize that photo\nfor fit in square</string>
     <string name="profile_resize_title">Your photo is gorgeous!</string>
 
+    <string name="guess">Guess the animal</string>
+    <string name="check">Check</string>
+    <string name="try_again">Try again</string>
+
 </resources>

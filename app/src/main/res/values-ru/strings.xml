@@ -74,4 +74,8 @@
     <string name="resize_photo_hint">Просто подгоните фото\nпод квадрат</string>
     <string name="profile_resize_title">Ваше фото великолепно!</string>
 
+    <string name="guess">Угадай животное</string>
+    <string name="check">Проверить</string>
+    <string name="try_again">Попробовать снова</string>
+
 </resources>
