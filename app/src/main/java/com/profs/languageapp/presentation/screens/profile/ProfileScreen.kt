@@ -27,6 +27,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -91,7 +92,7 @@ fun ProfileScreen(
                         AsyncImage(
                             model = user?.image,
                             contentDescription = null,
-                            modifier = Modifier.size(134.dp)
+                            modifier = Modifier.size(134.dp).clip(RoundedCornerShape(67.dp))
                         )
                         Spacer(modifier = Modifier.height(5.dp))
 
@@ -142,7 +143,12 @@ fun ProfileScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 DefaultButton(stringResource(R.string.logout)) {
-                    navController.navigate(Destinations.Login)
+                    navController.navigate(Destinations.Login) {
+                        popUpTo(0) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
                 }
             }
         }

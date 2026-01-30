@@ -30,14 +30,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.profs.languageapp.data.models.Excersise
 import com.profs.languageapp.data.models.Language
 import com.profs.languageapp.data.models.User
 import com.profs.languageapp.data.models.response.CategoryResponse
 import com.profs.languageapp.data.models.response.UserRatingResponse
+import com.profs.languageapp.presentation.theme.Blue
 import com.profs.languageapp.presentation.theme.DefaultBlack
 import com.profs.languageapp.presentation.theme.GrayLight
+import com.profs.languageapp.presentation.theme.Green
 import com.profs.languageapp.presentation.theme.Orange
+import com.profs.languageapp.presentation.theme.Red
 import com.profs.languageapp.presentation.theme.Typography
 
 
@@ -74,7 +76,13 @@ fun CategoryCard(category: CategoryResponse, onClick: () -> Unit) {
         modifier = Modifier
             .size(width = 153.dp, height = 117.dp)
             .clip(RoundedCornerShape(20.dp))
-            .background(DefaultBlack)
+            .background(when (category.name){
+                "Guess the animal" -> Blue
+                "Word practice" -> Red
+                "Audition" -> Orange
+                "Game" -> Green
+                else -> DefaultBlack
+            })
             .padding(horizontal = 12.dp)
             .clickable(onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -124,7 +132,7 @@ fun MainUserCard(user: UserRatingResponse) {
             AsyncImage(
                 model = user.image,
                 contentDescription = null,
-                modifier = Modifier.size(36.dp)
+                modifier = Modifier.size(36.dp).clip(RoundedCornerShape(18.dp))
             )
         }
 

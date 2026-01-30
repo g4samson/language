@@ -1,7 +1,6 @@
 package com.profs.languageapp.data.source
 
 import com.profs.languageapp.R
-import com.profs.languageapp.data.models.Excersise
 import com.profs.languageapp.data.models.Language
 import com.profs.languageapp.data.models.Page
 import com.profs.languageapp.data.models.User
@@ -20,13 +19,6 @@ class LocalDataSource @Inject constructor() {
         Language("zh", R.string.lang_chinese),
         Language("be", R.string.lang_belarus),
         Language("kk", R.string.lang_kazakh)
-    )
-
-    fun getExercises() = listOf(
-        Excersise("Guess the animal", R.drawable.ex_bear, Blue, Destinations.ExcerciseAnimals),
-        Excersise("Word practice", R.drawable.ex_pen, Red, Destinations.ExcerciseWordPractice),
-        Excersise("Audition", R.drawable.ex_audio, Orange, Destinations.ExcerciseListening),
-        Excersise("Game", R.drawable.ex_game, Green, Destinations.Game),
     )
 
     fun getOnboardingPages() = listOf(

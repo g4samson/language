@@ -1,5 +1,6 @@
 package com.profs.languageapp.presentation.screens.signup
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +46,7 @@ import com.profs.languageapp.presentation.theme.DeepBlue
 import com.profs.languageapp.presentation.theme.DefaultWhite
 import com.profs.languageapp.presentation.theme.GrayDark
 import com.profs.languageapp.presentation.theme.Typography
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,6 +61,8 @@ fun SignupScreen(
     val confirmPassword by viewModel.confirmPassword.collectAsState()
     val passwordState by viewModel.passwordState.collectAsState()
     val page by viewModel.page.collectAsState()
+
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(page) {
         if (page == 1) {
@@ -299,9 +304,15 @@ fun SignupScreen(
                     stringResource(R.string.signup),
                     enabled = checked && !conError && !passwordError && password.isNotEmpty() && confirmPassword.isNotEmpty()
                 ) {
-                    viewModel.registerUser(email, firstName, lastName, password)
-                    navController.navigate(Destinations.Login)
-                    viewModel.onPasswordStateChange(false)
+                    scope.launch {
+                        val success = viewModel.registerUser(email, firstName, lastName, password)
+                        if (success) {
+                            navController.navigate(Destinations.Login)
+                            viewModel.onPasswordStateChange(false)
+                        } else {
+                            Log.e("WW", "FAILED registered")
+                        }
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))

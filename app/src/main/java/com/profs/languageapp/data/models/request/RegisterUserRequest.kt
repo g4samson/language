@@ -5,7 +5,6 @@ data class RegisterUserRequest(
     val firstName: String,
     val lastName: String,
     val languageCode: String,
-    val rating: Int,
     val image: String,
     val password: String
 )

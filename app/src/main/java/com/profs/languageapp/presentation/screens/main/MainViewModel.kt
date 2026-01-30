@@ -2,7 +2,6 @@ package com.profs.languageapp.presentation.screens.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.profs.languageapp.data.models.Excersise
 import com.profs.languageapp.data.models.Language
 import com.profs.languageapp.data.models.User
 import com.profs.languageapp.data.models.response.CategoryResponse

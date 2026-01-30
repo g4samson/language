@@ -11,6 +11,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.profs.languageapp.data.models.User
 import com.profs.languageapp.domain.service.DomainService
 import com.profs.languageapp.domain.usecase.OpenPdfUseCase
 import com.profs.languageapp.domain.usecase.ValidateInputUseCase
@@ -138,21 +139,19 @@ class SignupViewModel @Inject constructor(
         )
     }
 
-    fun registerUser(email: String, firstName: String, lastName: String, password: String) {
-        viewModelScope.launch {
-            val response = service.registerUser(
-                email = email,
-                firstName = firstName,
-                lastName = lastName,
-                languageCode = "en",
-                password = password
-            )
-            if (response != null) {
-                Log.i("WW", "User registered: ${response.email}")
-            } else {
-                Log.e("WW", "FAILED registered")
-            }
-        }
+    suspend fun registerUser(
+        email: String,
+        firstName: String,
+        lastName: String,
+        password: String
+    ): Boolean {
+        val response = service.registerUser(
+            email = email,
+            firstName = firstName,
+            lastName = lastName,
+            languageCode = "en",
+            password = password,
+        )
+        return response != null
     }
-
 }
