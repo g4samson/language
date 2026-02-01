@@ -1,4 +1,4 @@
-package com.profs.languageapp.data.models
+package com.profs.languageapp.domain.model
 
 data class Page(
     val image: Int,

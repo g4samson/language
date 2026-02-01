@@ -1,14 +1,8 @@
-package com.profs.languageapp.data.source
+package com.profs.languageapp.data.utils
 
 import com.profs.languageapp.R
-import com.profs.languageapp.data.models.Language
-import com.profs.languageapp.data.models.Page
-import com.profs.languageapp.data.models.User
-import com.profs.languageapp.data.utils.Destinations
-import com.profs.languageapp.presentation.theme.Blue
-import com.profs.languageapp.presentation.theme.Green
-import com.profs.languageapp.presentation.theme.Orange
-import com.profs.languageapp.presentation.theme.Red
+import com.profs.languageapp.domain.model.Language
+import com.profs.languageapp.domain.model.Page
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor() {
