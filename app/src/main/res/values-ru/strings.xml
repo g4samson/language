@@ -77,5 +77,14 @@
     <string name="guess">Угадай животное</string>
     <string name="check">Проверить</string>
     <string name="try_again">Попробовать снова</string>
+    <string name="write_who_is_on_image">Напиши, кто изображён на картинке</string>
+    <string name="right_answer_title">Ого! Это правильно!</string>
+    <string name="wrong_answer_title">Упс! Неверный ответ :(</string>
+    <string name="wrong_answer_description">Это: %1$s</string>
+
+
+    <string name="word_practice">Словесная практика</string>
+    <string name="you">Вы</string>
+
 
 </resources>

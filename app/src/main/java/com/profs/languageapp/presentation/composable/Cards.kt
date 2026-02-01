@@ -1,6 +1,5 @@
 package com.profs.languageapp.presentation.composable
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
@@ -24,14 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.profs.languageapp.data.models.Language
-import com.profs.languageapp.data.models.User
+import com.profs.languageapp.domain.model.Language
 import com.profs.languageapp.data.models.response.CategoryResponse
 import com.profs.languageapp.data.models.response.UserRatingResponse
 import com.profs.languageapp.presentation.theme.Blue

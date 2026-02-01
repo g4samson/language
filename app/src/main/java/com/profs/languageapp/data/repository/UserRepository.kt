@@ -1,6 +1,6 @@
 package com.profs.languageapp.data.repository
 
-import com.profs.languageapp.data.models.User
+import com.profs.languageapp.domain.model.User
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject

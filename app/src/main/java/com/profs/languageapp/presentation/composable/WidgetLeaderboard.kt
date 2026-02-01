@@ -2,39 +2,24 @@ package com.profs.languageapp.presentation.composable
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
-import androidx.glance.Image
-import androidx.glance.ImageProvider
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
-import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
 import androidx.glance.background
-import androidx.glance.layout.Alignment
 import androidx.glance.layout.Column
-import androidx.glance.layout.Row
 import androidx.glance.layout.Spacer
 import androidx.glance.layout.fillMaxSize
-import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
-import androidx.glance.layout.size
-import androidx.glance.layout.width
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
-import com.profs.languageapp.data.models.User
-import com.profs.languageapp.data.models.response.UserRatingResponse
-import com.profs.languageapp.data.source.LocalDataSource
-import com.profs.languageapp.domain.service.DomainServiceImpl
 import com.profs.languageapp.presentation.theme.DeepBlue
-import com.profs.languageapp.presentation.theme.DefaultBlack
 import com.profs.languageapp.presentation.theme.DefaultWhite
-import com.profs.languageapp.presentation.theme.GrayLight
 
 class WidgetLeaderboard : GlanceAppWidget() {
 

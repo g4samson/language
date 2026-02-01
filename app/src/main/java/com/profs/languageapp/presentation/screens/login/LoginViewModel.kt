@@ -1,10 +1,10 @@
 package com.profs.languageapp.presentation.screens.login
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.profs.languageapp.data.models.User
+import com.profs.languageapp.data.mapper.toUser
+import com.profs.languageapp.domain.model.User
 import com.profs.languageapp.data.repository.UserRepository
 import com.profs.languageapp.data.utils.Constants
 import com.profs.languageapp.domain.service.DomainService
@@ -60,15 +60,8 @@ class LoginViewModel @Inject constructor(
     suspend fun loginUser(email: String, password: String): Boolean {
         val response = service.loginUser(email, password)
         return if (response != null) {
-            repository.setUser(User(
-                id = response.id,
-                email = response.email,
-                firstName = response.firstName,
-                lastName = response.lastName,
-                languageCode = response.languageCode,
-                rating = response.rating,
-                image = response.image
-            ))
+            repository.setUser(response.toUser())
+
             _selectedLanguage.value = response.languageCode
             saveLanguage()
             true

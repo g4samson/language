@@ -2,21 +2,16 @@ package com.profs.languageapp.presentation.screens.signup
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
-import androidx.datastore.dataStore
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.profs.languageapp.data.models.User
 import com.profs.languageapp.domain.service.DomainService
 import com.profs.languageapp.domain.usecase.OpenPdfUseCase
 import com.profs.languageapp.domain.usecase.ValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.StateFlow

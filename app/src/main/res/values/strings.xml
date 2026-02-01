@@ -76,5 +76,14 @@
     <string name="guess">Guess the animal</string>
     <string name="check">Check</string>
     <string name="try_again">Try again</string>
+    <string name="write_who_is_on_image">Write who is on image</string>
+    <string name="right_answer_title">Holy Molly! That is right!</string>
+    <string name="wrong_answer_title">Eh? Wrong answer :(</string>
+    <string name="wrong_answer_description">That is: %1$s</string>
+
+
+    <string name="word_practice">Word practice</string>
+    <string name="you">You</string>
+
 
 </resources>

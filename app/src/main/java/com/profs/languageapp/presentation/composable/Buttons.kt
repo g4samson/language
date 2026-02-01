@@ -1,5 +1,6 @@
 package com.profs.languageapp.presentation.composable
 
+import android.text.style.BackgroundColorSpan
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.profs.languageapp.presentation.theme.Blue
 import com.profs.languageapp.presentation.theme.DefaultWhite
@@ -19,6 +21,7 @@ import com.profs.languageapp.presentation.theme.Typography
 fun DefaultButton(
     text: String,
     enabled : Boolean = true,
+    backgroundColor: Color = Blue,
     onClick: () -> Unit,
 ) {
     Button(
@@ -26,9 +29,9 @@ fun DefaultButton(
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
-            .background(Blue, RoundedCornerShape(12.dp))
+            .background(backgroundColor, RoundedCornerShape(12.dp))
             .clip(RoundedCornerShape(12.dp)),
-        colors = ButtonDefaults.buttonColors(Blue), enabled = enabled
+        colors = ButtonDefaults.buttonColors(backgroundColor), enabled = enabled
     ) {
         Text(text, style = Typography.displayMedium.copy(color = DefaultWhite))
     }

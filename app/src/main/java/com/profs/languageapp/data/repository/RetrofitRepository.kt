@@ -1,6 +1,7 @@
 package com.profs.languageapp.data.repository
 
 import com.profs.languageapp.data.models.request.LoginUserRequest
+import com.profs.languageapp.data.models.request.ModifyUserRatingRequest
 import com.profs.languageapp.data.models.request.RegisterUserRequest
 import com.profs.languageapp.data.models.response.CategoryResponse
 import com.profs.languageapp.data.models.response.ComplexQuestionResponse
@@ -10,6 +11,7 @@ import com.profs.languageapp.data.models.response.RegisterUserResponse
 import com.profs.languageapp.data.models.response.SimpleQuestionResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 
 interface RetrofitRepository {
@@ -24,6 +26,8 @@ interface RetrofitRepository {
         @Body request: LoginUserRequest
     ): LoginUserResponse
 
+    @PATCH("user")
+    suspend fun modifyUserRating(@Body request: ModifyUserRatingRequest)
 
     @GET("user/rating")
     suspend fun getUserRating() :  List<UserRatingResponse>

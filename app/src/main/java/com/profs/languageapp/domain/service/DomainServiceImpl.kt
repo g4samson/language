@@ -1,6 +1,7 @@
 package com.profs.languageapp.domain.service
 
 import com.profs.languageapp.data.models.request.LoginUserRequest
+import com.profs.languageapp.data.models.request.ModifyUserRatingRequest
 import com.profs.languageapp.data.models.request.RegisterUserRequest
 import com.profs.languageapp.data.models.response.CategoryResponse
 import com.profs.languageapp.data.models.response.ComplexQuestionResponse
@@ -8,8 +9,9 @@ import com.profs.languageapp.data.models.response.LoginUserResponse
 import com.profs.languageapp.data.models.response.RegisterUserResponse
 import com.profs.languageapp.data.models.response.SimpleQuestionResponse
 import com.profs.languageapp.data.models.response.UserRatingResponse
-import com.profs.languageapp.data.source.LocalDataSource
+import com.profs.languageapp.data.utils.LocalDataSource
 import com.profs.languageapp.data.utils.Provider
+import com.profs.languageapp.domain.model.User
 import javax.inject.Inject
 
 class DomainServiceImpl @Inject constructor(
@@ -64,6 +66,14 @@ class DomainServiceImpl @Inject constructor(
             e.printStackTrace()
             null
         }
+    }
+
+    override suspend fun modifyUserRating(userId: Long?, delta: Int) {
+        val request = ModifyUserRatingRequest(
+            userId = userId,
+            delta = delta,
+        )
+        retrofit.modifyUserRating(request)
     }
 
     override suspend fun getUserRating(): List<UserRatingResponse>? {
