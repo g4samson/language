@@ -41,10 +41,8 @@ import com.profs.languageapp.presentation.composable.Checkbox
 import com.profs.languageapp.presentation.composable.DefaultButton
 import com.profs.languageapp.presentation.composable.DefaultTextField
 import com.profs.languageapp.presentation.theme.Blue
-import com.profs.languageapp.presentation.theme.DarkLighter
 import com.profs.languageapp.presentation.theme.DeepBlue
 import com.profs.languageapp.presentation.theme.DefaultWhite
-import com.profs.languageapp.presentation.theme.GrayDark
 import com.profs.languageapp.presentation.theme.Typography
 import kotlinx.coroutines.launch
 

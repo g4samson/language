@@ -1,11 +1,11 @@
 package com.profs.languageapp.data.utils
 
 import com.profs.languageapp.R
-import com.profs.languageapp.domain.model.Language
-import com.profs.languageapp.domain.model.Page
+import com.profs.languageapp.data.model.Language
+import com.profs.languageapp.data.model.Page
 import javax.inject.Inject
 
-class Constants @Inject constructor() {
+class Storage @Inject constructor() {
 
     fun getLanguages() = listOf(
         Language("en", R.string.lang_english),

@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.profs.languageapp.R
-import com.profs.languageapp.data.utils.Destinations
 import com.profs.languageapp.presentation.composable.DefaultButton
 import com.profs.languageapp.presentation.composable.DefaultTextField
 import com.profs.languageapp.presentation.screens.game.ExcersiseViewModel

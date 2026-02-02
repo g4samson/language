@@ -1,13 +1,13 @@
 package com.profs.languageapp.domain.service
 
-import com.profs.languageapp.domain.model.Language
-import com.profs.languageapp.domain.model.Page
-import com.profs.languageapp.data.models.response.CategoryResponse
-import com.profs.languageapp.data.models.response.ComplexQuestionResponse
-import com.profs.languageapp.data.models.response.LoginUserResponse
-import com.profs.languageapp.data.models.response.RegisterUserResponse
-import com.profs.languageapp.data.models.response.SimpleQuestionResponse
-import com.profs.languageapp.data.models.response.UserRatingResponse
+import com.profs.languageapp.data.model.Language
+import com.profs.languageapp.data.model.Page
+import com.profs.languageapp.data.model.response.CategoryResponse
+import com.profs.languageapp.data.model.response.ComplexQuestionResponse
+import com.profs.languageapp.data.model.response.LoginUserResponse
+import com.profs.languageapp.data.model.response.RegisterUserResponse
+import com.profs.languageapp.data.model.response.SimpleQuestionResponse
+import com.profs.languageapp.data.model.response.UserRatingResponse
 
 interface DomainService {
     fun getAvailableLanguages(): List<Language>

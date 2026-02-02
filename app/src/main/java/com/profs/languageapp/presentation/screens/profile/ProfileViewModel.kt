@@ -3,7 +3,7 @@ package com.profs.languageapp.presentation.screens.profile
 import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModel
-import com.profs.languageapp.data.repository.UserRepository
+import com.profs.languageapp.domain.usecase.GetCurrentUserUseCase
 import com.profs.languageapp.domain.usecase.PickImageFromGalleryUseCase
 import com.profs.languageapp.domain.usecase.TakePhotoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,8 +16,10 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val pickImageFromGalleryUseCase: PickImageFromGalleryUseCase,
     private val takePhotoUseCase: TakePhotoUseCase,
-    private val repository: UserRepository
+    private val getCurrentUserUseCase: GetCurrentUserUseCase
 ) : ViewModel() {
+
+    val currentUser = getCurrentUserUseCase()
 
     private val _changeState = MutableStateFlow(false)
     val changeState: StateFlow<Boolean> = _changeState
@@ -27,8 +29,6 @@ class ProfileViewModel @Inject constructor(
 
     private val _cameraImageUri = MutableStateFlow<Uri?>(null)
     val cameraImageUri: StateFlow<Uri?> = _cameraImageUri
-
-    val currentUser = repository.currentUser
 
     fun openChangeImageDialog() {
         _changeState.value = true

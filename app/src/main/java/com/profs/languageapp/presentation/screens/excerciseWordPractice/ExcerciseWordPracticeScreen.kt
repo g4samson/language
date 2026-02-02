@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.profs.languageapp.R
-import com.profs.languageapp.domain.model.RoundType
+import com.profs.languageapp.data.model.RoundType
 import com.profs.languageapp.presentation.composable.DefaultButton
 import com.profs.languageapp.presentation.screens.game.ExcersiseViewModel
 import com.profs.languageapp.presentation.theme.Blue

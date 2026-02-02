@@ -1,20 +1,20 @@
 package com.profs.languageapp.domain.service
 
-import com.profs.languageapp.data.models.request.LoginUserRequest
-import com.profs.languageapp.data.models.request.ModifyUserRatingRequest
-import com.profs.languageapp.data.models.request.RegisterUserRequest
-import com.profs.languageapp.data.models.response.CategoryResponse
-import com.profs.languageapp.data.models.response.ComplexQuestionResponse
-import com.profs.languageapp.data.models.response.LoginUserResponse
-import com.profs.languageapp.data.models.response.RegisterUserResponse
-import com.profs.languageapp.data.models.response.SimpleQuestionResponse
-import com.profs.languageapp.data.models.response.UserRatingResponse
-import com.profs.languageapp.data.utils.Constants
+import com.profs.languageapp.data.model.request.LoginUserRequest
+import com.profs.languageapp.data.model.request.ModifyUserRatingRequest
+import com.profs.languageapp.data.model.request.RegisterUserRequest
+import com.profs.languageapp.data.model.response.CategoryResponse
+import com.profs.languageapp.data.model.response.ComplexQuestionResponse
+import com.profs.languageapp.data.model.response.LoginUserResponse
+import com.profs.languageapp.data.model.response.RegisterUserResponse
+import com.profs.languageapp.data.model.response.SimpleQuestionResponse
+import com.profs.languageapp.data.model.response.UserRatingResponse
 import com.profs.languageapp.data.utils.Provider
+import com.profs.languageapp.data.utils.Storage
 import javax.inject.Inject
 
 class DomainServiceImpl @Inject constructor(
-    private val localDataSource: Constants
+    private val localDataSource: Storage
 ) : DomainService {
     private val retrofit get() = Provider.provideRetrofit()
 

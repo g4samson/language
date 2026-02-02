@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.profs.languageapp.data.mapper.toUser
-import com.profs.languageapp.data.repository.UserRepository
 import com.profs.languageapp.data.utils.LanguagePreferences
 import com.profs.languageapp.domain.service.DomainService
+import com.profs.languageapp.domain.usecase.SetUserUseCase
 import com.profs.languageapp.domain.usecase.ValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -20,8 +20,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val service: DomainService,
     private val validateInputUseCase: ValidateInputUseCase,
-    private val repository: UserRepository,
-    @ApplicationContext private val context: Context,
+    private val setUserUseCase: SetUserUseCase,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private val _email = MutableStateFlow("")
@@ -59,7 +59,7 @@ class LoginViewModel @Inject constructor(
     suspend fun loginUser(email: String, password: String): Boolean {
         val response = service.loginUser(email, password)
         return if (response != null) {
-            repository.setUser(response.toUser())
+            setUserUseCase(response.toUser())
 
             _selectedLanguage.value = response.languageCode
             saveLanguage()

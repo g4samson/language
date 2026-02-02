@@ -27,9 +27,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.profs.languageapp.domain.model.Language
-import com.profs.languageapp.data.models.response.CategoryResponse
-import com.profs.languageapp.data.models.response.UserRatingResponse
+import com.profs.languageapp.data.model.Language
+import com.profs.languageapp.data.model.response.CategoryResponse
+import com.profs.languageapp.data.model.response.UserRatingResponse
 import com.profs.languageapp.presentation.theme.Blue
 import com.profs.languageapp.presentation.theme.DefaultBlack
 import com.profs.languageapp.presentation.theme.GrayLight

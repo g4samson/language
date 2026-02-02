@@ -1,8 +1,8 @@
 package com.profs.languageapp.data.mapper
 
-import com.profs.languageapp.data.models.response.LoginUserResponse
-import com.profs.languageapp.data.models.response.UserRatingResponse
-import com.profs.languageapp.domain.model.User
+import com.profs.languageapp.data.model.User
+import com.profs.languageapp.data.model.response.LoginUserResponse
+import com.profs.languageapp.data.model.response.UserRatingResponse
 
 // LoginUserResponse → User
 fun LoginUserResponse.toUser(): User {

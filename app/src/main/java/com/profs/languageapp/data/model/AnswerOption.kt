@@ -1,4 +1,4 @@
-package com.profs.languageapp.domain.model
+package com.profs.languageapp.data.model
 
 data class AnswerOption(
     val text: String,

@@ -3,9 +3,9 @@ package com.profs.languageapp.presentation.screens.languageSelect
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.profs.languageapp.domain.model.Language
-import com.profs.languageapp.data.utils.Constants
+import com.profs.languageapp.data.model.Language
 import com.profs.languageapp.data.utils.LanguagePreferences
+import com.profs.languageapp.data.utils.Storage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LanguageSelectViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val localDataSource: Constants
+    private val localDataSource: Storage
 ) : ViewModel() {
 
     private val _languageList = MutableStateFlow<List<Language>>(emptyList())

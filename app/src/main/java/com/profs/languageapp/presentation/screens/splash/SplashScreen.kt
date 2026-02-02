@@ -1,6 +1,5 @@
 package com.profs.languageapp.presentation.screens.splash
 
-import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -32,7 +31,6 @@ import com.profs.languageapp.presentation.screens.onboarding.OnboardingViewModel
 import com.profs.languageapp.presentation.theme.DeepBlue
 import com.profs.languageapp.presentation.theme.DefaultWhite
 import com.profs.languageapp.presentation.theme.Fredoka
-import com.profs.languageapp.presentation.theme.Typography
 
 @Composable
 fun SplashScreen(

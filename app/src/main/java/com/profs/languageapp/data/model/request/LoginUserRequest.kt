@@ -1,4 +1,4 @@
-package com.profs.languageapp.data.models.request
+package com.profs.languageapp.data.model.request
 
 data class LoginUserRequest(
     val email: String,

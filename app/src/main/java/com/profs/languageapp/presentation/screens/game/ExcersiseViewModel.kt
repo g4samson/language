@@ -3,13 +3,13 @@ package com.profs.languageapp.presentation.screens.game
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.profs.languageapp.domain.model.AnswerOption
-import com.profs.languageapp.domain.model.RoundType
-import com.profs.languageapp.data.models.response.ComplexQuestionResponse
-import com.profs.languageapp.data.models.response.SimpleQuestionResponse
-import com.profs.languageapp.data.repository.UserRepository
+import com.profs.languageapp.data.model.AnswerOption
+import com.profs.languageapp.data.model.RoundType
+import com.profs.languageapp.data.model.response.ComplexQuestionResponse
+import com.profs.languageapp.data.model.response.SimpleQuestionResponse
 import com.profs.languageapp.data.utils.LanguagePreferences
 import com.profs.languageapp.domain.service.DomainService
+import com.profs.languageapp.domain.usecase.GetCurrentUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -22,10 +22,10 @@ import javax.inject.Inject
 class ExcersiseViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val service: DomainService,
-    private val repository: UserRepository,
+    private val getCurrentUserUseCase: GetCurrentUserUseCase
 ) : ViewModel() {
 
-    val currentUser = repository.currentUser
+    val currentUser = getCurrentUserUseCase()
 
     private val _animalPage = MutableStateFlow(0)
     val animalPage: StateFlow<Int> = _animalPage

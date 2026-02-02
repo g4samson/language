@@ -1,14 +1,14 @@
 package com.profs.languageapp.data.repository
 
-import com.profs.languageapp.data.models.request.LoginUserRequest
-import com.profs.languageapp.data.models.request.ModifyUserRatingRequest
-import com.profs.languageapp.data.models.request.RegisterUserRequest
-import com.profs.languageapp.data.models.response.CategoryResponse
-import com.profs.languageapp.data.models.response.ComplexQuestionResponse
-import com.profs.languageapp.data.models.response.UserRatingResponse
-import com.profs.languageapp.data.models.response.LoginUserResponse
-import com.profs.languageapp.data.models.response.RegisterUserResponse
-import com.profs.languageapp.data.models.response.SimpleQuestionResponse
+import com.profs.languageapp.data.model.request.LoginUserRequest
+import com.profs.languageapp.data.model.request.ModifyUserRatingRequest
+import com.profs.languageapp.data.model.request.RegisterUserRequest
+import com.profs.languageapp.data.model.response.CategoryResponse
+import com.profs.languageapp.data.model.response.ComplexQuestionResponse
+import com.profs.languageapp.data.model.response.LoginUserResponse
+import com.profs.languageapp.data.model.response.RegisterUserResponse
+import com.profs.languageapp.data.model.response.SimpleQuestionResponse
+import com.profs.languageapp.data.model.response.UserRatingResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH

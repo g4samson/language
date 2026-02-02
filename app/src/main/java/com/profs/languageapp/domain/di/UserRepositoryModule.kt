@@ -1,20 +1,20 @@
 package com.profs.languageapp.domain.di
 
-import com.profs.languageapp.domain.service.DomainService
-import com.profs.languageapp.domain.service.DomainServiceImpl
+import com.profs.languageapp.domain.repository.UserRepository
+import com.profs.languageapp.domain.repository.UserRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class DomainServiceModule {
-
+abstract class UserRepositoryModule {
     @Binds
     @Singleton
-    abstract fun bindDomainService(
-        impl: DomainServiceImpl
-    ): DomainService
+    abstract fun bindUserRepository(
+        impl: UserRepositoryImpl
+    ): UserRepository
 }

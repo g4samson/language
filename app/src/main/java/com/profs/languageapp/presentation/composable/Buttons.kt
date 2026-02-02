@@ -1,6 +1,5 @@
 package com.profs.languageapp.presentation.composable
 
-import android.text.style.BackgroundColorSpan
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

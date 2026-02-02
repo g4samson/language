@@ -1,4 +1,4 @@
-package com.profs.languageapp.data.models.response
+package com.profs.languageapp.data.model.response
 
 
 data class LoginUserResponse (
