@@ -68,7 +68,9 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+
     implementation(libs.javapoet)
+
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.common.ktx)
 
@@ -83,4 +85,10 @@ dependencies {
 
     implementation("androidx.glance:glance-appwidget:1.1.1")
     implementation("androidx.glance:glance-material3:1.1.1")
+
+    implementation("io.github.rroohit:ImageCropView:3.1.1")
+
+    implementation(libs.tensorflow.lite)
+    implementation(libs.tensorflow.lite.gpu)
+    implementation(libs.tensorflow.lite.support)
 }
