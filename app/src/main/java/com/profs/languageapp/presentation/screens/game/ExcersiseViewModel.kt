@@ -8,7 +8,7 @@ import com.profs.languageapp.domain.model.RoundType
 import com.profs.languageapp.data.models.response.ComplexQuestionResponse
 import com.profs.languageapp.data.models.response.SimpleQuestionResponse
 import com.profs.languageapp.data.repository.UserRepository
-import com.profs.languageapp.data.utils.Constants
+import com.profs.languageapp.data.utils.LanguagePreferences
 import com.profs.languageapp.domain.service.DomainService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -62,7 +62,7 @@ class ExcersiseViewModel @Inject constructor(
 
     fun getLanguage(){
         viewModelScope.launch {
-            _language.value = Constants.getLanguage(context).toString()
+            _language.value = LanguagePreferences.getLanguage(context).toString()
         }
     }
 

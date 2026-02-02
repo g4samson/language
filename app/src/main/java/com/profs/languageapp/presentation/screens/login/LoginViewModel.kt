@@ -4,9 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.profs.languageapp.data.mapper.toUser
-import com.profs.languageapp.domain.model.User
 import com.profs.languageapp.data.repository.UserRepository
-import com.profs.languageapp.data.utils.Constants
+import com.profs.languageapp.data.utils.LanguagePreferences
 import com.profs.languageapp.domain.service.DomainService
 import com.profs.languageapp.domain.usecase.ValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -51,8 +50,8 @@ class LoginViewModel @Inject constructor(
 
     fun saveLanguage() {
         viewModelScope.launch {
-            Constants.saveLanguage(context, _selectedLanguage.value)
-            Constants.setLanguage(context, _selectedLanguage.value)
+            LanguagePreferences.saveLanguage(context, _selectedLanguage.value)
+            LanguagePreferences.setLanguage(context, _selectedLanguage.value)
         }
     }
 

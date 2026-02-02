@@ -9,13 +9,12 @@ import com.profs.languageapp.data.models.response.LoginUserResponse
 import com.profs.languageapp.data.models.response.RegisterUserResponse
 import com.profs.languageapp.data.models.response.SimpleQuestionResponse
 import com.profs.languageapp.data.models.response.UserRatingResponse
-import com.profs.languageapp.data.utils.LocalDataSource
+import com.profs.languageapp.data.utils.Constants
 import com.profs.languageapp.data.utils.Provider
-import com.profs.languageapp.domain.model.User
 import javax.inject.Inject
 
 class DomainServiceImpl @Inject constructor(
-    private val localDataSource: LocalDataSource
+    private val localDataSource: Constants
 ) : DomainService {
     private val retrofit get() = Provider.provideRetrofit()
 

@@ -8,7 +8,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.profs.languageapp.data.utils.Constants
+import com.profs.languageapp.data.utils.LanguagePreferences
 import com.profs.languageapp.domain.service.DomainService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -27,7 +27,7 @@ class OnboardingViewModel @Inject constructor(
     @ApplicationContext private val context: Context
 ) : AndroidViewModel(app) {
 
-    val isLanguageSelected = Constants.isLanguageSelected(context)
+    val isLanguageSelected = LanguagePreferences.isLanguageSelected(context)
     val pages = service.getOnboardingPages()
     private val dataStore = app.dataStore
 

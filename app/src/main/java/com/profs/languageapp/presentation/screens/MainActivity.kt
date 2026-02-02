@@ -13,7 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
-import com.profs.languageapp.data.utils.Constants
+import com.profs.languageapp.data.utils.LanguagePreferences
 import com.profs.languageapp.presentation.navigation.NavGraph
 import com.profs.languageapp.presentation.screens.profile.ThemeViewModel
 import com.profs.languageapp.presentation.theme.LanguageAppTheme
@@ -30,10 +30,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         lifecycleScope.launch {
-            Constants.getLanguage(this@MainActivity)
+            LanguagePreferences.getLanguage(this@MainActivity)
                 .firstOrNull()
                 ?.let {
-                    Constants.setLanguage(this@MainActivity, it)
+                    LanguagePreferences.setLanguage(this@MainActivity, it)
                 }
         }
 
