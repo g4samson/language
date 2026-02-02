@@ -14,15 +14,15 @@ import com.profs.languageapp.data.utils.Storage
 import javax.inject.Inject
 
 class DomainServiceImpl @Inject constructor(
-    private val localDataSource: Storage
+    private val storage: Storage
 ) : DomainService {
     private val retrofit get() = Provider.provideRetrofit()
 
     override fun getAvailableLanguages() =
-        localDataSource.getLanguages()
+        storage.getLanguages()
 
     override fun getOnboardingPages() =
-        localDataSource.getOnboardingPages()
+        storage.getOnboardingPages()
 
 
     override suspend fun registerUser(
