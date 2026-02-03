@@ -1,6 +1,10 @@
 package com.profs.languageapp.presentation.screens.login
 
+import android.app.Application
 import android.content.Context
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.profs.languageapp.data.mapper.toUser
@@ -12,18 +16,36 @@ import com.profs.languageapp.domain.usecase.ValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private val Application.dataStore by preferencesDataStore("login_prefs")
+
+
 @HiltViewModel
 class LoginViewModel @Inject constructor(
+    private val app: Application,
     private val service: DomainService,
     private val validateInputUseCase: ValidateInputUseCase,
     private val setUserUseCase: SetUserUseCase,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
+
+    private val dataStore = app.dataStore
+
+    private val KEY_EMAIL = stringPreferencesKey("login_email")
+    private val KEY_PASSWORD = stringPreferencesKey("login_password")
+
+
+    val kEmail = dataStore.data.map { it[KEY_EMAIL] ?: "" }
+        .stateIn(viewModelScope, Eagerly, "")
+    val kPassword = dataStore.data.map { it[KEY_PASSWORD] ?: "" }
+        .stateIn(viewModelScope, Eagerly, "")
 
     private val _email = MutableStateFlow("")
     val email: StateFlow<String> = _email
@@ -61,6 +83,16 @@ class LoginViewModel @Inject constructor(
     fun resetState() {
         _uiState.value = LoginUiState.Idle
     }
+
+    fun saveLogin(kEmail: String, kPassword: String) {
+        viewModelScope.launch {
+            dataStore.edit { prefs ->
+                prefs[KEY_EMAIL] = kEmail
+                prefs[KEY_PASSWORD] = kPassword
+            }
+        }
+    }
+
     fun loginUser() {
         viewModelScope.launch {
             _uiState.value = LoginUiState.Loading
@@ -68,6 +100,7 @@ class LoginViewModel @Inject constructor(
 
             when (result) {
                 is NetworkResult.Success -> {
+                    saveLogin(email.value, password.value)
                     setUserUseCase(result.data.toUser())
                     _uiState.value = LoginUiState.Success
                 }

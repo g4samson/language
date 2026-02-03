@@ -28,7 +28,7 @@ class ValidateInputUseCase @Inject constructor() {
     }
 
     fun confirmedPassword(password: String, confirmation: String) : Boolean {
-        if (password == confirmation) return true else return false
+        return password == confirmation
     }
 }
 
@@ -75,4 +75,4 @@ class ValidateInputUseCase @Inject constructor() {
 //
 //        context.startActivity(intent)
 //    }
-//} можешь полпробовать найтис этим кодом примерно доки на android.developers или чтото что поможет мне понять как пдф открыть
+//} можешь попробовать найти с этим кодом примерно доки на android.developers или что-то что поможет мне понять как пдф открыть

@@ -22,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -56,7 +57,19 @@ fun LoginScreen(
     val emailError by viewModel.emailError.collectAsState()
     val passwordError by viewModel.passwordError.collectAsState()
 
+
+    val kEmail by viewModel.kEmail.collectAsState()
+    val kPassword by viewModel.kPassword.collectAsState()
+
     val colors = MaterialTheme.colorScheme
+
+    LaunchedEffect(kEmail, kPassword) {
+        if (kEmail.isNotEmpty() && kPassword.isNotEmpty()) {
+            viewModel.onEmailChange(kEmail)
+            viewModel.onPasswordChange(kPassword)
+            viewModel.loginUser()
+        }
+    }
 
     val scope = rememberCoroutineScope()
 
@@ -151,6 +164,7 @@ fun LoginScreen(
                             isError = emailError,
                         ) {
                             viewModel.onEmailChange(it)
+                            viewModel.saveLogin(email, password)
                         }
 
                         Spacer(modifier = Modifier.height(24.dp))
@@ -167,7 +181,10 @@ fun LoginScreen(
                             value = password,
                             "password",
                             isError = passwordError
-                        ) { viewModel.onPasswordChange(it) }
+                        ) {
+                            viewModel.onPasswordChange(it)
+                            viewModel.saveLogin(email, password)
+                        }
 
                         Spacer(modifier = Modifier.height(12.dp))
 
@@ -190,7 +207,10 @@ fun LoginScreen(
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
                         Text(
                             stringResource(R.string.not_member) + " ",
                             style = Typography.bodyLarge.copy(
