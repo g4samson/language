@@ -1,5 +1,7 @@
 package com.profs.languageapp.domain.service
 
+import android.net.http.HttpException
+import com.profs.languageapp.data.model.NetworkResult
 import com.profs.languageapp.data.model.request.LoginUserRequest
 import com.profs.languageapp.data.model.request.ModifyUserRatingRequest
 import com.profs.languageapp.data.model.request.RegisterUserRequest
@@ -11,6 +13,7 @@ import com.profs.languageapp.data.model.response.SimpleQuestionResponse
 import com.profs.languageapp.data.model.response.UserRatingResponse
 import com.profs.languageapp.data.utils.Provider
 import com.profs.languageapp.data.utils.Storage
+import java.io.IOException
 import javax.inject.Inject
 
 class DomainServiceImpl @Inject constructor(
@@ -54,16 +57,17 @@ class DomainServiceImpl @Inject constructor(
     override suspend fun loginUser(
         email: String,
         password: String
-    ): LoginUserResponse? {
+    ): NetworkResult<LoginUserResponse> {
         return try {
-            val request = LoginUserRequest(
-                email = email,
-                password = password,
+            val request = LoginUserRequest(email, password)
+            NetworkResult.Success(retrofit.loginUser(request))
+        } catch (e: IOException) {
+            NetworkResult.NoInternet
+        } catch (e: retrofit2.HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            NetworkResult.ServerError(
+                errorBody ?: "Ошибка сервера"
             )
-            retrofit.loginUser(request)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
         }
     }
 

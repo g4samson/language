@@ -1,7 +1,6 @@
 package com.profs.languageapp.presentation.screens.languageSelect
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -41,7 +39,6 @@ fun LanguageSelectScreen(
 ) {
     val languageList = viewModel.languageList.collectAsState(initial = listOf()).value
     val selectedLanguage = viewModel.selectedLanguage.collectAsState().value
-    val activity = LocalContext.current as Activity
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         TopAppBar(

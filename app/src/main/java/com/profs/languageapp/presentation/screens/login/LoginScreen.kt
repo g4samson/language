@@ -37,6 +37,8 @@ import com.profs.languageapp.R
 import com.profs.languageapp.data.utils.Destinations
 import com.profs.languageapp.presentation.composable.DefaultButton
 import com.profs.languageapp.presentation.composable.DefaultTextField
+import com.profs.languageapp.presentation.composable.ErrorDialog
+import com.profs.languageapp.presentation.composable.NoInternetScreen
 import com.profs.languageapp.presentation.theme.DeepBlue
 import com.profs.languageapp.presentation.theme.DefaultWhite
 import com.profs.languageapp.presentation.theme.Red
@@ -57,6 +59,8 @@ fun LoginScreen(
     val colors = MaterialTheme.colorScheme
 
     val scope = rememberCoroutineScope()
+
+    val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         TopAppBar(
@@ -85,104 +89,124 @@ fun LoginScreen(
             }, colors = TopAppBarDefaults.topAppBarColors(containerColor = DeepBlue)
         )
     }) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(horizontal = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.height(24.dp))
+        when (uiState) {
 
-            Image(
-                painterResource(R.drawable.image_login),
-                contentDescription = null,
-                modifier = Modifier.width(105.dp),
-                contentScale = ContentScale.FillWidth
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            Text(
-                stringResource(R.string.login_title),
-                style = Typography.titleLarge.copy(color = colors.primary)
-            )
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    stringResource(R.string.email_address),
-                    style = Typography.bodyMedium.copy(color = colors.secondary)
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                DefaultTextField(
-                    label = "Email",
-                    value = email,
-                    type = "email",
-                    isError = emailError,
-                ) {
-                    viewModel.onEmailChange(it)
-                }
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                Text(
-                    stringResource(R.string.password),
-                    style = Typography.bodyMedium.copy(color = colors.secondary)
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                DefaultTextField(
-                    "● ● ● ● ● ● ●",
-                    value = password,
-                    "password",
-                    isError = passwordError
-                ) { viewModel.onPasswordChange(it) }
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Text(
-                    stringResource(R.string.forgot_password),
-                    style = Typography.bodyMedium.copy(color = Red),
-                    modifier = Modifier.clickable { })
-            }
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            DefaultButton(
-                stringResource(R.string.login),
-                enabled = !passwordError && !emailError && password.isNotEmpty() && email.isNotEmpty()
-            ) {
-                scope.launch {
-                    val success = viewModel.loginUser(email, password)
-                    if (success) {
-                        navController.navigate(Destinations.Main)
-                    } else {
-                        Log.e("WW", "FAILED login")
+            is LoginUiState.ServerError -> {
+                ErrorDialog(
+                    message = (uiState as LoginUiState.ServerError).message,
+                    onDismiss = {
+                        viewModel.resetState()
                     }
+                )
+            }
+
+            LoginUiState.NoInternet -> {
+                NoInternetScreen {
+                    viewModel.loginUser()
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                Text(
-                    stringResource(R.string.not_member) + " ",
-                    style = Typography.bodyLarge.copy(
-                        color = colors.primary.copy(alpha = 0.6f),
-                        fontWeight = FontWeight.Normal
-                    )
-                )
-                Text(
-                    stringResource(R.string.signup),
-                    style = Typography.bodyLarge.copy(color = colors.tertiary),
-                    modifier = Modifier.clickable { navController.navigate(Destinations.Signup) })
+            LoginUiState.Success -> {
+                navController.navigate(Destinations.Main)
             }
 
+            else -> {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                        .padding(horizontal = 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    Image(
+                        painterResource(R.drawable.image_login),
+                        contentDescription = null,
+                        modifier = Modifier.width(105.dp),
+                        contentScale = ContentScale.FillWidth
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Text(
+                        stringResource(R.string.login_title),
+                        style = Typography.titleLarge.copy(color = colors.primary)
+                    )
+
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    Column(modifier = Modifier.fillMaxWidth()) {
+                        Text(
+                            stringResource(R.string.email_address),
+                            style = Typography.bodyMedium.copy(color = colors.secondary)
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        DefaultTextField(
+                            label = "Email",
+                            value = email,
+                            type = "email",
+                            isError = emailError,
+                        ) {
+                            viewModel.onEmailChange(it)
+                        }
+
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        Text(
+                            stringResource(R.string.password),
+                            style = Typography.bodyMedium.copy(color = colors.secondary)
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        DefaultTextField(
+                            "● ● ● ● ● ● ●",
+                            value = password,
+                            "password",
+                            isError = passwordError
+                        ) { viewModel.onPasswordChange(it) }
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        Text(
+                            stringResource(R.string.forgot_password),
+                            style = Typography.bodyMedium.copy(color = Red),
+                            modifier = Modifier.clickable { })
+                    }
+
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    DefaultButton(
+                        stringResource(R.string.login),
+                        enabled = !passwordError && !emailError && password.isNotEmpty() && email.isNotEmpty()
+                    ) {
+                        scope.launch {
+                            viewModel.loginUser()
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                        Text(
+                            stringResource(R.string.not_member) + " ",
+                            style = Typography.bodyLarge.copy(
+                                color = colors.primary.copy(alpha = 0.6f),
+                                fontWeight = FontWeight.Normal
+                            )
+                        )
+                        Text(
+                            stringResource(R.string.signup),
+                            style = Typography.bodyLarge.copy(color = colors.tertiary),
+                            modifier = Modifier.clickable { navController.navigate(Destinations.Signup) })
+                    }
+
+                }
+            }
         }
+
     }
 }

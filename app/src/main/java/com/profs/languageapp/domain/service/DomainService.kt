@@ -1,6 +1,7 @@
 package com.profs.languageapp.domain.service
 
 import com.profs.languageapp.data.model.Language
+import com.profs.languageapp.data.model.NetworkResult
 import com.profs.languageapp.data.model.Page
 import com.profs.languageapp.data.model.response.CategoryResponse
 import com.profs.languageapp.data.model.response.ComplexQuestionResponse
@@ -23,7 +24,7 @@ interface DomainService {
         image: String = "",
     ): RegisterUserResponse?
 
-    suspend fun loginUser(email: String, password: String): LoginUserResponse?
+    suspend fun loginUser(email: String, password: String): NetworkResult<LoginUserResponse>
 
     suspend fun modifyUserRating(userId: Long?, delta: Int)
 

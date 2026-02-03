@@ -37,11 +37,11 @@ class ThemeViewModel @Inject constructor(
 
     fun toggleTheme() {
         viewModelScope.launch {
-            val newValue = !_isDarkTheme.value
             dataStore.edit { prefs ->
-                prefs[DARK_THEME_KEY] = newValue
+                prefs[DARK_THEME_KEY] = !_isDarkTheme.value
             }
-            _isDarkTheme.value = newValue
+            _isDarkTheme.value = !_isDarkTheme.value
         }
     }
 }
+

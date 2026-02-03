@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LanguageSelectViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val localDataSource: Storage
+    private val storage: Storage
 ) : ViewModel() {
 
     private val _languageList = MutableStateFlow<List<Language>>(emptyList())
@@ -31,7 +31,7 @@ class LanguageSelectViewModel @Inject constructor(
     }
 
     private fun getLanguages() {
-        _languageList.value = localDataSource.getLanguages()
+        _languageList.value = storage.getLanguages()
     }
 
     fun onLanguageChange(langCode: String) {

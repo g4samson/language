@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.profs.languageapp.data.mapper.toUser
+import com.profs.languageapp.data.model.NetworkResult
 import com.profs.languageapp.data.utils.LanguagePreferences
 import com.profs.languageapp.domain.service.DomainService
 import com.profs.languageapp.domain.usecase.SetUserUseCase
@@ -46,7 +47,6 @@ class LoginViewModel @Inject constructor(
     }
 
     private val _selectedLanguage = MutableStateFlow("en")
-    val selectedLanguage: StateFlow<String> = _selectedLanguage.asStateFlow()
 
     fun saveLanguage() {
         viewModelScope.launch {
@@ -55,16 +55,40 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
+    val uiState: StateFlow<LoginUiState> = _uiState
 
-    suspend fun loginUser(email: String, password: String): Boolean {
-        val response = service.loginUser(email, password)
-        return if (response != null) {
-            setUserUseCase(response.toUser())
+    fun resetState() {
+        _uiState.value = LoginUiState.Idle
+    }
+    fun loginUser() {
+        viewModelScope.launch {
+            _uiState.value = LoginUiState.Loading
+            val result = service.loginUser(email.value, password.value)
 
-            _selectedLanguage.value = response.languageCode
-            saveLanguage()
-            true
-        } else false
+            when (result) {
+                is NetworkResult.Success -> {
+                    setUserUseCase(result.data.toUser())
+                    _uiState.value = LoginUiState.Success
+                }
+
+                is NetworkResult.NoInternet -> {
+                    _uiState.value = LoginUiState.NoInternet
+                }
+
+                is NetworkResult.ServerError -> {
+                    _uiState.value = LoginUiState.ServerError(result.message)
+                }
+            }
+        }
     }
 
+}
+
+sealed class LoginUiState {
+    object Idle : LoginUiState()
+    object Loading : LoginUiState()
+    object Success : LoginUiState()
+    object NoInternet : LoginUiState()
+    data class ServerError(val message: String) : LoginUiState()
 }

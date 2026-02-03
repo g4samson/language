@@ -46,7 +46,6 @@ fun DefaultTextField(
 ) {
     var textFieldValue by remember { mutableStateOf(value) }
     var passwordVisible by remember { mutableStateOf(false) }
-    var isFocused by remember { mutableStateOf(false) }
 
     OutlinedTextField(
         value = textFieldValue,
@@ -62,50 +61,45 @@ fun DefaultTextField(
                 if (isError) Red else Color.Transparent,
                 RoundedCornerShape(16.dp)
             )
-            .onFocusChanged { focusState -> isFocused = focusState.isFocused }
             .clip(RoundedCornerShape(16.dp))
             .background(Dark.copy(alpha = 0.05f), RoundedCornerShape(16.dp)),
         singleLine = true,
         label = {
-            if (!isFocused && textFieldValue.isEmpty()) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(bottom = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        label,
-                        style = Typography.bodyLarge.copy(
-                            fontSize = 15.sp,
-                            lineHeight = 20.sp,
-                            fontWeight = FontWeight.Normal,
-                            color = GrayDark.copy(alpha = 0.5f)
-                        )
+            Row(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(bottom = 4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    label,
+                    style = Typography.bodyLarge.copy(
+                        fontSize = 15.sp,
+                        lineHeight = 20.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = GrayDark.copy(alpha = 0.5f)
                     )
-                }
+                )
             }
         },
         trailingIcon = {
             when (type) {
                 "password" -> {
-                    if (textFieldValue.isNotEmpty()) {
-                        Row(
-                            modifier = Modifier.fillMaxHeight(),
-                            verticalAlignment = Alignment.CenterVertically
+                    Row(
+                        modifier = Modifier.fillMaxHeight(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(
+                            onClick = { passwordVisible = !passwordVisible },
+                            modifier = Modifier
+                                .size(20.dp)
+                                .padding(bottom = 4.dp)
                         ) {
-                            IconButton(
-                                onClick = { passwordVisible = !passwordVisible },
-                                modifier = Modifier
-                                    .size(20.dp)
-                                    .padding(bottom = 4.dp)
-                            ) {
-                                Icon(
-                                    painter = painterResource(if (passwordVisible) R.drawable.eye else R.drawable.eye),
-                                    contentDescription = null,
-                                    tint = GrayDark.copy(alpha = 0.5f)
-                                )
-                            }
+                            Icon(
+                                painter = painterResource(if (passwordVisible) R.drawable.eye else R.drawable.eye),
+                                contentDescription = null,
+                                tint = GrayDark.copy(alpha = 0.5f)
+                            )
                         }
                     }
                 }
@@ -122,7 +116,7 @@ fun DefaultTextField(
             focusedLabelColor = GrayDark.copy(alpha = 0.05f)
         ),
         visualTransformation = if (type == "password" && !passwordVisible)
-            PasswordVisualTransformation('●')
+            PasswordVisualTransformation('●') // ● ● ● ● ●
         else
             VisualTransformation.None
     )
