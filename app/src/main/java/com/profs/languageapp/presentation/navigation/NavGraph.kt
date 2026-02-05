@@ -17,6 +17,7 @@ import com.profs.languageapp.presentation.screens.languageSelect.LanguageSelectS
 import com.profs.languageapp.presentation.screens.languageSelect.LanguageSelectViewModel
 import com.profs.languageapp.presentation.screens.login.LoginScreen
 import com.profs.languageapp.presentation.screens.login.LoginViewModel
+import com.profs.languageapp.presentation.screens.login.WidgetViewModel
 import com.profs.languageapp.presentation.screens.main.MainScreen
 import com.profs.languageapp.presentation.screens.main.MainViewModel
 import com.profs.languageapp.presentation.screens.onboarding.OnboardingScreen
@@ -50,7 +51,8 @@ fun NavGraph(
 
         composable<Destinations.Login> {
             val viewModel: LoginViewModel = hiltViewModel()
-            LoginScreen(navController, viewModel)
+            val widgetViewModel: WidgetViewModel = hiltViewModel()
+            LoginScreen(navController, viewModel, widgetViewModel)
         }
 
         composable<Destinations.Signup> {

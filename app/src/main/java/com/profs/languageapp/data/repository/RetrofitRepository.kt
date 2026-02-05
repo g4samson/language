@@ -29,6 +29,10 @@ interface RetrofitRepository {
     @PATCH("user")
     suspend fun modifyUserRating(@Body request: ModifyUserRatingRequest)
 
+//    @PATCH("user")
+//    @Headers("x-api-key: your_api_key_here")
+//    suspend fun modifyUserRating(@Body request: ModifyUserRatingRequest)
+
     @GET("user/rating")
     suspend fun getUserRating() :  List<UserRatingResponse>
 

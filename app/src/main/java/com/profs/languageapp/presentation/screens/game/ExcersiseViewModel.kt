@@ -32,8 +32,7 @@ class ExcersiseViewModel @Inject constructor(
 
     private val _simpleAnswer = MutableStateFlow("")
     val simpleAnswer: StateFlow<String> = _simpleAnswer
-    private val _complexAnswer = MutableStateFlow("")
-    val complexAnswer: StateFlow<String> = _complexAnswer
+
 
     private val _language = MutableStateFlow("")
     val language: StateFlow<String> = _language
@@ -42,18 +41,23 @@ class ExcersiseViewModel @Inject constructor(
     fun onSimpleAnswerChange(simpleAnswer: String) {
         _simpleAnswer.value = simpleAnswer
     }
+    private val _currentSimple = MutableStateFlow<SimpleQuestionResponse?>(null)
+    val currentSimple: Flow<SimpleQuestionResponse?> = _currentSimple
 
-    fun onComplexAnswerChange(complexAnswer: String) {
-        _complexAnswer.value = complexAnswer
-    }
 
     private var simplePool: MutableList<SimpleQuestionResponse> = mutableListOf()
     private var complexPool: MutableList<ComplexQuestionResponse> = mutableListOf()
 
-    private val _currentSimple = MutableStateFlow<SimpleQuestionResponse?>(null)
-    val currentSimple: Flow<SimpleQuestionResponse?> = _currentSimple
+
     private val _currentComplex = MutableStateFlow<ComplexQuestionResponse?>(null)
     val currentComplex: Flow<ComplexQuestionResponse?> = _currentComplex
+
+    private val _complexAnswer = MutableStateFlow("")
+    val complexAnswer: StateFlow<String> = _complexAnswer
+
+    fun onComplexAnswerChange(complexAnswer: String) {
+        _complexAnswer.value = complexAnswer
+    }
 
     init {
         loadQuestions()
@@ -93,6 +97,14 @@ class ExcersiseViewModel @Inject constructor(
         }
     }
 
+    fun checkSimpleAnswer(simpleAnswer: String): Boolean {
+        return if (_language.value == "en") {
+            _currentSimple.value?.enAnswer == simpleAnswer
+        } else {
+            _currentSimple.value?.ruAnswer == simpleAnswer
+        }
+    }
+
 
     private var lastQuestion: ComplexQuestionResponse? = null
 
@@ -103,13 +115,7 @@ class ExcersiseViewModel @Inject constructor(
         _currentComplex.value = question
     }
 
-    fun checkSimpleAnswer(simpleAnswer: String): Boolean {
-        return if (_language.value == "en") {
-            _currentSimple.value?.enAnswer == simpleAnswer
-        } else {
-            _currentSimple.value?.ruAnswer == simpleAnswer
-        }
-    }
+
 
     private val _roundType = MutableStateFlow(RoundType.EN_TO_RU)
     val roundType: StateFlow<RoundType> = _roundType

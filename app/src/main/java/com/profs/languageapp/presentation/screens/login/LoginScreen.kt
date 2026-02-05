@@ -50,12 +50,16 @@ import kotlinx.coroutines.launch
 @Composable
 fun LoginScreen(
     navController: NavHostController,
-    viewModel: LoginViewModel
+    viewModel: LoginViewModel,
+    widgetViewModel: WidgetViewModel,
 ) {
     val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()
     val emailError by viewModel.emailError.collectAsState()
     val passwordError by viewModel.passwordError.collectAsState()
+
+    val logged by widgetViewModel.logged.collectAsState()
+
 
 
     val kEmail by viewModel.kEmail.collectAsState()
@@ -202,6 +206,7 @@ fun LoginScreen(
                     ) {
                         scope.launch {
                             viewModel.loginUser()
+                            widgetViewModel.logged(true)
                         }
                     }
 
