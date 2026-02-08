@@ -134,15 +134,15 @@ fun ExcerciseAnimalsScreen(
 
                 DefaultButton(stringResource(R.string.check)) {
                     scope.launch {
-                        val success = viewModel.checkSimpleAnswer(simpleAnswer)
+                        val success = viewModel.checkWithTensorFlow()
+
                         if (success) {
-                            Log.e("HELL YEAH", "RIGHT ANSWER")
                             viewModel.modifyUserRating(100)
                             viewModel.savePage(1)
                         } else {
-                            Log.e("NOPE", "WRONG ANSWER")
                             viewModel.savePage(2)
                         }
+
                         viewModel.onSimpleAnswerChange("")
                     }
                 }

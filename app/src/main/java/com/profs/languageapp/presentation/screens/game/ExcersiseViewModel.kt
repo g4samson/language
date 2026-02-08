@@ -1,12 +1,19 @@
 package com.profs.languageapp.presentation.screens.game
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import com.profs.languageapp.data.model.AnswerOption
 import com.profs.languageapp.data.model.RoundType
 import com.profs.languageapp.data.model.response.ComplexQuestionResponse
 import com.profs.languageapp.data.model.response.SimpleQuestionResponse
+import com.profs.languageapp.data.utils.AnimalClassifier
 import com.profs.languageapp.data.utils.LanguagePreferences
 import com.profs.languageapp.domain.service.DomainService
 import com.profs.languageapp.domain.usecase.GetCurrentUserUseCase
@@ -16,6 +23,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.tensorflow.lite.support.common.FileUtil.loadLabels
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,6 +32,9 @@ class ExcersiseViewModel @Inject constructor(
     private val service: DomainService,
     private val getCurrentUserUseCase: GetCurrentUserUseCase
 ) : ViewModel() {
+
+    private val classifier = AnimalClassifier(context)
+    private val labels = AnimalClassifier(context).loadLabels(context)
 
     val currentUser = getCurrentUserUseCase()
 
@@ -105,6 +116,40 @@ class ExcersiseViewModel @Inject constructor(
         }
     }
 
+    suspend fun checkWithTensorFlow(): Boolean {
+        val imageUrl = _currentSimple.value?.image ?: return false
+
+        val bitmap = loadBitmapFromUrl(context, imageUrl)
+        val probs = classifier.classify(bitmap)
+
+        if (probs.isEmpty() || labels.isEmpty()) return false
+
+        val maxIdx = probs.indices.maxByOrNull { probs[it] } ?: return false
+
+        if (maxIdx >= labels.size) return false
+
+        val predicted = labels[maxIdx]
+        val confidence = probs[maxIdx]
+
+        Log.e("TF", "Predicted: $predicted  conf=$confidence")
+
+        val user = _simpleAnswer.value.trim().lowercase()
+        val model = predicted.lowercase()
+
+        return confidence > 0.5f &&
+                (user == model || user.contains(model) || model.contains(user))
+    }
+
+    suspend fun loadBitmapFromUrl(context: Context, url: String): Bitmap {
+        val loader = ImageLoader(context)
+        val request = ImageRequest.Builder(context)
+            .data(url)
+            .allowHardware(false)
+            .build()
+
+        val result = (loader.execute(request) as SuccessResult).drawable
+        return (result as BitmapDrawable).bitmap
+    }
 
     private var lastQuestion: ComplexQuestionResponse? = null
 
