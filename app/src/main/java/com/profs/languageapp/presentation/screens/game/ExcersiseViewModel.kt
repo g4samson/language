@@ -11,6 +11,7 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.profs.languageapp.data.model.AnswerOption
 import com.profs.languageapp.data.model.RoundType
+import com.profs.languageapp.data.model.response.AnimalImageResponse
 import com.profs.languageapp.data.model.response.ComplexQuestionResponse
 import com.profs.languageapp.data.model.response.SimpleQuestionResponse
 import com.profs.languageapp.data.utils.AnimalClassifier
@@ -33,8 +34,8 @@ class ExcersiseViewModel @Inject constructor(
     private val getCurrentUserUseCase: GetCurrentUserUseCase
 ) : ViewModel() {
 
-    private val classifier = AnimalClassifier(context)
-    private val labels = AnimalClassifier(context).loadLabels(context)
+    private val classifier by lazy { AnimalClassifier(context) }
+    private val labels by lazy { classifier.loadLabels(context) }
 
     val currentUser = getCurrentUserUseCase()
 
@@ -52,11 +53,14 @@ class ExcersiseViewModel @Inject constructor(
     fun onSimpleAnswerChange(simpleAnswer: String) {
         _simpleAnswer.value = simpleAnswer
     }
-    private val _currentSimple = MutableStateFlow<SimpleQuestionResponse?>(null)
-    val currentSimple: Flow<SimpleQuestionResponse?> = _currentSimple
+    private val _currentSimple = MutableStateFlow<AnimalImageResponse?>(null)
+    val currentSimple: Flow<AnimalImageResponse?> = _currentSimple
 
 
-    private var simplePool: MutableList<SimpleQuestionResponse> = mutableListOf()
+//    private var simplePool: MutableList<SimpleQuestionResponse> = mutableListOf()
+//    private var complexPool: MutableList<ComplexQuestionResponse> = mutableListOf()
+
+    private var simplePool: MutableList<AnimalImageResponse> = mutableListOf()
     private var complexPool: MutableList<ComplexQuestionResponse> = mutableListOf()
 
 
@@ -72,7 +76,7 @@ class ExcersiseViewModel @Inject constructor(
 
     init {
         loadQuestions()
-        getLanguage()
+        //getLanguage()
     }
 
     fun getLanguage(){
@@ -92,29 +96,29 @@ class ExcersiseViewModel @Inject constructor(
         }
 
         val question = simplePool.random()
-        simplePool.remove(question)
+        //simplePool.remove(question)
         _currentSimple.value = question
     }
 
 
     private fun loadQuestions() {
         viewModelScope.launch {
-            simplePool = service.getAllSimpleQuestions()?.toMutableList() ?: mutableListOf()
-            complexPool = service.getAllComplexQuestions()?.toMutableList() ?: mutableListOf()
+            simplePool = service.getAnimalImages()?.toMutableList() ?: mutableListOf()
+            //complexPool = service.getAllComplexQuestions()?.toMutableList() ?: mutableListOf()
 
             nextSimple()
-            nextComplex()
-            prepareComplexRound()
+           // nextComplex()
+            //prepareComplexRound()
         }
     }
 
-    fun checkSimpleAnswer(simpleAnswer: String): Boolean {
-        return if (_language.value == "en") {
-            _currentSimple.value?.enAnswer == simpleAnswer
-        } else {
-            _currentSimple.value?.ruAnswer == simpleAnswer
-        }
-    }
+//    fun checkSimpleAnswer(simpleAnswer: String): Boolean {
+//        return if (_language.value == "en") {
+//            _currentSimple.value?.enAnswer == simpleAnswer
+//        } else {
+//            _currentSimple.value?.ruAnswer == simpleAnswer
+//        }
+//    }
 
     suspend fun checkWithTensorFlow(): Boolean {
         val imageUrl = _currentSimple.value?.image ?: return false
@@ -132,23 +136,33 @@ class ExcersiseViewModel @Inject constructor(
         val confidence = probs[maxIdx]
 
         Log.e("TF", "Predicted: $predicted  conf=$confidence")
+        Log.e("TF_RAW", probs.joinToString())
+
+        probs.withIndex()
+            .sortedByDescending { it.value }
+            .forEach {
+                Log.e("TF_TOP", "idx=${it.index} val=${it.value}")
+            }
 
         val user = _simpleAnswer.value.trim().lowercase()
         val model = predicted.lowercase()
 
-        return confidence > 0.5f &&
-                (user == model || user.contains(model) || model.contains(user))
+        return confidence > 0.4f &&
+                user.contains(model)
     }
 
-    suspend fun loadBitmapFromUrl(context: Context, url: String): Bitmap {
+    suspend fun loadBitmapFromUrl(
+        context: Context,
+        url: String
+    ): Bitmap {
         val loader = ImageLoader(context)
         val request = ImageRequest.Builder(context)
             .data(url)
             .allowHardware(false)
             .build()
 
-        val result = (loader.execute(request) as SuccessResult).drawable
-        return (result as BitmapDrawable).bitmap
+        val result = loader.execute(request) as SuccessResult
+        return (result.drawable as BitmapDrawable).bitmap
     }
 
     private var lastQuestion: ComplexQuestionResponse? = null
