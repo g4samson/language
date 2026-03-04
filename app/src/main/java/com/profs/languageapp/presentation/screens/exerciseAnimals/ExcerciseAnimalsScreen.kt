@@ -137,7 +137,7 @@ fun ExcerciseAnimalsScreen(
                         val success = viewModel.checkWithTensorFlow()
 
                         if (success) {
-                            viewModel.modifyUserRating(100)
+                            //viewModel.modifyUserRating(100)
                             viewModel.savePage(1)
                         } else {
                             viewModel.savePage(2)
@@ -191,7 +191,7 @@ fun ExcerciseAnimalsScreen(
                 Text(
                     stringResource(
                         R.string.wrong_answer_description,
-                        (if (language == "en") simple?.enAnswer else simple?.ruAnswer)!!
+                        "?"
                     ), style = Typography.displayMedium.copy(color = colors.secondary)
                 )
 

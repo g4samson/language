@@ -3,6 +3,7 @@ package com.profs.languageapp.domain.service
 import com.profs.languageapp.data.model.Language
 import com.profs.languageapp.data.model.NetworkResult
 import com.profs.languageapp.data.model.Page
+import com.profs.languageapp.data.model.response.AnimalImageResponse
 import com.profs.languageapp.data.model.response.CategoryResponse
 import com.profs.languageapp.data.model.response.ComplexQuestionResponse
 import com.profs.languageapp.data.model.response.LoginUserResponse
@@ -35,5 +36,8 @@ interface DomainService {
     suspend fun getAllSimpleQuestions(): List<SimpleQuestionResponse>?
 
     suspend fun getAllComplexQuestions(): List<ComplexQuestionResponse>?
+
+    suspend fun getAnimalImages(): List<AnimalImageResponse>?
+
 
 }

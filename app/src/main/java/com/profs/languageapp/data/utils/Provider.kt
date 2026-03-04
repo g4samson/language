@@ -15,7 +15,7 @@ object Provider {
     @Provides
     @Singleton
     fun provideRetrofit(): RetrofitRepository {
-        return Retrofit.Builder().baseUrl("http://10.0.2.2:8888/api/")
+        return Retrofit.Builder().baseUrl("https://ycxrqfbboqytnczlxmub.supabase.co/")
             .addConverterFactory(GsonConverterFactory.create()).build()
             .create(RetrofitRepository::class.java)
     }

@@ -37,7 +37,7 @@ fun NavGraph(
     theme: ThemeViewModel
 ) {
 
-    NavHost(navController = navController, startDestination = Destinations.Splash) {
+    NavHost(navController = navController, startDestination = Destinations.ExcerciseAnimals) {
 
         composable<Destinations.Splash> {
             val viewModel: OnboardingViewModel = hiltViewModel()

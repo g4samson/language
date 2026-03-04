@@ -5,6 +5,7 @@ import com.profs.languageapp.data.model.NetworkResult
 import com.profs.languageapp.data.model.request.LoginUserRequest
 import com.profs.languageapp.data.model.request.ModifyUserRatingRequest
 import com.profs.languageapp.data.model.request.RegisterUserRequest
+import com.profs.languageapp.data.model.response.AnimalImageResponse
 import com.profs.languageapp.data.model.response.CategoryResponse
 import com.profs.languageapp.data.model.response.ComplexQuestionResponse
 import com.profs.languageapp.data.model.response.LoginUserResponse
@@ -109,6 +110,15 @@ class DomainServiceImpl @Inject constructor(
     override suspend fun getAllComplexQuestions(): List<ComplexQuestionResponse>? {
         return try {
             retrofit.getAllComplexQuestions()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    override suspend fun getAnimalImages(): List<AnimalImageResponse>? {
+        return try {
+            retrofit.getAnimalImages()
         } catch (e: Exception) {
             e.printStackTrace()
             null
