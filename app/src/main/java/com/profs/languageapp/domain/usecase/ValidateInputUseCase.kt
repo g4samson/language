@@ -6,11 +6,11 @@ import javax.inject.Inject
 
 class ValidateInputUseCase @Inject constructor() {
 
-    val emailRegex = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")
-
+    private val emailRegex = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")
 
     fun isEmailValid(email: String): Boolean {
-        return email.trim().matches(emailRegex)
+        val normalizedEmail = email.trim()
+        return normalizedEmail.matches(emailRegex)
     }
 
     fun isPasswordValid(password: String): Boolean {

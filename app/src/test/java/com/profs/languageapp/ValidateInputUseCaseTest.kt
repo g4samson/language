@@ -15,43 +15,50 @@ class ValidateInputUseCaseTest {
     }
 
     @Test
-    fun `valid email`() {
+    fun validEmail() {
+        // Проверка обычного корректного email
         val email = "test@example.com"
         assertTrue(validateInputUseCase.isEmailValid(email))
     }
 
     @Test
-    fun `email with subdomain`() {
+    fun emailWithSubdomain() {
+        // Проверка email с поддоменом
         val email = "user@mail.example.com"
         assertTrue(validateInputUseCase.isEmailValid(email))
     }
 
     @Test
-    fun `email with plus`() {
+    fun emailWithPlus() {
+        // Проверка email с символом "+"
         val email = "user+test@gmail.com"
         assertTrue(validateInputUseCase.isEmailValid(email))
     }
 
     @Test
-    fun `email without at symbol`() {
+    fun emailWithoutAtSymbol() {
+        // Email без символа @ должен быть невалидным
         val email = "testexample.com"
         assertFalse(validateInputUseCase.isEmailValid(email))
     }
 
     @Test
-    fun `email without domain`() {
+    fun emailWithoutDomain() {
+        // Email без домена должен быть невалидным
         val email = "test@"
         assertFalse(validateInputUseCase.isEmailValid(email))
     }
 
     @Test
-    fun `email with spaces trimmed`() {
+    fun emailWithSpacesTrimmed() {
+        // Пробелы по краям должны игнорироваться (trim)
         val email = "   test@example.com   "
         assertTrue(validateInputUseCase.isEmailValid(email))
     }
 
     @Test
-    fun `empty email`() {
+    fun emptyEmail() {
+        // Пустая строка должна быть невалидной
         val email = ""
         assertFalse(validateInputUseCase.isEmailValid(email))
     }
