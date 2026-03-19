@@ -10,7 +10,7 @@ class ValidateInputUseCase @Inject constructor() {
 
 
     fun isEmailValid(email: String): Boolean {
-        return false
+        return email.trim().matches(emailRegex)
     }
 
     fun isPasswordValid(password: String): Boolean {
